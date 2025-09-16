@@ -1,50 +1,50 @@
-import VideoGallery from "@/components/Gallery/VideoGallery";
-import SharedTopSection from "@/components/shared/Sections/TopSection";
-import Sponsors from "@/components/shared/Sponsors";
-import { baseUrl } from "@/lib/api";
-import { fetchData } from "@/lib/fetchData";
-import generateMetadDataDetails from "@/lib/generateMetaData";
-import React from "react";
+// import VideoGallery from "@/components/Gallery/VideoGallery";
+// import SharedTopSection from "@/components/shared/Sections/TopSection";
+// import Sponsors from "@/components/shared/Sponsors";
+// import { baseUrl } from "@/lib/api";
+// import { fetchData } from "@/lib/fetchData";
+// import generateMetadDataDetails from "@/lib/generateMetaData";
+// import React from "react";
 
-export async function generateMetadata() {
-  return await generateMetadDataDetails(29, "video-gallery", false);
-}
+// export async function generateMetadata() {
+//   return await generateMetadDataDetails(29, "video-gallery", false);
+// }
 
-const VideoGalleryPage = async () => {
-  const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=29`
-  );
+// const VideoGalleryPage = async () => {
+//   const pageContent = await fetchData(
+//     `${baseUrl}/getmasterdetails?master_name=cms&id=29`
+//   );
 
-  const generalSettings = pageContent?.gernalsettings;
-  const conferenceData =
-    pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
-  const {
-    page_top_banner,
-    video_gallery,
-    sponsors,
-    supporting_associations,
-    media_partners,
-  } = pageContent?.data?.section_list;
-  return (
-    <>
-      {" "}
-      <SharedTopSection
-        {...page_top_banner}
-        title={pageContent?.data?.name}
-        awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
-      />
-      <VideoGallery data={video_gallery?.data} />
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
-        <Sponsors data={sponsors} isSponsor={true} />
-        <Sponsors data={supporting_associations} />
-        <Sponsors data={media_partners} />
-      </div>
-    </>
-  );
-};
+//   const generalSettings = pageContent?.gernalsettings;
+//   const conferenceData =
+//     pageContent?.gernalsettings?.current_year_coneference[0];
+//   const { AWARD_YEAR } = generalSettings?.general_settings;
+//   const {
+//     page_top_banner,
+//     video_gallery,
+//     sponsors,
+//     supporting_associations,
+//     media_partners,
+//   } = pageContent?.data?.section_list;
+//   return (
+//     <>
+//       {" "}
+//       <SharedTopSection
+//         {...page_top_banner}
+//         title={pageContent?.data?.name}
+//         awardTitle={AWARD_YEAR?.title}
+//         conferenceTitle={conferenceData?.Coneference_title}
+//         conferenceLocation={conferenceData.location}
+//         conferenceDate={conferenceData.end_date}
+//       />
+//       <VideoGallery data={video_gallery?.data} />
+//       <div className="section-wrapper pb-16 md:pb-20  space-y-5">
+//         <Sponsors data={sponsors} isSponsor={true} />
+//         <Sponsors data={supporting_associations} />
+//         <Sponsors data={media_partners} />
+//       </div>
+//     </>
+//   );
+// };
 
-export default VideoGalleryPage;
+// export default VideoGalleryPage;

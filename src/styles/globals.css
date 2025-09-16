@@ -2,7 +2,8 @@
 
 @theme {
   /* colors */
-  --color-tms-blue: #0078bb;
+  --color-tms-green: #00a25d;
+  --color-tms-tanker-blue: #38c7ff;
   --color-tms-purple: #4d1592;
   --color-tms-pink: #ea73e7;
   --color-dark-grey: #828282;
@@ -10,7 +11,7 @@
   --color-light-grey: #d8d8d8;
   --color-light-grey-1: #d9d9d9;
   --color-tms-light-blue: #edf9ff;
-  --color-tms-black: #000;
+  --color-tms-black: #0c1e23;
   --color-gradient-btn-nav: linear-gradient(
     258deg,
     #ea73e7 -79.01%,
@@ -19,6 +20,7 @@
   --color-tms-gradient: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
 
   /* Border Radius */
+  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 12px;
@@ -26,6 +28,7 @@
   --radius-2xl: 20px;
 
   /*  LineHeight */
+  --leading-main: 60px;
   --leading-1: 52px;
   --leading-2: 46px;
   --leading-3: 32px;
@@ -81,25 +84,11 @@ body {
   font-weight: 400;
   font-size: 16px;
   overflow-x: hidden;
-  color: #000;
+  color: #0c1e23;
 }
 
 ul {
   list-style: none;
-}
-
-.section-container {
-  @apply md:min-h-[100vh] flex items-center py-8 md:py-12 lg:py-16 xl:py-20 w-full;
-}
-.section-wrapper {
-  @apply px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20 2xl:px-24;
-}
-.wrapper-nav {
-  @apply px-5 2xl:px-10;
-}
-
-.nav-links {
-  @apply text-sm font-bold leading-5;
 }
 
 /* Gradients */
@@ -120,12 +109,6 @@ ul {
 
 .buttonGradient-3:hover {
   background-position: right center;
-}
-.gradient-text {
-  background: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .CardGraient {
@@ -190,12 +173,10 @@ ul {
   font-weight: 800;
 }
 /* Headings */
-.main-heading {
-  @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
-}
-.main-heading-2 {
-  @apply text-tms-blue  text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-bold leading-3 lg:leading-2;
-}
+
+/* .main-heading-2 {
+  @apply text-tms-gree  text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-bold leading-3 lg:leading-2;
+} */
 .sub_heading-1 {
   @apply text-dark-alter text-lg md:text-xl lg:text-2xl font-bold leading-3;
 }
@@ -203,10 +184,6 @@ ul {
   @apply text-tms-purple;
 }
 
-/* Descriptions */
-.description {
-  @apply text-sm md:text-base  leading-5;
-}
 .descriptionWithList ul {
   @apply space-y-4;
 }
@@ -246,9 +223,9 @@ ul {
 .attend-description ul li {
   @apply text-sm md:text-base font-normal leading-5 text-dark-alter mb-2 md:w-[47%];
 }
-.delegate-description h4 {
+/* .delegate-description h4 {
   @apply text-2xl font-bold leading-3 text-tms-blue mb-3 md:mb-4 not-first:mt-5 lg:not-first:mt-6 xl:not-first:mt-10;
-}
+} */
 .delegate-description p {
   @apply text-sm md:text-base  leading-5 text-white mb-2 md:mb-3;
 }
@@ -368,13 +345,6 @@ ul {
   }
 }
 
-@media (min-width: 2000px) {
-  .section-wrapper {
-    max-width: 1900px;
-    margin: 0 auto;
-  }
-}
-
 /* Define the gradient animation keyframes */
 @keyframes gradient-move-right {
   0% {
@@ -428,4 +398,92 @@ ul {
   /* Remove any border styles from here */
   position: relative;
   z-index: 1; /* Keep content above the pseudo-elements */
+}
+
+/* TMS Tanker CSS */
+
+/* Reusale Classes */
+.section-container {
+  @apply md:min-h-[100vh] flex items-center py-8 md:py-12 lg:py-16 xl:py-20 w-full;
+}
+.section-wrapper {
+  @apply px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20;
+}
+.wrapper-nav {
+  @apply px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20;
+}
+.nav-links {
+  @apply text-sm  lg:text-base font-medium leading-normal capitalize;
+}
+
+/* Gradients */
+.gradient-master {
+  background: linear-gradient(90deg, #38c7ff 0%, #00a25d 100%);
+}
+.button-gradient {
+  background: linear-gradient(90deg, #38c7ff 0%, #00a25d 100%);
+  transition: all 0.4s ease-in-out;
+}
+.gradient-seperator1 {
+  background: linear-gradient(90deg, #0078ba 0%, #00a25d 100%);
+}
+.gradient-text {
+  background: linear-gradient(93deg, #38c7ff 4.01%, #008f57 82.77%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* ClipPaths */
+.clip-path-slant {
+  clip-path: polygon(0 0, 95% 0, 100% 100%, 0% 100%);
+}
+
+/* Headings */
+
+.main-heading {
+  @apply text-2xl md:text-3xl lg:text-4xl xl:text-[45px];
+  /* leading-3 md:leading lg:leading-main */
+}
+
+.main-heading-3 {
+  @apply text-sm sm:text-base md:text-lg;
+}
+
+/* Descriptions */
+.description {
+  @apply text-sm md:text-base  leading-5;
+}
+
+.active-1 {
+  margin-top: 0;
+}
+.active-2 {
+  margin-top: 40px;
+}
+.active-3 {
+  margin-top: 50px;
+}
+
+/* Swiper Js */
+#home-swiper-wrapper .swiper-wrapper:nth-child(2) {
+  margin-top: 0;
+}
+
+#home-swiper-wrapper .swiper-wrapper:nth-child(3) {
+  margin-top: 40px;
+}
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+  .clip-path-slant {
+    clip-path: none;
+  }
+}
+
+@media (min-width: 2000px) {
+  .section-wrapper {
+    max-width: 1900px;
+    margin: 0 auto;
+  }
 }

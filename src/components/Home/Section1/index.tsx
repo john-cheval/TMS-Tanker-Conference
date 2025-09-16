@@ -1,174 +1,159 @@
 import Image from "next/image";
 import React from "react";
-import TmsAI from "@/assets/shared/ai_big_60.svg";
-import CountdownTimer from "@/components/shared/Countdown";
-import { formatDate } from "@/utils/formatDate";
+import { FaLocationDot } from "react-icons/fa6";
+import calendar from "@/assets/icons/calendar_month.png";
 import ButtonOrLink from "@/components/shared/ui/Button";
-import { buttonApIPropsType, SectionOnePropsTyps } from "@/types/common";
-import svgIcon from "@/assets/Home/tms.jpg";
+import { formatDate } from "@/utils/formatDate";
 
-type Props = SectionOnePropsTyps & {
-  registerNow: buttonApIPropsType;
-  sponsorBtnData: buttonApIPropsType;
+interface ButtonLinksProps {
+  title: string;
+  value: string;
+}
+
+type Props = {
+  banner_image: string;
+  main_heading: string;
+  small_title: string;
+  location_heading: string;
+  registerNow: ButtonLinksProps;
+  sponsorBtnData: ButtonLinksProps;
+  small_title_2: string;
+  call_for_papers_heading: string;
+  eirly_bird_offer_heading: string;
+  event_date_heading: string;
+  callForPaperDate: string;
+  earlyBirdsDate: string;
+  eventDate: string;
 };
 
-const HomeSectionOne = (props: Props) => {
-  const {
-    small_title,
-    small_title_2,
-    banner_image,
-    location_heading,
-    main_heading,
-    callForPaperDate,
-    earlyBirdsDate,
-    eventDate,
-    call_for_papers_heading,
-    eirly_bird_offer_heading,
-    event_date_heading,
-    registerNow,
-    sponsorBtnData,
-  } = props;
-
+const HomeSectionOne = ({
+  banner_image,
+  main_heading,
+  small_title,
+  location_heading,
+  registerNow,
+  sponsorBtnData,
+  small_title_2,
+  call_for_papers_heading,
+  eirly_bird_offer_heading,
+  event_date_heading,
+  callForPaperDate,
+  earlyBirdsDate,
+  eventDate,
+}: Props) => {
   return (
     <>
-      <section className="home-banner-section relative text-white text-center">
-        <div className="relative h-full">
-          <video
-            src={banner_image || "/banner_video.mp4"}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover z-[5]"
-          />
-
-          <div className="home-banner-gradient w-full h-full absolute inset-0 z-10" />
-        </div>
-
-        <div className="absolute z-20 bottom-10 md:top-[15%] w-full flex flex-col items-center justify-center gap-y-2 md:gap-y-3 lg:gap-y-4 px-5">
-          <div className="flex gap-x-2.5 items-center ">
-            <Image
-              src={TmsAI}
-              width={60}
-              height={60}
-              alt="Tms_AI"
-              className="w-full h-auto object-cover max-w-10 md:max-w-[50px]"
-            />
-            <p className=" text-sm font-bold leading-6 w-full">{small_title}</p>
-          </div>
-
-          {small_title_2 && (
-            <h2
-              className="text-base md:text-xl lg:text-2xl font-medium leading-5 md:leading-6 mb-2 md:mb-1 lg:mb-3 home-title-2"
-              dangerouslySetInnerHTML={{ __html: small_title_2 }}
-            ></h2>
-          )}
-
-          <h1 className="main-heading font-bold leading-3 md:leading-3 lg:leading-1 mb-2 md:mb-0 lg:mb-4 max-w-[600px] lg:max-w-[800px]">
+      <section className="relative w-full min-h-screen flex flex-col justify-center items-center text-center text-black pt-16- md:pt-0 ">
+        {/* Background Image */}
+        <Image
+          src={banner_image}
+          alt={main_heading}
+          fill
+          priority
+          className="z-0 object-cover"
+        />
+        {/* Overlay Content */}
+        <div className="absolute sm:top-[25%] md:top-45 z-10 px-4 w-full max-w-6xl">
+          <p className="text-tms-green font-medium  leading-5 main-heading-3  mb-3 md:mb-4">
+            {small_title}
+          </p>
+          <h1 className=" font-bold main-heading  text-center capitalize text-tms-black leading-3 md:leading-2 lg:leading-main max-w-[80%]- mx-auto">
             {main_heading}
           </h1>
 
-          <div>
-            <div className="animated-top-bottom-border border-r border-l border-tms-pink border-l-tms-pink rounded-sm">
-              <p className="text-xs sm:text-sm md:text-xl lg:text-2xl font-bold leading-3 p-3 md:p-4 text-white">
+          <div className="block  w-14 h-[1px] gradient-seperator1 mx-auto mt-4" />
+
+          <div className="flex flex-col md:flex-row items-center justify-center- gap-4 md:gap-6 mt-8  w-fit mx-auto px-4 py-3 md:px-6 md:py-4  font-semibold text-[#0C1E23] bg-[#FFFFFF63] backdrop-blur-[10.4px] rounded-xs md:rounded-xs ">
+            <div className="flex items-center gap-x-2 md:gap-x-2.5 ">
+              <Image
+                src={calendar}
+                width={20}
+                height={20}
+                className="w-full h-full object-cover max-w-5"
+                alt="calendar"
+              />
+
+              <span className="main-heading-3 font-semibold w-full">
+                Thursday, 30th October 2025
+              </span>
+            </div>
+
+            <div className="flex items-center gap-x-2 md:gap-x-2.5 ">
+              <FaLocationDot className="text-tms-green" />
+              <span className="main-heading-3 font-semibold">
                 {location_heading}
-              </p>
+              </span>
             </div>
           </div>
 
-          <div className="flex gap-x-2 md:hidden mt-4 md:0 ">
-            <ButtonOrLink
-              hrefs={registerNow?.value}
-              isGradient={false}
-              isIcon={false}
-              isLink={true}
-            >
-              {registerNow?.title}
-            </ButtonOrLink>
-            <ButtonOrLink
-              hrefs={sponsorBtnData?.value}
-              isGradient={true}
-              isIcon={true}
-              isLink={true}
-            >
+          {/* Buttons */}
+          <div className="flex flex-col- flex-row justify-center gap-4 mt-6 md:mt-8 ">
+            <ButtonOrLink isGradient={true} hrefs={sponsorBtnData?.value}>
               {sponsorBtnData?.title}
             </ButtonOrLink>
-          </div>
-          <CountdownTimer targetDate={earlyBirdsDate} />
 
-          <div
-            className="mt-5 rounded-sm py-7 px-10 md:px-16 lg:px-20 xl:px-28 w-[80%] md:flex justify-between items-stretch hidden"
-            style={{
-              background:
-                "linear-gradient(68deg, #4D1592 26.51%, #0078BB 86.42%)",
-            }}
-          >
-            <div className="flex flex-col gap-y-2">
-              <h5 className="md:text-base lg:text-lg text-center leading-4">
-                {call_for_papers_heading}
-              </h5>
-              <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
-                {formatDate(callForPaperDate)}
+            <ButtonOrLink isGradient={false} hrefs={registerNow?.value}>
+              {registerNow?.title}
+            </ButtonOrLink>
+          </div>
+        </div>
+        <div className="absolute -bottom-[200px] md:bottom-0 left-0 w-full md:w-[85%]- lg:w-[85%] 2xl:w-[75%] py-4 md:py-6 backdrop-blur-[10.3px] bg-gradient-to-r from-[rgba(34,51,79,0.9)] to-[rgba(0,138,192,0.8)] clip-path-slant">
+          <div className="flex flex-col md:flex-row gap-x-5 justify-between items-center px-4 lg:pl-10 xl:pl-16 pr-5 md:pr-16 lg:pr-24 text-white w-full">
+            {/* Important Dates Title */}
+            <div className="flex items-center mb-4 md:mb-0">
+              <p className="font-bold text-base md:text-xl lg:text-2xl">
+                {small_title_2}
               </p>
             </div>
-            <div className="block bg-white  w-[1px]" />
-            <div className="flex flex-col gap-y-2">
-              <h5 className="md:text-base lg:text-lg text-center leading-4">
-                {eirly_bird_offer_heading}
-              </h5>
-              <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
-                {formatDate(earlyBirdsDate)}
-              </p>
+
+            <span className="block mx-1 h-px w-11 md:h-10 md:w-px bg-tms-tanker-blue"></span>
+
+            {/* Date 1 */}
+            <div className="flex items-center mt-4 md:mt-0 mb-4 md:mb-0 text-center md:text-left">
+              <div>
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
+                  {formatDate(callForPaperDate)}
+                </p>
+                <p className="text-sm md:text-base lg:text-lg opacity-80">
+                  {call_for_papers_heading}
+                </p>
+              </div>
             </div>
-            <div className="block bg-white w-[1px]" />
-            <div className="flex flex-col gap-y-2">
-              <h5 className="md:text-base lg:text-lg text-center leading-4">
-                {event_date_heading}
-              </h5>
-              <p className="text-xl lg:text-2xl font-bold leading-3 text-center">
+            <span className="block mx-1 h-px w-11 md:h-10 md:w-px bg-tms-tanker-blue mb-4 md:mb-0"></span>
+
+            {/* Date 2 */}
+            <div className="flex items-center mb-4 md:mb-0 text-center md:text-left">
+              <div>
+                <p className="text-lg md:text-xl lg:text-2xl font-bold">
+                  {formatDate(earlyBirdsDate)}
+                </p>
+                <p className="text-sm md:text-lg opacity-80">
+                  {eirly_bird_offer_heading}
+                </p>
+              </div>
+            </div>
+            <span className="block mx-1 h-px w-11 md:h-10 md:w-px bg-tms-tanker-blue mb-4 md:mb-0"></span>
+
+            {/* Date 3 */}
+            <div className="text-center lg:text-left">
+              <p className="text-lg md:text-xl lg:text-2xl font-bold">
                 {formatDate(eventDate)}
               </p>
+              <p className="text-sm md:text-lg opacity-80">
+                {event_date_heading}
+              </p>
             </div>
           </div>
         </div>
-      </section>
-      <div
-        className="  py-8 px-5 md:hidden text-white  items-center justify-center flex flex-col w-full gap-y-4"
-        style={{
-          background: `url(${svgIcon.src})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-        }}
-      >
-        <div className="flex flex-col gap-y-1">
-          <h5 className="text-base text-center leading-4">
-            {call_for_papers_heading}
-          </h5>
-          <p className="text-xl font-bold leading-3 text-center">
-            {formatDate(callForPaperDate)}
-          </p>
-          <div className="block bg-white  w-16 h-[1px] mt-2 mx-auto" />
-        </div>
 
-        <div className="flex flex-col gap-y-2">
-          <h5 className="text-base text-center leading-4">
-            {eirly_bird_offer_heading}
-          </h5>
-          <p className="text-xl font-bold leading-3 text-center">
-            {formatDate(earlyBirdsDate)}
-          </p>
-          <div className="block bg-white  w-16 h-[1px] mt-2 mx-auto" />
-        </div>
-        <div className="flex flex-col gap-y-2">
-          <h5 className="text-base text-center leading-4">
-            {event_date_heading}
-          </h5>
-          <p className="text-xl font-bold leading-3 text-center">
-            {formatDate(eventDate)}
-          </p>
-        </div>
-      </div>
+        <div
+          className="absolute top-0 left-0 w-full h-full max-h-[200px] md:max-h-[450px]"
+          style={{
+            background:
+              "linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
+          }}
+        />
+      </section>
     </>
   );
 };

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "tmsai.girishandco.com",
+        hostname: "tmstanker.girishandco.com",
         pathname: "/public/Admin/uploads/**",
       },
     ],

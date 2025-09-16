@@ -9,12 +9,13 @@ import Providers from "@/Providers/ToastProviders";
 
 export const metadata: Metadata = {
   title:
-    "TMS AI Conference 2025: AI in Materials & Manufacturing | TMS Specialty Congress",
+    "TMS Tanker Conference 2025: AI in Materials & Manufacturing | TMS Specialty Congress",
   description:
     "Join the TMS AI Conference (AIM 2025), a key event within the TMS Specialty Congress in Anaheim, CA. Explore the latest in AI, machine learning, and manufacturing processes with global experts in materials science.",
 };
 
 const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -52,7 +53,7 @@ export default async function RootLayout({
         className={`${inter.className} antialiased flex flex-col min-h-full `}
       >
         <ServerNavbar mainLinks={mainMenuLinks} sidebarLinks={sideBarlinks} />
-        <main className="flex-grow pt-[106px]">
+        <main className="flex-grow">
           <Providers>{children}</Providers>
         </main>
         <Footer
