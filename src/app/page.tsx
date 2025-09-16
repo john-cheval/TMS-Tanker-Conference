@@ -1,4 +1,3 @@
-// import HomeSectionOne from "@/components/Home/Section1Alter";
 // import HomeSectionTwo from "@/components/Home/Section2";
 // import HomeSectionThree from "@/components/Home/Section3";
 // import HomeSectionFour from "@/components/Home/Section4";
@@ -14,6 +13,7 @@ import { fetchData } from "@/lib/fetchData";
 import HomeSectionOne from "@/components/Home/Section1";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
+import HomeSectionTwo from "@/components/Home/Section2";
 
 export async function generateMetadata() {
   return await generateMetadDataDetails(70, "", false);
@@ -34,7 +34,8 @@ const Home = async () => {
 
   console.log(COMMON_SETTINGS_VALUES_become_a_sponsor, "become a sponsor");
 
-  const { home_banner } = homePageContent?.data?.section_list;
+  const { home_banner, about_the_conference } =
+    homePageContent?.data?.section_list;
 
   return (
     <>
@@ -46,7 +47,7 @@ const Home = async () => {
         earlyBirdsDate={conferenceYear?.Early_Bird_date}
         eventDate={conferenceYear?.end_date}
       />
-
+      <HomeSectionTwo {...about_the_conference} />
       <div className="bg-white h-screen"></div>
 
       {/* <HomeSectionOne

@@ -57,7 +57,7 @@ const HomeSectionOne = ({
           <p className="text-tms-green font-medium  leading-5 main-heading-3  mb-3 md:mb-4">
             {small_title}
           </p>
-          <h1 className=" font-bold main-heading  text-center capitalize text-tms-black leading-3 md:leading lg:leading-main max-w-[80%]- mx-auto">
+          <h1 className=" font-bold main-heading  text-center capitalize text-tms-black leading-3 md:leading-2 lg:leading-main max-w-[80%]- mx-auto">
             {main_heading}
           </h1>
 

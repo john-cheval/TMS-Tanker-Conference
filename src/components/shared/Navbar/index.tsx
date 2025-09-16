@@ -48,7 +48,9 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
         } ease-in-out ${isVisible ? "translate-y-0 " : "-translate-y-full"}`}
       >
         <nav
-          className="wrapper-nav py-6 md:py-10 flex items-center justify-between "
+          className={`wrapper-nav ${
+            isVisible ? " py-3 md:py-5" : "py-6 md:py-10"
+          } flex items-center justify-between`}
           style={{
             willChange: "transform",
           }}
