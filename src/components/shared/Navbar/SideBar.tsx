@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { accordionVariants } from "@/constants/motionVariants";
 
@@ -21,7 +21,7 @@ const SideBar = ({ sideBarLinksData, isClose }: SideBarProps) => {
   };
   return (
     <motion.nav
-      className="bg-tms-blue fixed top-0 right-0 px-6 md:px-20 py-10 md:py-14 h-full z-[999957] w-full sm:w-[70%] md:w-[50%] xl:w-[30%] 2xl:w-[40%] 3xl:w-[45%]  flex flex-col overflow-y-auto scrollbar-hide"
+      className="bg-tms-green fixed top-0 right-0 px-6 md:px-20 py-10 md:py-14 h-full z-[999957] w-full sm:w-[70%] md:w-[50%] xl:w-[30%] 2xl:w-[40%] 3xl:w-[45%]  flex flex-col overflow-y-auto scrollbar-hide"
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}

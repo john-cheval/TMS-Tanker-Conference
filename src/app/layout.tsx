@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -52,7 +53,7 @@ export default async function RootLayout({
         className={`${inter.className} antialiased flex flex-col min-h-full `}
       >
         <ServerNavbar mainLinks={mainMenuLinks} sidebarLinks={sideBarlinks} />
-        <main className="flex-grow pt-[106px]">
+        <main className="flex-grow">
           <Providers>{children}</Providers>
         </main>
         <Footer

@@ -1,15 +1,17 @@
-import HomeSectionOne from "@/components/Home/Section1";
-import HomeSectionTwo from "@/components/Home/Section2";
-import HomeSectionThree from "@/components/Home/Section3";
-import HomeSectionFour from "@/components/Home/Section4";
-import HomeSectionFive from "@/components/Home/Section5";
-import HomeSectionSix from "@/components/Home/Section6";
-import HomeSectionSeven from "@/components/Home/Section7";
-import HomeSectionEight from "@/components/Home/Section8";
-import HomeSectionNine from "@/components/Home/Section9";
-import Testimonials from "@/components/shared/Testimonials";
+// import HomeSectionOne from "@/components/Home/Section1Alter";
+// import HomeSectionTwo from "@/components/Home/Section2";
+// import HomeSectionThree from "@/components/Home/Section3";
+// import HomeSectionFour from "@/components/Home/Section4";
+// import HomeSectionFive from "@/components/Home/Section5";
+// import HomeSectionSix from "@/components/Home/Section6";
+// import HomeSectionSeven from "@/components/Home/Section7";
+// import HomeSectionEight from "@/components/Home/Section8";
+// import HomeSectionNine from "@/components/Home/Section9";
+// import Testimonials from "@/components/shared/Testimonials";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
+// import generateMetadDataDetails from "@/lib/generateMetaData";
+import HomeSectionOne from "@/components/Home/Section1";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 
@@ -30,9 +32,24 @@ const Home = async () => {
     COMMON_SETTINGS_VALUES_become_a_sponsor,
   } = homePageContent?.gernalsettings?.general_settings;
 
+  console.log(COMMON_SETTINGS_VALUES_become_a_sponsor, "become a sponsor");
+
+  const { home_banner } = homePageContent?.data?.section_list;
+
   return (
     <>
       <HomeSectionOne
+        {...home_banner}
+        registerNow={COMMON_SETTINGS_VALUES_register_now}
+        sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
+        callForPaperDate={conferenceYear?.Call_for_papers_date}
+        earlyBirdsDate={conferenceYear?.Early_Bird_date}
+        eventDate={conferenceYear?.end_date}
+      />
+
+      <div className="bg-white h-screen"></div>
+
+      {/* <HomeSectionOne
         callForPaperDate={conferenceYear?.Call_for_papers_date}
         earlyBirdsDate={conferenceYear?.Early_Bird_date}
         eventDate={conferenceYear?.end_date}
@@ -71,7 +88,7 @@ const Home = async () => {
         assosiations={
           homePageContent?.data?.section_list?.supporting_associations
         }
-      />
+      /> */}
     </>
   );
 };

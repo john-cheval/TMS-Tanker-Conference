@@ -1,12 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Logo from "@/assets/Logo/tms_logo.svg";
+import Logo from "@/assets/Logo/tms_tanker_logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import Menu from "@/assets/shared/menu.svg";
 import { RiMenu3Fill } from "react-icons/ri";
-import ButtonOrLink from "../ui/Button";
 import { AnimatePresence, motion } from "framer-motion";
 import SideBar from "./SideBar";
 
@@ -50,7 +48,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
         } ease-in-out ${isVisible ? "translate-y-0 " : "-translate-y-full"}`}
       >
         <nav
-          className="wrapper-nav py-7 flex items-center justify-between "
+          className="wrapper-nav py-6 md:py-10 flex items-center justify-between "
           style={{
             willChange: "transform",
           }}
@@ -63,7 +61,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
               sizes="100vw"
               priority
               alt="TMS AI conference"
-              className="w-full h-auto object-cover max-w-[150px]"
+              className="w-full h-auto object-cover max-w-[200px] md:max-w-full "
             />
           </Link>
 
@@ -77,8 +75,8 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                 return (
                   <li
                     key={index + 1}
-                    className={`nav-links ${
-                      isActive ? "text-tms-blue" : "text-tms-black"
+                    className={`nav-links hover:text-tms-green transition-colors duration-300 ${
+                      isActive ? "text-tms-green" : "text-tms-black"
                     }`}
                   >
                     <Link href={nav?.link}>{nav?.name}</Link>
@@ -93,24 +91,6 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
               className="text-2xl cursor-pointer"
               onClick={() => setIsOpen(true)}
             />
-            <div className=" gap-x-2 hidden lg:flex">
-              <ButtonOrLink
-                hrefs="/"
-                isGradient={false}
-                isIcon={false}
-                isLink={true}
-              >
-                Register Now
-              </ButtonOrLink>
-              <ButtonOrLink
-                hrefs="/"
-                isGradient={true}
-                isIcon={true}
-                isLink={true}
-              >
-                Become a Sponsor
-              </ButtonOrLink>
-            </div>
           </div>
         </nav>
       </header>
