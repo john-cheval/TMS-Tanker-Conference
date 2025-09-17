@@ -16,6 +16,9 @@ import React from "react";
 import HomeSectionTwo from "@/components/Home/Section2";
 import HomeSectionThree from "@/components/Home/Section3";
 import HomeSectionFour from "@/components/Home/Section4";
+import HomeSectionFive from "@/components/Home/Section5";
+import HomeSectionSix from "@/components/Home/Section6";
+import HomeSectionSeven from "@/components/Home/Section7";
 
 export async function generateMetadata() {
   return await generateMetadDataDetails(70, "", false);
@@ -39,6 +42,9 @@ const Home = async () => {
     about_the_conference,
     highlights_from_past_edition,
     agenda_featured_speakers,
+    conference_speakers,
+    agenda_featured_speakers_2,
+    words_from_our_guests,
   } = homePageContent?.data?.section_list;
 
   return (
@@ -57,6 +63,11 @@ const Home = async () => {
         registerNow={COMMON_SETTINGS_VALUES_register_now}
       />
       <HomeSectionFour {...agenda_featured_speakers} />
+
+      <HomeSectionFive {...conference_speakers} />
+      <HomeSectionSix {...agenda_featured_speakers_2} />
+      <HomeSectionSeven {...words_from_our_guests} />
+      <div className="py-32 bg-white" />
 
       {/* <HomeSectionOne
         callForPaperDate={conferenceYear?.Call_for_papers_date}

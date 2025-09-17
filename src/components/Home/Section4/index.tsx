@@ -48,7 +48,7 @@ const HomeSectionFour = ({
     },
   ];
   return (
-    <section className="section-wrapper py-8 md:py-10 lg:py-12 xl:py-16">
+    <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
       <h3 className="main-heading gradient-text-3 leading-3 font-bold md:leading-[40px]  lg:leading-main text-center md:text-left w-fit mx-auto md:mx-0">
         {heading}
       </h3>

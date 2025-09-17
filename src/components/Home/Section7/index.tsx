@@ -1,45 +1,34 @@
-import BigButton from "@/components/shared/ui/Button/BigButton";
-import SectionHeadingTwo from "@/components/shared/ui/Headings/SectionHeading2";
-import SmallTitle from "@/components/shared/ui/Headings/SmallTitle";
-import { SectionOnePropsTyps } from "@/types/common";
-import Image from "next/image";
+import YoutubePlayer from "@/components/shared/ui/VideoPlayer";
+import { YoutubeTestimonialsTypes } from "@/types/common";
 import React from "react";
+type Props = {
+  heading: string;
+  youtube_testimonials: YoutubeTestimonialsTypes[];
+};
 
-const HomeSectionSeven = ({
-  small_title,
-  heading,
-  description,
-  image,
-  button_link,
-  button_text,
-}: SectionOnePropsTyps) => {
+const HomeSectionSeven = ({ heading, youtube_testimonials }: Props) => {
   return (
-    <section className="section-container">
-      <div className="w-full">
-        <div className="grid grid-cols-12 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 relative bg-dark-alter">
-          <article className="col-span-12 md:col-span-7 lg:col-span-6 py-8 md:py-12 lg:py-16 xl:py-20 space-y-5 md:space-y-8  lg:space-y-10 px-5 sm:px-8 md:pl-10 lg:pl-16 order-1 md:order-0">
-            <SmallTitle title={small_title} isBorder={false} isDark={true} />
-            <SectionHeadingTwo title={heading} />
-            {description && (
-              <div
-                className="description descriptionWithList2 text-light-grey"
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
-            )}
-            <div className="flex justify-center md:justify-start ">
-              <BigButton hrefs={button_link}>{button_text}</BigButton>
+    <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
+      <h3 className="main-heading gradient-text-3 leading-3 font-bold md:leading-[40px]  lg:leading-main text-center md:text-left w-fit mx-auto md:mx-0">
+        {heading}
+      </h3>
+
+      <div className="mt-5 md:mt-8 lg:mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-4 lg:gap-6 ">
+        {youtube_testimonials?.map((item, index) => {
+          return (
+            <div key={index + 1}>
+              <YoutubePlayer {...item} />
+              <div className="mt-2 sm:mt-4 lg:mt-6">
+                <p className="text-lg mg:text-xl lg:text-2xl font-medium  leading-3 ">
+                  Capt. Franck J Kayser{" "}
+                </p>
+                <p className="text-base font-normal leading-5 mt-0.5 md:mt-1">
+                  COO, Asyad Shipping Company
+                </p>
+              </div>
             </div>
-          </article>
-          <article className="col-span-12 md:col-span-5 lg:col-span-6 order-0 md:order-1">
-            <Image
-              src={image ?? ""}
-              alt={heading ?? ""}
-              width={700}
-              height={800}
-              className="w-full h-full object-cover"
-            />
-          </article>
-        </div>
+          );
+        })}
       </div>
     </section>
   );

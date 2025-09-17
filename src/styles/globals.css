@@ -4,6 +4,7 @@
   /* colors */
   --color-tms-green: #00a25d;
   --color-tms-tanker-blue: #38c7ff;
+  --color-tms-tanker-blue-2: #0078ba;
   --color-tms-gray: #dedede;
   --color-light-grey-1: #d9d9d9;
   --color-tms-black: #0c1e23;
@@ -42,7 +43,7 @@
   --leading-6: 18px;
 
   /* Font sizes */
-  --text-2xl: 25px;
+  --text-2xl: 23px;
   /* Font Family */
   --font-duabi: "Dubai", sans-serif;
   --font-bolder: 800;
@@ -483,13 +484,12 @@ ul {
   margin-top: 50px;
 }
 
-/* Swiper Js */
-#home-swiper-wrapper .swiper-wrapper:nth-child(2) {
-  margin-top: 0;
-}
+/* card */
 
-#home-swiper-wrapper .swiper-wrapper:nth-child(3) {
-  margin-top: 40px;
+.gradient-border-wrapper {
+  background: linear-gradient(90deg, #00a25e 0%, #38c7ff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 /* Media Queries */

@@ -46,25 +46,6 @@ export type ImageGalleryTypes = {
   image_url?: string;
 };
 
-export type YoutubeTestimonialsTypes = {
-  title?: string;
-  youtube_id?: string;
-};
-
-export type SponsorsPropsType = {
-  award_id?: number;
-  id?: number;
-  name?: string;
-  slug?: string;
-  website_link?: string;
-  company_name?: string;
-  email?: string;
-  contact_number?: string;
-  country_code?: string;
-  image_url?: string;
-  description?: string | null;
-};
-
 export type benifitsType = {
   title: string;
   description: string;
@@ -143,4 +124,21 @@ export type ButtonPropsType = {
   gradient?: string;
   isSponsor?: boolean;
   isBigText?: boolean;
+  isUnderline?: boolean;
+};
+
+export type SpeakersType = {
+  award_id?: number;
+  id?: number;
+  name?: string;
+  slug?: string;
+  post?: string;
+  website_link?: string;
+  company?: string;
+  is_home?: string;
+  image_url?: string;
+};
+export type YoutubeTestimonialsTypes = {
+  title?: string;
+  youtube_id?: string;
 };
