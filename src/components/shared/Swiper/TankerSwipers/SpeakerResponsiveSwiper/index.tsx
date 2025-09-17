@@ -39,7 +39,7 @@ const SpeakerResponsiveSwiper = ({ swiperData }: Props) => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        modules={[Navigation, Autoplay]}
+        modules={[Navigation]}
         slidesPerView={1.2}
         spaceBetween={14}
       >
@@ -52,6 +52,21 @@ const SpeakerResponsiveSwiper = ({ swiperData }: Props) => {
             );
           })}
       </Swiper>
+
+      <div className=" items-center justify-center space-x-4 mt-5   flex">
+        <button
+          onClick={handlePrev}
+          className="md:absolute top-[50%] md:-translate-y-1/2  -left-5 z-20 bg-white p-3 flex items-center justify-center rounded-full text-[#22334F] text-lg  font-normal border border-[#DEDEDE] "
+        >
+          <IoMdArrowBack />
+        </button>
+        <button
+          onClick={handleNext}
+          className="md:absolute  top-[50%] md:-translate-y-1/2   -right-5 z-20 bg-white p-3 flex items-center justify-center rounded-full text-[#22334F] text-lg  font-normal border border-[#DEDEDE] "
+        >
+          <IoMdArrowForward />
+        </button>
+      </div>
     </div>
   );
 };

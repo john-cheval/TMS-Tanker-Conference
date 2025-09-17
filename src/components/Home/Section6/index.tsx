@@ -61,11 +61,11 @@ const HomeSectionSix = ({
         <div className="col-span-12 md:col-span-8 grid grid-cols-1 sm:grid-cols-2 h-full ">
           {image_gallery.slice(1)?.map((item, index) => {
             const zerothIndex =
-              index === 0 && "md:border-r border-b border-r-0 border-tms-black";
+              index === 0 && "sm:border-r border-b border-r-0 border-tms-black";
             const firtIndex = index === 1 && " border-b border-tms-black";
             const secondIndex =
               index === 2 &&
-              "border-b md:border-b-0 md:border-r border-tms-black";
+              "border-b sm:border-b-0 sm:border-r border-tms-black";
 
             return (
               <div

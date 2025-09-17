@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import iconCheckLight from "@/assets/icons/check-circle-light.svg";
 import iconCheckDark from "@/assets/icons/check-circle-dark.svg";
+import ButtonOrLink from "@/components/shared/ui/Button";
 
 interface SpeakerDescriptionList {
   title: string | null;
@@ -49,10 +50,16 @@ const HomeSectionFour = ({
   ];
   return (
     <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
-      <h3 className="main-heading gradient-text-3 leading-3 font-bold md:leading-[40px]  lg:leading-main text-center md:text-left w-fit mx-auto md:mx-0">
-        {heading}
-      </h3>
-      <p className="description text-black mt-3 md:mt-4 md:max-w-[700px] text-center md:text-left px-3 md:px-0">
+      <div className="flex flex-col md:flex-row items-center md:justify-between">
+        <h3 className="main-heading gradient-text-3 leading-3 font-bold md:leading-[40px]  lg:leading-main text-center md:text-left w-fit mx-auto md:mx-0 mb-4 md:mb-0">
+          {heading}
+        </h3>
+        <ButtonOrLink isBigText={false} isGradient={true} hrefs={"#"}>
+          Become a speaker
+        </ButtonOrLink>
+      </div>
+
+      <p className="description text-black mt-5 md:mt-4 md:max-w-[700px] text-center md:text-left px-3 md:px-0">
         {description}
       </p>
 

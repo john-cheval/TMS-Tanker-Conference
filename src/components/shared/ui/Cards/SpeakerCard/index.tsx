@@ -32,12 +32,12 @@ const SpeakerCard = (props: SpeakersType) => {
           alt="bottomSvg"
           width={60}
           height={30}
-          className="w-full max-w-10 sm:max-w-14 h-auto object-cover absolute bottom-0 sm:-bottom-5 -right-5 sm:-right-8"
+          className="w-full max-w-10 sm:max-w-14 h-auto object-cover absolute bottom-[-5px] sm:-bottom-5 -right-5 sm:-right-8"
         />
       </div>
 
       <div className="mt-4 space-y-1.5 flex flex-col h-full">
-        <p className="text-tms-tanker-blue-2 text-base font-bold uppercase leading-5 text-center ">
+        <p className="text-tms-tanker-blue-2 text-base font-bold uppercase leading-5 text-center min-h-[50px] ">
           {name}
         </p>
         <p className="text-tms-black text-center text-base font-normal leading-5">
