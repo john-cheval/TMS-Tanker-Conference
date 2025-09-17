@@ -14,6 +14,7 @@ import HomeSectionOne from "@/components/Home/Section1";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 import HomeSectionTwo from "@/components/Home/Section2";
+import HomeSectionThree from "@/components/Home/Section3";
 
 export async function generateMetadata() {
   return await generateMetadDataDetails(70, "", false);
@@ -32,9 +33,7 @@ const Home = async () => {
     COMMON_SETTINGS_VALUES_become_a_sponsor,
   } = homePageContent?.gernalsettings?.general_settings;
 
-  console.log(COMMON_SETTINGS_VALUES_become_a_sponsor, "become a sponsor");
-
-  const { home_banner, about_the_conference } =
+  const { home_banner, about_the_conference, highlights_from_past_edition } =
     homePageContent?.data?.section_list;
 
   return (
@@ -48,7 +47,11 @@ const Home = async () => {
         eventDate={conferenceYear?.end_date}
       />
       <HomeSectionTwo {...about_the_conference} />
-      <div className="bg-white h-screen"></div>
+      <HomeSectionThree
+        {...highlights_from_past_edition}
+        registerNow={COMMON_SETTINGS_VALUES_register_now}
+        sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
+      />
 
       {/* <HomeSectionOne
         callForPaperDate={conferenceYear?.Call_for_papers_date}

@@ -4,14 +4,19 @@
   /* colors */
   --color-tms-green: #00a25d;
   --color-tms-tanker-blue: #38c7ff;
+  --color-tms-gray: #dedede;
+  --color-light-grey-1: #d9d9d9;
+  --color-tms-black: #0c1e23;
+  --color-tms-dark-1: #010203;
+
+  /*  */
+
   --color-tms-purple: #4d1592;
   --color-tms-pink: #ea73e7;
-  --color-dark-grey: #828282;
   --color-dark-alter: #00081b;
+  --color-dark-grey: #828282;
   --color-light-grey: #d8d8d8;
-  --color-light-grey-1: #d9d9d9;
   --color-tms-light-blue: #edf9ff;
-  --color-tms-black: #0c1e23;
   --color-gradient-btn-nav: linear-gradient(
     258deg,
     #ea73e7 -79.01%,
@@ -429,6 +434,12 @@ ul {
 }
 .gradient-text {
   background: linear-gradient(93deg, #38c7ff 4.01%, #008f57 82.77%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-2 {
+  background: linear-gradient(90deg, #00a25e 0%, #38c7ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

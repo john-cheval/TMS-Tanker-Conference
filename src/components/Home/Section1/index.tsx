@@ -4,11 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import calendar from "@/assets/icons/calendar_month.png";
 import ButtonOrLink from "@/components/shared/ui/Button";
 import { formatDate } from "@/utils/formatDate";
-
-interface ButtonLinksProps {
-  title: string;
-  value: string;
-}
+import { ButtonLinksProps } from "@/types/common";
 
 type Props = {
   banner_image: string;
@@ -92,7 +88,11 @@ const HomeSectionOne = ({
               {sponsorBtnData?.title}
             </ButtonOrLink>
 
-            <ButtonOrLink isGradient={false} hrefs={registerNow?.value}>
+            <ButtonOrLink
+              isBigText={false}
+              isGradient={false}
+              hrefs={registerNow?.value}
+            >
               {registerNow?.title}
             </ButtonOrLink>
           </div>

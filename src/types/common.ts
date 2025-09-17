@@ -6,17 +6,6 @@ export type NavLinkType = {
   url: string;
 };
 
-export type ButtonPropsType = {
-  children: React.ReactNode;
-  hrefs?: string;
-  isGradient?: boolean;
-  isIcon?: boolean;
-  isLink?: boolean;
-  isBig?: boolean;
-  gradient?: string;
-  isSponsor?: boolean;
-};
-
 export type sideBarPropsType = {
   id: number | string;
   title: string;
@@ -123,4 +112,35 @@ export type SectionOnePropsTyps = {
   table_heading?: string;
   register_heading?: string;
   register_price?: any;
+};
+
+// Tanker
+export type ButtonLinksProps = {
+  title: string;
+  value: string;
+};
+
+export type SessionPropsType = {
+  name: string;
+  slug: string;
+  post: string;
+  company: string;
+  description: string | null;
+  is_home: string;
+  home_title?: string;
+  Time?: string;
+  is_session?: string;
+  image_url?: string;
+};
+
+export type ButtonPropsType = {
+  children: React.ReactNode;
+  hrefs?: string;
+  isGradient?: boolean;
+  isIcon?: boolean;
+  isLink?: boolean;
+  isBig?: boolean;
+  gradient?: string;
+  isSponsor?: boolean;
+  isBigText?: boolean;
 };
