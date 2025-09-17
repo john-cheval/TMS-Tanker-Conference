@@ -7,7 +7,7 @@ import { YoutubeTestimonialsTypes } from "@/types/common";
 const YoutubePlayer = (props: YoutubeTestimonialsTypes) => {
   const { youtube_id, title } = props;
   return (
-    <div className="w-full h-full">
+    <div>
       <LiteYouTubeEmbed
         id={youtube_id ?? ""}
         title={title ?? ""}

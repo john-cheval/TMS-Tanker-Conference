@@ -1,4 +1,4 @@
-import SpeakersCard from "@/components/shared/ui/Cards/SpeakerCard";
+import SpeakersCard from "@/components/shared/ui/Cards/SpeakerCard/SpeakerCardAlter";
 import React from "react";
 
 type SpeakersCardData = {

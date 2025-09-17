@@ -6,17 +6,6 @@ export type NavLinkType = {
   url: string;
 };
 
-export type ButtonPropsType = {
-  children: React.ReactNode;
-  hrefs?: string;
-  isGradient?: boolean;
-  isIcon?: boolean;
-  isLink?: boolean;
-  isBig?: boolean;
-  gradient?: string;
-  isSponsor?: boolean;
-};
-
 export type sideBarPropsType = {
   id: number | string;
   title: string;
@@ -57,30 +46,6 @@ export type ImageGalleryTypes = {
   image_url?: string;
 };
 
-export type YoutubeTestimonialsTypes = {
-  title?: string;
-  youtube_id?: string;
-};
-
-export type SponsorsPropsType = {
-  award_id?: number;
-  id?: number;
-  name?: string;
-  slug?: string;
-  website_link?: string;
-  company_name?: string;
-  email?: string;
-  contact_number?: string;
-  country_code?: string;
-  image_url?: string;
-  description?: string | null;
-};
-
-export type benifitsType = {
-  title: string;
-  description: string;
-  image_url?: string;
-};
 export type WhyAttendListType = {
   title?: string;
   description: string;
@@ -123,4 +88,75 @@ export type SectionOnePropsTyps = {
   table_heading?: string;
   register_heading?: string;
   register_price?: any;
+};
+
+// Tanker
+export type ButtonLinksProps = {
+  title: string;
+  value: string;
+};
+
+export type SessionPropsType = {
+  name: string;
+  slug: string;
+  post: string;
+  company: string;
+  description: string | null;
+  is_home: string;
+  home_title?: string;
+  Time?: string;
+  is_session?: string;
+  image_url?: string;
+};
+
+export type ButtonPropsType = {
+  children: React.ReactNode;
+  hrefs?: string;
+  isGradient?: boolean;
+  isIcon?: boolean;
+  isLink?: boolean;
+  isBig?: boolean;
+  gradient?: string;
+  isSponsor?: boolean;
+  isBigText?: boolean;
+  isUnderline?: boolean;
+};
+
+export type SpeakersType = {
+  award_id?: number;
+  id?: number;
+  name?: string;
+  slug?: string;
+  post?: string;
+  website_link?: string;
+  company?: string;
+  is_home?: string;
+  image_url?: string;
+};
+export type YoutubeTestimonialsTypes = {
+  title?: string;
+  youtube_id?: string;
+};
+export type benifitsType = {
+  title: string;
+  description: string;
+  image_url?: string;
+};
+
+export type sponsorDataType = {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  vwebsite_link: string;
+  company_name: string;
+  email: string;
+  contact_number: string;
+  country_code: string;
+  image_url: string;
+};
+
+export type SponsorType = {
+  heading: string;
+  data: sponsorDataType[];
 };

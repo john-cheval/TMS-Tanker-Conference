@@ -1,10 +1,15 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation /*, Autoplay,*/ } from "swiper/modules";
 import type SwiperCore from "swiper";
+
+// import {
+//   MdOutlineKeyboardArrowLeft,
+//   MdOutlineKeyboardArrowRight,
+// } from "react-icons/md";
 import Image from "next/image";
 
 type Props = {
@@ -22,42 +27,9 @@ const data = [
 
 const HomeSwiperOne = ({ swiperGallery }: Props) => {
   const swiperRef = useRef<SwiperCore | null>(null);
-  const [visibleSlides, setVisibleSlides] = useState<number[]>([]);
-  console.log(visibleSlides, "this isht evisibl;e slides");
-
-  const handleSlideChange = (swiper: SwiperCore) => {
-    const allSlides = swiper.slides;
-    const currentlyVisible: number[] = [];
-
-    // Loop through all slides and check if they are visible
-    allSlides.forEach((slide: HTMLElement, index: number) => {
-      if (slide.classList.contains("swiper-slide-visible")) {
-        const realIndex = parseInt(
-          slide.getAttribute("data-swiper-slide-index") || "0",
-          10
-        );
-        currentlyVisible.push(realIndex);
-      }
-    });
-
-    // Update the state with the new visible slides
-    setVisibleSlides(currentlyVisible);
-  };
-
-  // Function to check if a slide is visible and return its position
-  const getSlideClass = (index: number) => {
-    const position = visibleSlides.indexOf(index);
-    if (position !== -1) {
-      return `active-${position + 1}`;
-    }
-    return "";
-  };
 
   return (
-    <div
-      className="relative max-w-full swiper-home-container"
-      id="home-swiper-wrapper"
-    >
+    <div className="relative max-w-full">
       <Swiper
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -67,7 +39,11 @@ const HomeSwiperOne = ({ swiperGallery }: Props) => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        modules={[Navigation, Autoplay]}
+        modules={[Navigation]}
+        effect="fade"
+        fadeEffect={{
+          crossFade: true,
+        }}
         breakpoints={{
           0: {
             slidesPerView: 2,
@@ -82,21 +58,36 @@ const HomeSwiperOne = ({ swiperGallery }: Props) => {
             spaceBetween: 27,
           },
         }}
-        onSlideChange={handleSlideChange}
       >
         {data?.length > 0 &&
           data?.map((item, index) => {
+            const classIndex = index % 3;
+
+            let marginClass = "";
+
+            switch (classIndex) {
+              case 0:
+                marginClass = "mt-0";
+                break;
+              case 1:
+                marginClass = "mt-10";
+                break;
+              case 2:
+                marginClass = "mt-32";
+                break;
+              default:
+                marginClass = "mt-0";
+                break;
+            }
+
             return (
-              <SwiperSlide
-                key={index + 1}
-                className={`rounded-sm ${getSlideClass(index)}`}
-              >
+              <SwiperSlide key={index + 1} className={`${marginClass} `}>
                 <Image
                   src={item}
                   alt={`image-${index + 1}`}
                   width={350}
                   height={360}
-                  className="w-full h-auto"
+                  className="w-full h-auto "
                 />
               </SwiperSlide>
             );

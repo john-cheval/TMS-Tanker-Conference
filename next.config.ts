@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "tmstanker.girishandco.com",
         pathname: "/public/Admin/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "tmstanker.girishandco.com",
+        pathname: "/public/public/Admin/uploads/**",
+      },
     ],
   },
 };
