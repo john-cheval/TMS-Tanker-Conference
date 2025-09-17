@@ -116,9 +116,6 @@ ul {
   background-position: right center;
 }
 
-.CardGraient {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
-}
 .conference-card {
   border-radius: 10px;
   border: 1px solid #d8d8d8;
@@ -444,6 +441,17 @@ ul {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.gradient-text-3 {
+  background: linear-gradient(90deg, #38c7ff 0%, #008f57 63.9%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.CardGraient {
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+}
+
 /* ClipPaths */
 .clip-path-slant {
   clip-path: polygon(0 0, 95% 0, 100% 100%, 0% 100%);
@@ -453,7 +461,7 @@ ul {
 
 .main-heading {
   @apply text-2xl md:text-3xl lg:text-4xl xl:text-[45px];
-  /* leading-3 md:leading lg:leading-main */
+  /* leading-3 font-bold md:leading-[40px]  lg:leading-main */
 }
 
 .main-heading-3 {

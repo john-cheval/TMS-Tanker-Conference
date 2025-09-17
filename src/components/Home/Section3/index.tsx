@@ -6,18 +6,12 @@ import React from "react";
 type Props = {
   heading: string;
   registerNow: ButtonLinksProps;
-  sponsorBtnData: ButtonLinksProps;
   data: SessionPropsType[];
 };
 
-const HomeSectionThree = ({
-  heading,
-  registerNow,
-  sponsorBtnData,
-  data,
-}: Props) => {
+const HomeSectionThree = ({ heading, registerNow, data }: Props) => {
   return (
-    <section className="section-wrapper section-container">
+    <section className="section-wrapper  mt-10 md:mt-14 lg:mt-7">
       <div className="w-full  ">
         <div className="px-4 md:px-8 lg:px-10 xl:px-14 bg-tms-dark-1 w-full  ">
           <div className="flex flex-col md:flex-row md:justify-between md:gap-x-5  border-b pt-7 pb-5 md:py-8  border-dashed items-center border-b-white w-full ">
