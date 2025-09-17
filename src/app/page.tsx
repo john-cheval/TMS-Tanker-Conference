@@ -19,6 +19,8 @@ import HomeSectionFour from "@/components/Home/Section4";
 import HomeSectionFive from "@/components/Home/Section5";
 import HomeSectionSix from "@/components/Home/Section6";
 import HomeSectionSeven from "@/components/Home/Section7";
+import HomeSectionEight from "@/components/Home/Section8";
+import HomeSectionNine from "@/components/Home/Section9";
 
 export async function generateMetadata() {
   return await generateMetadDataDetails(70, "", false);
@@ -45,6 +47,10 @@ const Home = async () => {
     conference_speakers,
     agenda_featured_speakers_2,
     words_from_our_guests,
+    why_sponsor_tms_ai_tech,
+    sponsors,
+    supporting_associations,
+    media_partners,
   } = homePageContent?.data?.section_list;
 
   return (
@@ -67,7 +73,12 @@ const Home = async () => {
       <HomeSectionFive {...conference_speakers} />
       <HomeSectionSix {...agenda_featured_speakers_2} />
       <HomeSectionSeven {...words_from_our_guests} />
-      <div className="py-32 bg-white" />
+      <HomeSectionEight {...why_sponsor_tms_ai_tech} />
+      <HomeSectionNine
+        sponsorsData={sponsors}
+        suppotiveData={supporting_associations}
+        mediaPartnersData={media_partners}
+      />
 
       {/* <HomeSectionOne
         callForPaperDate={conferenceYear?.Call_for_papers_date}

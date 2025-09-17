@@ -46,11 +46,6 @@ export type ImageGalleryTypes = {
   image_url?: string;
 };
 
-export type benifitsType = {
-  title: string;
-  description: string;
-  image_url?: string;
-};
 export type WhyAttendListType = {
   title?: string;
   description: string;
@@ -141,4 +136,27 @@ export type SpeakersType = {
 export type YoutubeTestimonialsTypes = {
   title?: string;
   youtube_id?: string;
+};
+export type benifitsType = {
+  title: string;
+  description: string;
+  image_url?: string;
+};
+
+export type sponsorDataType = {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  vwebsite_link: string;
+  company_name: string;
+  email: string;
+  contact_number: string;
+  country_code: string;
+  image_url: string;
+};
+
+export type SponsorType = {
+  heading: string;
+  data: sponsorDataType[];
 };
