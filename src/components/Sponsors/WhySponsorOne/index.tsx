@@ -15,7 +15,7 @@ const WhySponsorOne = () => {
           className="col-span-12 md:col-span-5 lg:col-span-4 h-full w-full"
         />
 
-        <div className="col-span-12 md:col-span-7 lg:col-span-8 mt-5 sm:mt-6 md:mt-0">
+        <div className="col-span-12 flex flex-col justify-center md:col-span-7 lg:col-span-8 mt-5 sm:mt-6 md:mt-0">
           <h2 className="w-fit main-heading leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text mb-2 lg:mb-3 mx-auto md:mx-0">
             Why Sponsor
           </h2>

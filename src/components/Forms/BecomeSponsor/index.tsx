@@ -37,7 +37,6 @@ type Props = SectionOnePropsTyps & {
 const BecomeSponsorForm = ({
   small_title,
   heading,
-  isOpppotunity = false,
   whySponsorPage = false,
   packageName = "",
   packageId = 0,
@@ -126,38 +125,15 @@ const BecomeSponsorForm = ({
     <form
       id="sponsor-form"
       onSubmit={handleSubmit(onSubmit)}
-      className=" pt-5 md:pt-8 lg:pt-12 xl:pt-16 pb-10 md:pb-16 lg:pb-20 section-wrapper"
+      className=" pt-5 md:pt-8 lg:pt-12 xl:pt-16 pb-10 md:pb-16 lg:pb-20 section-wrapper "
     >
       <div
-        className={`${
-          isOpppotunity ? "bg-tms-light-blue" : "bg-tms-blue"
-        } py-8 md:py-10 lg:py-12 xl:py-16 px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-[72px]  rounded-2xl`}
+        className={` py-6 md:py-10 lg:py-12 xl:py-14 px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-[72px]  border gradient-border-image`}
       >
         {" "}
         <div>
-          <p
-            className={`text-base font-bold leading-6 ${
-              isOpppotunity ? "text-black" : " text-white"
-            } flex items-center gap-x-2.5`}
-          >
-            {isOpppotunity ? (
-              <Image
-                src={ai}
-                alt="TMS AI"
-                width={24}
-                height={24}
-                className="w-full h-auto object-cover max-w-[24px]"
-              />
-            ) : (
-              <SiGooglegemini />
-            )}
-
-            {small_title}
-          </p>
           <h3
-            className={`main-heading-2 ${
-              isOpppotunity ? "text-inherit" : "!text-white"
-            } mt-3 md:mt-4 mb-5 md:mb-4`}
+            className={`main-heading-2  leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text  mb-5 md:mb-4 w-fit mx-auto text-center`}
           >
             {heading}
           </h3>
@@ -174,8 +150,6 @@ const BecomeSponsorForm = ({
               rules={{
                 required: "Name is required.",
               }}
-              isBlue={isOpppotunity}
-              isLight={isOpppotunity}
             />
 
             <TextElement
@@ -192,8 +166,6 @@ const BecomeSponsorForm = ({
                   message: "Please enter a valid email address.",
                 },
               }}
-              isBlue={isOpppotunity}
-              isLight={isOpppotunity}
             />
           </FormRow>
           <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
@@ -202,14 +174,12 @@ const BecomeSponsorForm = ({
                 label="company"
                 name="company"
                 type="text"
-                placeholder="Your Company"
+                placeholder="Name of the Company"
                 register={register}
                 errors={errors}
                 rules={{
                   required: "Company is required.",
                 }}
-                isBlue={isOpppotunity}
-                isLight={isOpppotunity}
               />
             </div>
 
@@ -238,8 +208,6 @@ const BecomeSponsorForm = ({
                     message: "Please enter a valid number.",
                   },
                 }}
-                isBlue={isOpppotunity}
-                isLight={isOpppotunity}
               />
             </div>
           </FormRow>
@@ -253,8 +221,6 @@ const BecomeSponsorForm = ({
             rules={{
               required: "comments is required.",
             }}
-            isBlue={isOpppotunity}
-            isLight={isOpppotunity}
           />
 
           <div className="mt-4 md:mt-6 flex justify-center ">
@@ -266,17 +232,16 @@ const BecomeSponsorForm = ({
           </div>
           <button
             type="submit"
-            className={`${
-              isOpppotunity
-                ? "text-white bg-tms-purple"
-                : "text-tms-purple bg-white"
-            } text-sm md:text-base lg:text-lg leading-5 font-semibold flex gap-x-2   items-center group  rounded-sm py-3 md:py-4 px-5 md:px-6 w-fit  mx-auto mt-4- md:mt-6- ${
+            className={` text-white
+            } text-sm md:text-base lg:text-lg leading-5 font-medium  py-3 md:py-4 px-8 md:px-14 w-fit  mx-auto mt-4- md:mt-6- ${
               !token ? "cursor-not-allowed" : "cursor-pointer"
             }`}
             disabled={!token}
+            style={{
+              background: "linear-gradient(90deg, #38C7FF 0%, #00A25D 100%)",
+            }}
           >
             Send Enquiry{" "}
-            <MdOutlineKeyboardArrowRight className="text-xl text-tms-purple- group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
           </button>
         </div>
       </div>
