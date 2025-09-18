@@ -452,16 +452,42 @@ ul {
 .CardGraient {
   background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
 }
+.top-section-gradient {
+  fill: linear-gradient(
+    89deg,
+    rgba(34, 51, 79, 0.8) 0.99%,
+    rgba(0, 138, 192, 0) 97.36%
+  );
+  backdrop-filter: blur(7.150000095367432px);
+}
+
+.gradient-border-wrapper {
+  background: linear-gradient(90deg, #00a25e 0%, #38c7ff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.gradient-border-image {
+  border-image: linear-gradient(0deg, #00a25e 0%, #38c7ff 100%);
+  border-image-slice: 1;
+}
 
 /* ClipPaths */
 .clip-path-slant {
   clip-path: polygon(0 0, 95% 0, 100% 100%, 0% 100%);
+}
+.clip-path-slant-banners {
+  clip-path: polygon(0 0, 97% 0, 100% 100%, 0% 100%);
 }
 
 /* Headings */
 
 .main-heading {
   @apply text-2xl md:text-3xl lg:text-4xl xl:text-[45px];
+  /* leading-3 font-bold md:leading-[40px]  lg:leading-main */
+}
+.main-heading-2 {
+  @apply text-3xl lg:text-4xl xl:text-[45px];
   /* leading-3 font-bold md:leading-[40px]  lg:leading-main */
 }
 
@@ -486,16 +512,11 @@ ul {
 
 /* card */
 
-.gradient-border-wrapper {
-  background: linear-gradient(90deg, #00a25e 0%, #38c7ff 100%);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-}
-
 /* Media Queries */
 
 @media (max-width: 768px) {
-  .clip-path-slant {
+  .clip-path-slant,
+  .clip-path-slant-banners {
     clip-path: none;
   }
 }
