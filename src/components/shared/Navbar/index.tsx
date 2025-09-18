@@ -69,7 +69,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
           </Link>
 
           <div className="flex items-center gap-x-5 2xl:gap-x-7">
-            <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden md:flex">
+            <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden lg:flex">
               {Object.values(mainMenuLinks)?.map((nav: any, index: number) => {
                 let isActive = pathname === nav?.link;
                 if (nav?.link !== "/") {

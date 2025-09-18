@@ -9,7 +9,7 @@ interface SharedTopSectionPropsTypes {
 
 const SharedTopSection = ({ banner, title }: SharedTopSectionPropsTypes) => {
   return (
-    <section className=" relative text-white ">
+    <section className=" relative text-white mt-[72px] md:mt-[102px]">
       <div className="relative ">
         {!isVideo(banner ?? "") ? (
           <Image
