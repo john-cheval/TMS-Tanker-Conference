@@ -54,7 +54,9 @@ const TextElement = <TFieldValues extends FieldValues>({
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <input
         className={` "fix-autofill-dark" 
-          no-arrow-number  input gradient-border-2`}
+          no-arrow-number   ${
+            isLight ? "input-alter " : " input gradient-border-2"
+          } `}
         id={name}
         {...register(name, rules)}
         {...rest}

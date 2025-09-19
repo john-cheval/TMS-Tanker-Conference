@@ -1,20 +1,24 @@
 "use client";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import arrowDown from "@/assets/shared/chevron-right.png";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+// import arrowDown from "@/assets/shared/chevron-right.png";
+// import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { listOppData } from "@/constants/sponsorOppData";
+import BecomeSponsorSmall from "@/components/Forms/BecomeSponsorSmall";
+import SponsoredOppCard from "@/components/shared/ui/Cards/SponsoredOppCard";
 type Props = {
   packageData?: any;
-  getSelectedPackage?: any;
-  getSelectedPackageCategoryId?: any;
+  // getSelectedPackage?: any;
+  // getSelectedPackageCategoryId?: any;
+  formTitle?: string;
 };
 
 const Packages = ({
   packageData,
-  getSelectedPackage,
-  getSelectedPackageCategoryId,
+  // getSelectedPackage,
+  // getSelectedPackageCategoryId,
+  formTitle,
 }: Props) => {
   const [activeTitle, setActiveTitle] = useState(packageData[0]?.title);
   const handleTitleClick = (item: string) => {
@@ -26,7 +30,7 @@ const Packages = ({
   );
 
   return (
-    <div>
+    <div id="packageList">
       <div>
         <div className="flex  gap-x-2.5 mb-7 lg:mb-10 xl:mb-14 overflow-x-auto whitespace-nowrap no-scrollbar">
           {packageData?.map((item: any, index: number) => {
@@ -56,46 +60,20 @@ const Packages = ({
         </h3>
       </div>
 
-      <div className="grid grid-cols-12 gap-x-5">
+      <div className="grid grid-cols-12 gap-x-4 lg:gap-x-5">
         <div className="col-span-8 space-y-5">
           {selectedPackage?.sponsors &&
+          selectedPackage?.sponsors?.length > 0 ? (
             selectedPackage?.sponsors?.map((sponsor: any, index: number) => {
-              return (
-                <div
-                  key={index + 1}
-                  className="grid grid-cols-12 border gradient-border-image"
-                >
-                  <div className="col-span-5 px-14 py-11 border-r border-r-tms-tanker-blue">
-                    <h5 className="text-[40px] font-bold leading-2 gradient-text-3 w-fit">
-                      {" "}
-                      {sponsor?.title}
-                    </h5>
-                    <p className="text-tms-tanker-blue-2 text-base md:text-xl font-semibold leading-5 mt-3">
-                      Exclusive to One Company
-                    </p>
-                    <Link
-                      href="#"
-                      className="text-white gradient-master text-sm md:text-base font-medium leading-normal py-3 px-10 block w-fit mt-4"
-                    >
-                      Send Enquiry
-                    </Link>
-                  </div>
-                  <div className="col-span-7">
-                    <div className="oppDescription">
-                      <ul>
-                        {listOppData?.map((item: string, index: number) => {
-                          return <li key={index + 1}>{item}</li>;
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+              return <SponsoredOppCard key={index + 1} {...sponsor} />;
+            })
+          ) : (
+            <p className="text-center font-medium">There is No Package</p>
+          )}
         </div>
 
-        <div className="col-span-4 w-full text-white h-fit bg-tms-black p-20">
-          Become a Sponsor form
+        <div className="col-span-4">
+          <BecomeSponsorSmall title={formTitle} />
         </div>
       </div>
     </div>

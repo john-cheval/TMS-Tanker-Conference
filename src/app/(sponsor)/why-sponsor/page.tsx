@@ -1,4 +1,4 @@
-import BecomeSponsorForm from "@/components/Forms/BecomeSponsor";
+import BecomeSponsorForm from "@/components/Forms/BecomeSponsorMain";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
 import SponsorBenifits from "@/components/Sponsors/SponsorBenifits";

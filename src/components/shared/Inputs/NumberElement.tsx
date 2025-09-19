@@ -75,7 +75,6 @@ const NumberElement = <TFieldValues extends FieldValues>({
 }: NumbertElementProps<TFieldValues>) => {
   // const errorMessage = errors[name]?.message;
   const errorMessage = getNestedError(errors, name);
-  console.log(errorMessage, "this is error message");
 
   const [isOpen, setIsOpen] = useState(false);
   const [countries, setCountries] = useState<CountryType[]>([]);
@@ -209,14 +208,16 @@ const NumberElement = <TFieldValues extends FieldValues>({
           <button
             id="dropdown-phone-button"
             data-dropdown-toggle="dropdown-phone"
-            className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 text-black outline-none absolute left-0 ${
+            className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
+              isLight ? "text-white" : "text-black"
+            } outline-none absolute left-0 ${
               errorMessage ? "-top-3s" : "top-0"
             }`}
             type="button"
             onClick={handleButtonClick}
           >
             {selectedCountry?.dialCode}{" "}
-            <IoMdArrowDropdown color="#0078BA" size={18} />
+            <IoMdArrowDropdown color={isLight ? "#fff" : "#0078BA"} size={18} />
           </button>
 
           <input
@@ -226,7 +227,9 @@ const NumberElement = <TFieldValues extends FieldValues>({
           />
 
           <input
-            className={`input gradient-border-2 fix-autofill-dark no-arrow-number !pl-[90px] w-full`}
+            className={`${
+              isLight ? "input-alter " : " input gradient-border-2"
+            } fix-autofill-dark no-arrow-number !pl-[90px] w-full`}
             id={name}
             type="tel"
             {...registeredProps}

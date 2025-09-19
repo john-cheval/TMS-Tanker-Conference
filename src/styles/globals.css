@@ -262,10 +262,6 @@ ul {
 
 /* Inputs */
 
-.input-alter {
-  @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-4 md:leading-3;
-}
-
 .no-arrow-number::-webkit-outer-spin-button,
 .no-arrow-number::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -486,7 +482,12 @@ ul {
   @apply text-sm md:text-base  leading-5;
 }
 .oppDescription ul li {
-  @apply text-base text-[#2A2A2A] leading-5;
+  @apply text-base text-[#2A2A2A] leading-5 not-last:mb-3;
+  background-image: url("../assets/icons/emergency.svg");
+  background-repeat: no-repeat;
+  background-position: left 4px;
+  background-size: 20px;
+  padding-left: 30px;
 }
 
 .active-1 {
@@ -501,21 +502,25 @@ ul {
 
 /* Reusable Components */
 .input {
-  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-black outline-0 text-black text-sm md:text-base font-normal leading-4 md:leading-3;
+  @apply border border-white py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-black outline-0 text-black text-sm md:text-base font-normal leading-4 md:leading-3;
+}
 
-  .fix-autofill-dark:-webkit-autofill,
-  .fix-autofill-dark:-webkit-autofill:hover,
-  .fix-autofill-dark:-webkit-autofill:focus {
-    /* Use a transparent box-shadow to override the background */
-    box-shadow: 0 0 0 1000px transparent inset !important;
+.fix-autofill-dark:-webkit-autofill,
+.fix-autofill-dark:-webkit-autofill:hover,
+.fix-autofill-dark:-webkit-autofill:focus {
+  /* Use a transparent box-shadow to override the background */
+  box-shadow: 0 0 0 1000px transparent inset !important;
 
-    /* Use -webkit-text-fill-color to override the text color */
-    -webkit-text-fill-color: #00081b !important;
+  /* Use -webkit-text-fill-color to override the text color */
+  -webkit-text-fill-color: #00081b !important;
 
-    /* You may also need to set a transition */
-    transition: background-color 5000s ease-in-out 0s;
-    color: #00081b !important;
-  }
+  /* You may also need to set a transition */
+  transition: background-color 5000s ease-in-out 0s;
+  color: #00081b !important;
+}
+
+.input-alter {
+  @apply border border-white  py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-4 md:leading-3;
 }
 /* Media Queries */
 
