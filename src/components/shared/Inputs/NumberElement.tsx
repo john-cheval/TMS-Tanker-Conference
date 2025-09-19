@@ -180,21 +180,19 @@ const NumberElement = <TFieldValues extends FieldValues>({
       <div className="flex items-center relative">
         <div
           id="dropdown-phone"
-          className={`absolute left-0 top-full mt-2 w-52 overflow-y-scroll max-h-52 bg-tms-blue rounded-md border border-light-grey shadow-sm z-50 no-scrollbar ${
+          className={`absolute left-0 top-full mt-2 w-52 overflow-y-scroll max-h-52 bg-tms-tanker-blue rounded-md border border-light-grey shadow-sm z-50 no-scrollbar ${
             isOpen ? "block" : "hidden"
           }`}
         >
           <ul
-            className="py-2 text-white text-sm md:text-base"
+            className="py-2 text-dark text-sm md:text-base"
             aria-labelledby="dropdown-phone-button"
           >
             {countries.map((country, index) => (
               <li key={index}>
                 <button
                   type="button"
-                  className={`inline-flex w-full px-4 py-2 ${
-                    isBlue ? "text-dark-alter" : "text-white"
-                  } hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
+                  className={`inline-flex w-full px-4 py-2 text-tms-dark-1 hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
                   role="menuitem"
                   onClick={() => handleCountrySelect(country)}
                 >
@@ -211,15 +209,14 @@ const NumberElement = <TFieldValues extends FieldValues>({
           <button
             id="dropdown-phone-button"
             data-dropdown-toggle="dropdown-phone"
-            className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
-              isBlue ? "text-dark-alter" : "text-white"
-            } outline-none absolute left-0 ${
+            className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 text-black outline-none absolute left-0 ${
               errorMessage ? "-top-3s" : "top-0"
             }`}
             type="button"
             onClick={handleButtonClick}
           >
-            {selectedCountry?.dialCode} <IoMdArrowDropdown size={18} />
+            {selectedCountry?.dialCode}{" "}
+            <IoMdArrowDropdown color="#0078BA" size={18} />
           </button>
 
           <input
@@ -229,9 +226,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
           />
 
           <input
-            className={`${isBlue ? "input-alter" : "input"}  ${
-              isLight ? "fix-autofill-dark" : "fix-autofill"
-            } no-arrow-number !pl-[90px] w-full`}
+            className={`input gradient-border-2 fix-autofill-dark no-arrow-number !pl-[90px] w-full`}
             id={name}
             type="tel"
             {...registeredProps}

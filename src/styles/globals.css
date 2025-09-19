@@ -106,16 +106,6 @@ ul {
   background: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
   border-color: linear-gradient(249deg, #4d1592 13.95%, #0078bb 80.04%);
 }
-.buttonGradient-3 {
-  background: linear-gradient(249deg, #4d1592, #0078bb);
-  background-size: 200% 200%;
-  background-position: left center;
-  transition: background-position 0.5s ease-in-out;
-}
-
-.buttonGradient-3:hover {
-  background-position: right center;
-}
 
 .conference-card {
   border-radius: 10px;
@@ -271,9 +261,7 @@ ul {
 }
 
 /* Inputs */
-.input {
-  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-4 md:leading-3;
-}
+
 .input-alter {
   @apply border border-[#1C75BC] rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-dark-alter outline-0 text-dark-alter text-sm md:text-base font-normal leading-4 md:leading-3;
 }
@@ -306,20 +294,6 @@ ul {
   /* You may also need to set a transition */
   transition: background-color 5000s ease-in-out 0s;
   color: #fff !important;
-}
-
-.fix-autofill-dark:-webkit-autofill,
-.fix-autofill-dark:-webkit-autofill:hover,
-.fix-autofill-dark:-webkit-autofill:focus {
-  /* Use a transparent box-shadow to override the background */
-  box-shadow: 0 0 0 1000px transparent inset !important;
-
-  /* Use -webkit-text-fill-color to override the text color */
-  -webkit-text-fill-color: #00081b !important;
-
-  /* You may also need to set a transition */
-  transition: background-color 5000s ease-in-out 0s;
-  color: #00081b !important;
 }
 
 .css-1u9des2-indicatorSeparator {
@@ -442,6 +416,7 @@ ul {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .gradient-text-3 {
   background: linear-gradient(90deg, #38c7ff 0%, #008f57 63.9%);
   background-clip: text;
@@ -452,16 +427,53 @@ ul {
 .CardGraient {
   background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
 }
+.CardGraient2 {
+  background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+}
+.top-section-gradient {
+  fill: linear-gradient(
+    89deg,
+    rgba(34, 51, 79, 0.8) 0.99%,
+    rgba(0, 138, 192, 0) 97.36%
+  );
+  backdrop-filter: blur(7.150000095367432px);
+}
+
+.gradient-border-wrapper {
+  background: linear-gradient(90deg, #00a25e 0%, #38c7ff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.gradient-border-image {
+  border-image: linear-gradient(0deg, #00a25e 0%, #38c7ff 100%);
+  border-image-slice: 1;
+}
+.gradient-border-2 {
+  border-image: linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%);
+  border-image-slice: 1;
+}
+
+.buttonGradient-3 {
+  background: linear-gradient(90deg, #008ac0 0%, #00a25d 100%);
+}
 
 /* ClipPaths */
 .clip-path-slant {
   clip-path: polygon(0 0, 95% 0, 100% 100%, 0% 100%);
+}
+.clip-path-slant-banners {
+  clip-path: polygon(0 0, 97% 0, 100% 100%, 0% 100%);
 }
 
 /* Headings */
 
 .main-heading {
   @apply text-2xl md:text-3xl lg:text-4xl xl:text-[45px];
+  /* leading-3 font-bold md:leading-[40px]  lg:leading-main */
+}
+.main-heading-2 {
+  @apply text-3xl lg:text-4xl xl:text-[45px];
   /* leading-3 font-bold md:leading-[40px]  lg:leading-main */
 }
 
@@ -472,6 +484,9 @@ ul {
 /* Descriptions */
 .description {
   @apply text-sm md:text-base  leading-5;
+}
+.oppDescription ul li {
+  @apply text-base text-[#2A2A2A] leading-5;
 }
 
 .active-1 {
@@ -484,18 +499,29 @@ ul {
   margin-top: 50px;
 }
 
-/* card */
+/* Reusable Components */
+.input {
+  @apply border border-white rounded-sm py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-black outline-0 text-black text-sm md:text-base font-normal leading-4 md:leading-3;
 
-.gradient-border-wrapper {
-  background: linear-gradient(90deg, #00a25e 0%, #38c7ff 100%);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  .fix-autofill-dark:-webkit-autofill,
+  .fix-autofill-dark:-webkit-autofill:hover,
+  .fix-autofill-dark:-webkit-autofill:focus {
+    /* Use a transparent box-shadow to override the background */
+    box-shadow: 0 0 0 1000px transparent inset !important;
+
+    /* Use -webkit-text-fill-color to override the text color */
+    -webkit-text-fill-color: #00081b !important;
+
+    /* You may also need to set a transition */
+    transition: background-color 5000s ease-in-out 0s;
+    color: #00081b !important;
+  }
 }
-
 /* Media Queries */
 
 @media (max-width: 768px) {
-  .clip-path-slant {
+  .clip-path-slant,
+  .clip-path-slant-banners {
     clip-path: none;
   }
 }

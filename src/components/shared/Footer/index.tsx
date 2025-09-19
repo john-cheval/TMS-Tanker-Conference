@@ -160,7 +160,7 @@ const Footer = ({
         </div>
       </div>
 
-      <Image
+      {/* <Image
         src={AiBig}
         alt="TMSAI"
         width={185}
@@ -168,7 +168,7 @@ const Footer = ({
         sizes="100vw"
         className="w-du
          h-auto object-cover max-w-24 md:max-w-[120px] lg:max-w-[170px] absolute top-0 -translate-y-1/2 right-3 md:right-10"
-      />
+      /> */}
     </footer>
   );
 };

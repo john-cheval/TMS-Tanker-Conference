@@ -1,49 +1,25 @@
-import BigButton from "@/components/shared/ui/Button/BigButton";
-import SectionHeadingTwo from "@/components/shared/ui/Headings/SectionHeading2";
-import { SectionOnePropsTyps } from "@/types/common";
-import Image from "next/image";
+import SponsorBenifitCard from "@/components/shared/ui/Cards/SponsorBenifitCard";
+import { benifitsType } from "@/types/common";
 import React from "react";
 
-const SponsorBenifits = ({ heading, all_benefits }: SectionOnePropsTyps) => {
-  return (
-    <section className="section-wrapper mb-5 md:mt-0">
-      <SectionHeadingTwo title={heading} isDark={true} />
-      {all_benefits && (
-        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3  md:gap-4 xl:gap-6 mt-6 md:mt-8 xl:mt-10 ">
-          {Object.values(all_benefits)?.map((item, index) => {
-            return (
-              <div
-                key={index + 1}
-                className="relative rounded-sm  overflow-hidden"
-              >
-                <Image
-                  src={item?.image_url ?? ""}
-                  alt={item?.title}
-                  width={390}
-                  height={390}
-                  className="w-full h-auto object-cover "
-                />
+type Props = {
+  heading: string;
+  all_benefits: benifitsType[];
+};
 
-                <div className="space-y-2.5 absolute bottom-5 xl:bottom-7 left-5 xl:left-7 right-6 z-50">
-                  <h5 className="text-white text-xl lg:text-2xl font-bold leading-4 lg:leading-3">
-                    {item?.title}
-                  </h5>
-                  <p className="text-white text-sm font-normal leading-6">
-                    {item?.description}
-                  </p>
-                </div>
-                <div className="CardGraient absolute bottom-0 left-0 w-full h-full" />
-              </div>
-            );
+const SponsorBenifits = ({ all_benefits }: Props) => {
+  return (
+    <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
+      <h4 className="w-fit main-heading leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text mb-2 lg:mb-3 mx-auto md:mx-0">
+        Sponsorship offers numerous benefits
+      </h4>
+      {all_benefits && (
+        <div className="mt-5 md:mt-7 lg:mt-10 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-4 xl:gap-5">
+          {all_benefits?.map((item, index) => {
+            return <SponsorBenifitCard key={index + 1} {...item} />;
           })}
         </div>
       )}
-
-      <div className="flex justify-center mt-5 md:mt-8">
-        <BigButton hrefs="/">
-          View the range of Sponsorship Opportunities here
-        </BigButton>
-      </div>
     </section>
   );
 };

@@ -19,6 +19,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [bgColor, setBgColor] = useState(false);
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const currentScrollY = window.scrollY;
@@ -43,8 +44,8 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   return (
     <>
       <header
-        className={` fixed top-0 w-full z-[999955] transition-all duration-300 ${
-          bgColor ? "bg-white" : "bg-transparent"
+        className={` fixed top-0 w-full z-[999955] transition-all duration-300  ${
+          bgColor || !isHome ? "bg-white" : "bg-transparent"
         } ease-in-out ${isVisible ? "translate-y-0 " : "-translate-y-full"}`}
       >
         <nav
@@ -68,7 +69,7 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
           </Link>
 
           <div className="flex items-center gap-x-5 2xl:gap-x-7">
-            <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden md:flex">
+            <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden lg:flex">
               {Object.values(mainMenuLinks)?.map((nav: any, index: number) => {
                 let isActive = pathname === nav?.link;
                 if (nav?.link !== "/") {

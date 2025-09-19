@@ -1,38 +1,45 @@
 "use client";
-import { SponsorsPropsType } from "@/types/common";
-import Image from "next/image";
+import { sponsorDataType } from "@/types/common";
 import React, { useState } from "react";
+import sponsorImage from "@/assets/sponsors/sposnsor.png";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { truncateHtmlByWords } from "@/utils/trumcate";
 import SponsorDetailPopover from "../SponsorPopup/SponsorDetailPopover";
 
-const SponsorListCard = (props: SponsorsPropsType) => {
-  const { image_url, company_name } = props;
+const SponsorListCard = (props: sponsorDataType) => {
+  const { image_url, company_name, description } = props;
   const [isOpen, setIsOpen] = useState(false);
-
+  const wordLimit = 30;
+  const truncatedDescription = truncateHtmlByWords(description, wordLimit);
   return (
     <>
-      <div
-        className="rounded-sm lg:rounded-lg xl:rounded-2xl border border-light-grey-1 overflow-hidden flex flex-col h-full cursor-pointer"
-        onClick={() => setIsOpen(true)}
-      >
-        <div className="py-9 flex-grow flex justify-center items-center">
+      <div className="border border-tms-tanker-blue- gradient-border-image grid grid-cols-1 sm:grid-cols-2">
+        <div className="sm:border-r border-b sm:border-b-0 gradient-border-image flex items-center justify-center px-7 py-16 sm:py-0">
           <Image
-            src={image_url ?? ""}
-            alt={company_name ?? ""}
+            //    src={image_url}
+            src={sponsorImage}
+            alt={company_name}
             width={200}
-            height={900}
-            sizes="100vw"
-            className="w-fit h-auto object-cover flex-grow max-w-[200px] px-5"
+            height={84}
+            className=""
           />
         </div>
-
-        {company_name && (
-          <div className="bg-tms-light-blue py-4 md:py-5 lg:py-8 px-4 w-full">
-            <p className="text-sm md:text-base text-black font-bold leading-6 text-center">
-              {company_name}
-            </p>
-          </div>
-        )}
+        <div className="px-7 lg:px-9 py-11">
+          <h5 className="text-tms-tanker-blue text-center sm:text-left text-2xl font-semibold leading-3 mb-2 ">
+            {company_name}
+          </h5>
+          <div
+            dangerouslySetInnerHTML={{ __html: truncatedDescription }}
+            className="text-sm md:text-base leading-5 mb-3 md:mb-4 text-center sm:text-left"
+          />
+          <button
+            onClick={() => setIsOpen(true)}
+            className="text-sm md:text-base underline hover:text-tms-green transition-colors duration-300 w-full text-center sm:text-left"
+          >
+            Read More
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>

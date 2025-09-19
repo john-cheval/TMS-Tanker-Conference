@@ -154,6 +154,7 @@ export type sponsorDataType = {
   contact_number: string;
   country_code: string;
   image_url: string;
+  website_link?: string;
 };
 
 export type SponsorType = {
