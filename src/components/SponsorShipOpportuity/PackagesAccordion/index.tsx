@@ -7,6 +7,7 @@ import Image from "next/image";
 import arrowDown from "@/assets/shared/chevron-right.png";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import SponsoredOppCard from "@/components/shared/ui/Cards/SponsoredOppCard";
 
 type Props = {
   packageData?: any;
@@ -25,25 +26,33 @@ const PackagesAccordion = ({ packageData }: Props) => {
     );
   }
   return (
-    <article className="w-full">
+    <article className="w-full" id="packageList">
       {packageData?.map((item: any, index: number) => {
         const isAccordionOpen = openIndex === item?.id;
 
         return (
-          <div className="py-2 border-b border-b-light-grey" key={index + 1}>
+          <div
+            className="py-2 border-b border-b-tms-tanker-blue-2"
+            key={index + 1}
+          >
             <>
               <button
-                className="flex text-black items-center justify-between w-full text-lg font-bold leading-1"
+                className={`flex gap-x-5 items-center justify-between w-full   leading-1 py-2`}
                 onClick={() => toggleAccordion(item.id as number)}
               >
-                <p>
-                  <span className="text-tms-purple">{item?.title}</span>{" "}
-                  {item?.small_title}
+                <p
+                  className={`gradient-text w-fit  text-left transition-all duration-300 ${
+                    isAccordionOpen
+                      ? "text-2xl sm:text-3xl mb-5 font-bold"
+                      : "text-xl font-semibold"
+                  }`}
+                >
+                  {item?.title} {item?.small_title}
                 </p>
                 {isAccordionOpen ? (
-                  <FaMinus className="text-[#1C1B1F]" />
+                  <FaMinus className="text-black text-sm" />
                 ) : (
-                  <FaPlus className="text-[#1C1B1F]" />
+                  <FaPlus className="text-black" />
                 )}
               </button>
 
@@ -59,57 +68,14 @@ const PackagesAccordion = ({ packageData }: Props) => {
                   >
                     <div>
                       {item?.sponsors && item?.sponsors?.length > 0 ? (
-                        <div className="space-y-5">
+                        <div className="space-y-3 sm:space-y-5">
                           {item?.sponsors?.map(
                             (sponsor: any, index: number) => {
                               return (
-                                <div key={index + 1}>
-                                  <Image
-                                    src={sponsor?.image_url}
-                                    alt={sponsor?.title}
-                                    width={385}
-                                    height={164}
-                                    className="w-full h-auto object-cover rounded-t-sm"
-                                  />
-
-                                  <div className="bg-[#ECECEC] border border-t-0 border-[#cecece] px-5 py-4">
-                                    <h5 className="main-heading-2 gradient-text w-fit">
-                                      {" "}
-                                      {sponsor?.title}
-                                    </h5>
-                                    <p className="text-base text-[#2A2A2A] font-medium leading-5 mt-[2px] mb-3">
-                                      {" "}
-                                      {sponsor?.small_title}
-                                    </p>
-                                    <div
-                                      className="sponsor-description"
-                                      dangerouslySetInnerHTML={{
-                                        __html: sponsor?.description,
-                                      }}
-                                    />
-                                  </div>
-
-                                  <div className=" grid grid-cols-2 rounded-b-sm overflow-hidden">
-                                    <button className=" bg-[#ECECEC] w-full flex justify-center items-center gap-x-2 py-3 text-sm sm:text-base font-bold leading-5 text-tms-purple">
-                                      Read More{" "}
-                                      <Image
-                                        src={arrowDown}
-                                        alt="arrowdown"
-                                        width={16}
-                                        height={16}
-                                        sizes="100vw"
-                                        className="w-full h-auto max-w-3 object-cover"
-                                      />
-                                    </button>
-                                    <Link
-                                      href={"#"}
-                                      className=" buttonGradient-2 rounded-br-sm block- flex items-center justify-center text-white py-3 text-sm sm:text-base font-bold leading-5 group"
-                                    >
-                                      Send Enquiry{" "}
-                                      <MdOutlineKeyboardArrowRight className="text-2xl  group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
-                                    </Link>
-                                  </div>
-                                </div>
+                                <SponsoredOppCard
+                                  key={index + 1}
+                                  {...sponsor}
+                                />
                               );
                             }
                           )}

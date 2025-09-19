@@ -55,7 +55,9 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   return (
     <div className="flex flex-col gap-y-2 flex-grow-1">
       <textarea
-        className={` fix-autofill-dark  input gradient-border-2`}
+        className={` fix-autofill-dark ${
+          isLight ? "input-alter " : " input gradient-border-2"
+        } `}
         id={name}
         {...register(name, rules)}
         {...rest}
