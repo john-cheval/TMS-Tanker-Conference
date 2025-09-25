@@ -23,7 +23,6 @@ const SupportingAssosiations = async () => {
     supporting_associations,
     media_partners,
   } = pageContent?.data?.section_list;
-  console.log(sponsors, "this is ht esponssors");
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
