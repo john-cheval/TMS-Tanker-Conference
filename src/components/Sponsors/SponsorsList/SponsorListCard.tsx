@@ -7,15 +7,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { truncateHtmlByWords } from "@/utils/trumcate";
 import SponsorDetailPopover from "../SponsorPopup/SponsorDetailPopover";
 
-const SponsorListCard = (props: sponsorDataType) => {
-  const { image_url, company_name, description } = props;
+type Props = sponsorDataType & {
+  isAssosiationPage?: boolean;
+};
+
+const SponsorListCard = (props: Props) => {
+  const {
+    image_url,
+    company_name,
+    description,
+    name,
+    isAssosiationPage = false,
+  } = props;
+
   const [isOpen, setIsOpen] = useState(false);
   const wordLimit = 30;
   const truncatedDescription = truncateHtmlByWords(description, wordLimit);
   return (
     <>
       <div className="border border-tms-tanker-blue- gradient-border-image grid grid-cols-1 sm:grid-cols-2">
-        <div className="sm:border-r border-b sm:border-b-0 gradient-border-image flex items-center justify-center px-7 py-16 sm:py-0">
+        <div
+          className={`sm:border-r border-b sm:border-b-0 gradient-border-image flex items-center justify-center px-7 py-16 sm:py-0 ${
+            isAssosiationPage ? "my-0 sm:my-3 md:my-5" : "my-0"
+          }`}
+        >
           <Image
             //    src={image_url}
             src={sponsorImage}
@@ -27,7 +42,7 @@ const SponsorListCard = (props: sponsorDataType) => {
         </div>
         <div className="px-7 lg:px-9 py-11">
           <h5 className="text-tms-tanker-blue text-center sm:text-left text-2xl font-semibold leading-3 mb-2 ">
-            {company_name}
+            {company_name ? company_name : name}
           </h5>
           <div
             dangerouslySetInnerHTML={{ __html: truncatedDescription }}

@@ -8,9 +8,14 @@ import ButtonOrLink from "@/components/shared/ui/Button";
 export type SponsorsListProps = {
   sponsors: sponsorDataType[];
   isButton?: boolean;
+  isAssosiation?: boolean;
 };
 
-const SponsorsList = ({ sponsors, isButton = true }: SponsorsListProps) => {
+const SponsorsList = ({
+  sponsors,
+  isButton = true,
+  isAssosiation = false,
+}: SponsorsListProps) => {
   return (
     <section
       className={`section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16  ${
@@ -26,7 +31,7 @@ const SponsorsList = ({ sponsors, isButton = true }: SponsorsListProps) => {
       >
         {sponsors?.map((sponsor, index) => (
           <motion.div key={index} variants={cardVariants2}>
-            <SponsorListCard {...sponsor} />
+            <SponsorListCard {...sponsor} isAssosiationPage={isAssosiation} />
           </motion.div>
         ))}
       </motion.div>

@@ -28,6 +28,7 @@ type Props = SectionOnePropsTyps & {
   packageName?: string;
   packageId?: number;
   isPartnerForm?: boolean;
+  isPaddingTop?: boolean;
 };
 
 const BecomeSponsorForm = ({
@@ -37,6 +38,7 @@ const BecomeSponsorForm = ({
   packageName = "",
   packageId = 0,
   isPartnerForm = false,
+  isPaddingTop = true,
 }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
@@ -121,15 +123,17 @@ const BecomeSponsorForm = ({
     <form
       id="sponsor-form"
       onSubmit={handleSubmit(onSubmit)}
-      className=" pt-5 md:pt-8 lg:pt-12 xl:pt-16 pb-10 md:pb-16 lg:pb-20 section-wrapper "
+      className={`${
+        isPaddingTop ? "pt-5 md:pt-8 lg:pt-12 xl:pt-16" : ""
+      }  pb-10 md:pb-16 lg:pb-20 section-wrapper `}
     >
       <div
-        className={` py-6 md:py-10 lg:py-12 xl:py-14 px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-[72px]  border gradient-border-image`}
+        className={` py-6 md:py-10 lg:py-12 px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-[72px]  border gradient-border-image`}
       >
         {" "}
         <div>
           <h3
-            className={`main-heading-2  leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text  mb-5 md:mb-4 w-fit mx-auto text-center`}
+            className={`main-heading-2  leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text  mb-5 md:mb-6 w-fit mx-auto text-center`}
           >
             {heading}
           </h3>
