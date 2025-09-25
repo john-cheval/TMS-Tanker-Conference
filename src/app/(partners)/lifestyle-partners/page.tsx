@@ -1,18 +1,18 @@
 import BecomeSponsorForm from "@/components/Forms/BecomeSponsorMain";
 import SharedTopSection from "@/components/shared/Sections/TopSection";
-import Sponsors from "@/components/shared/Sponsors";
+import SponsorsList from "@/components/Sponsors/SponsorsList";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 
 export async function generateMetadata() {
-  return await generateMetadDataDetails(76, "become-a-partner", false);
+  return await generateMetadDataDetails(75, "lifestyle-partners", false);
 }
 
-const BecomePartner = async () => {
+const LifestylePartners = async () => {
   const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=76`
+    `${baseUrl}/getmasterdetails?master_name=cms&id=75`
   );
   const {
     page_top_banner,
@@ -21,21 +21,17 @@ const BecomePartner = async () => {
     supporting_associations,
     media_partners,
   } = pageContent?.data?.section_list;
-
   return (
     <>
+      {" "}
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
-
-      <div
-        className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-16 2xl:pt-20 description font-normal text-dark-alter pb-6 md:pb-0 text-center"
-        dangerouslySetInnerHTML={{
-          __html:
-            pageContent?.data?.section_list?.page_description?.description,
-        }}
+      <SponsorsList
+        sponsors={media_partners?.data}
+        isButton={true}
+        isAssosiation={true}
       />
-      <BecomeSponsorForm {...become_a_sponsor_form} isPaddingTop={true} />
-
-      {sponsors && (
+      <BecomeSponsorForm {...become_a_sponsor_form} isPaddingTop={false} />
+      {/* {sponsors && (
         <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16">
           <div className="space-y-9">
             <Sponsors data={sponsors} isSponsor={true} />
@@ -43,9 +39,9 @@ const BecomePartner = async () => {
             <Sponsors data={media_partners} />{" "}
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
 
-export default BecomePartner;
+export default LifestylePartners;
