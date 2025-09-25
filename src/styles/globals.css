@@ -235,15 +235,10 @@ ul {
 }
 
 .sponsor-terms-description h4 {
-  @apply text-tms-black text-base font-bold leading-5 border-b border-light-grey pb-4 md:pb-5 lg:pb-6 not-first:mt-5  md:not-first:mt-10;
-  background: url("../assets/shared/ai_small_24.svg");
-  background-repeat: no-repeat;
-  background-position: left 4px;
-  background-size: 20px;
-  padding-left: 30px;
+  @apply text-black text-center md:text-left text-base md:text-lg lg:text-2xl font-semibold leading-5 border-b border-light-grey pb-4 md:pb-5 lg:pb-6 not-first:mt-5  md:not-first:mt-10;
 }
 .sponsor-terms-description ul {
-  @apply pl-4 md:pl-8 mt-4 md:mt-6 text-sm md:text-base text-dark-alter leading-3 font-normal space-y-[2px] md:space-y-1 list-disc;
+  @apply pl-4 md:pl-8 mt-4 md:mt-6 text-sm md:text-base text-dark-alter leading-3 font-normal space-y-[2px] md:space-y-1 list-disc text-center md:text-left;
 }
 .become-sponsoe-description ol {
   @apply text-sm md:text-base  leading-5 text-dark-alter !list-decimal space-y-3 pl-5;

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "@/assets/Logo/tms_tanker_logo.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { RiMenu3Fill } from "react-icons/ri";
 import { AnimatePresence, motion } from "framer-motion";
 import SideBar from "./SideBar";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { iconVariants, submenuVariants } from "@/constants/motionVariants";
 
 export type NavPropTypes = {
   mainMenuLinks: any;
@@ -19,7 +21,13 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [bgColor, setBgColor] = useState(false);
+  const submenuRef = useRef<HTMLDivElement>(null);
   const isHome = pathname === "/";
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const toggleSubmenu = (name: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    setOpenSubmenu(openSubmenu === name ? null : name);
+  };
 
   useEffect(() => {
     const currentScrollY = window.scrollY;
@@ -41,6 +49,29 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // Check if the clicked element is NOT inside the submenu
+      if (
+        submenuRef.current &&
+        !submenuRef.current.contains(event.target as Node)
+      ) {
+        setOpenSubmenu(null);
+      }
+    };
+
+    if (openSubmenu) {
+      document.addEventListener("click", handleOutsideClick);
+    } else {
+      document.removeEventListener("click", handleOutsideClick);
+    }
+
+    // Cleanup function
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [openSubmenu]);
   return (
     <>
       <header
@@ -49,8 +80,8 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
         } ease-in-out ${isVisible ? "translate-y-0 " : "-translate-y-full"}`}
       >
         <nav
-          className={`wrapper-nav ${
-            isVisible ? " py-3 md:py-5" : "py-6 md:py-10"
+          className={`wrapper-nav transition-all duration-300 ${
+            isVisible ? " py-5 shadow-sm" : "py-7"
           } flex items-center justify-between`}
           style={{
             willChange: "transform",
@@ -71,10 +102,17 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
           <div className="flex items-center gap-x-5 2xl:gap-x-7">
             <ul className=" items-center gap-x-5 2xl:gap-x-7 hidden lg:flex">
               {Object.values(mainMenuLinks)?.map((nav: any, index: number) => {
-                let isActive = pathname === nav?.link;
-                if (nav?.link !== "/") {
-                  isActive = pathname.startsWith(nav?.link);
-                }
+                // let isActive = pathname === nav?.link;
+                // if (nav?.link !== "/") {
+                //   isActive = pathname.startsWith(nav?.link);
+                // }
+                const isActive =
+                  pathname === nav?.link ||
+                  (nav?.link !== "/" && pathname.startsWith(nav?.link));
+                const hasSubmenu =
+                  nav.submenu && Object.values(nav.submenu)?.length > 0;
+                const isSubmenuOpen = openSubmenu === nav?.name;
+
                 return (
                   <li
                     key={index + 1}
@@ -82,7 +120,57 @@ const Navbar = ({ mainMenuLinks, sideBarLinksDatas }: NavPropTypes) => {
                       isActive ? "text-tms-green" : "text-tms-black"
                     }`}
                   >
-                    <Link href={nav?.link}>{nav?.name}</Link>
+                    {!hasSubmenu ? (
+                      <Link href={nav?.link}>{nav?.name}</Link>
+                    ) : (
+                      <div className="relative">
+                        <button
+                          className="flex items-center gap-x-1 "
+                          onClick={(e) => toggleSubmenu(nav?.name, e)}
+                        >
+                          {nav?.name}{" "}
+                          <motion.span
+                            variants={iconVariants}
+                            animate={isSubmenuOpen ? "open" : "closed"}
+                          >
+                            <IoMdArrowDropdown className="transition-transform duration-300 text-lg" />
+                          </motion.span>
+                        </button>
+                        <AnimatePresence>
+                          {isSubmenuOpen && (
+                            <motion.div
+                              variants={submenuVariants}
+                              initial="initial"
+                              animate="animate"
+                              exit="exit"
+                              className="origin-top overflow-hidden absolute top-10 left-1/2 -translate-x-1/2"
+                              ref={submenuRef}
+                            >
+                              <ul className="pl-4 py-2 bg-tms-green  w-full px-5 ">
+                                {Object.values(nav.submenu)?.map(
+                                  (subItem: any, subIndex: number) => (
+                                    <li
+                                      key={subIndex + 1}
+                                      className="p-1  whitespace-nowrap "
+                                      onClick={(e) =>
+                                        toggleSubmenu(nav?.name, e)
+                                      }
+                                    >
+                                      <Link
+                                        href={subItem?.link}
+                                        className="text-white hover:bg-white hover:text-tms-green duration-300 transition-colors p-1"
+                                      >
+                                        {subItem?.name}
+                                      </Link>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    )}
                   </li>
                 );
               })}

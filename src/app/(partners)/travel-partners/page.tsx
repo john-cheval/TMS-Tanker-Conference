@@ -7,10 +7,10 @@ import generateMetadDataDetails from "@/lib/generateMetaData";
 import React from "react";
 
 export async function generateMetadata() {
-  return await generateMetadDataDetails(75, "media-partners", false);
+  return await generateMetadDataDetails(75, "travel-partners", false);
 }
 
-const MediaPartners = async () => {
+const TravelPartners = async () => {
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=75`
   );
@@ -44,4 +44,4 @@ const MediaPartners = async () => {
   );
 };
 
-export default MediaPartners;
+export default TravelPartners;

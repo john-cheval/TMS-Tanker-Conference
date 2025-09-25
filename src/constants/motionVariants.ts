@@ -59,3 +59,14 @@ export const cardVariants2 = {
     transition: { duration: 0.5, ease: "easeOut" as const },
   },
 };
+
+export const submenuVariants = {
+  initial: { opacity: 0, height: 0 },
+  animate: { opacity: 1, height: "auto" },
+  exit: { opacity: 0, height: 0 },
+};
+
+export const iconVariants = {
+  open: { rotate: 180 },
+  closed: { rotate: 0 },
+};
