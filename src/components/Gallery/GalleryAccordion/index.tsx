@@ -5,12 +5,15 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import { AnimatePresence, motion } from "motion/react";
 import { accordionVariants } from "@/constants/motionVariants";
 import GalleryCard from "@/components/shared/ui/Cards/GalleryCard";
+import VideoCard from "@/components/shared/ui/Cards/VideoCard";
+import { getYoutubeId } from "@/utils/getYouyubeId";
 
 interface GalleryType {
   id: number;
   name: string;
   year: string;
-  photo_gallery: PhotoGalleryType[];
+  photo_gallery?: PhotoGalleryType[];
+  video_gallery?: any;
 }
 
 type Props = {
@@ -18,6 +21,7 @@ type Props = {
 };
 
 const GalleryAccordion = ({ galleryData }: Props) => {
+  console.log(galleryData, "this is the gallery data");
   const [openIndex, setOpenIndex] = useState<number | null>(galleryData[0]?.id);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -67,28 +71,56 @@ const GalleryAccordion = ({ galleryData }: Props) => {
                     variants={accordionVariants}
                     className="overflow-hidden"
                   >
-                    <div>
-                      {Array.isArray(item?.photo_gallery) &&
-                      item?.photo_gallery?.length > 0 ? (
-                        <div className="space-y-3 sm:space-y-5">
-                          {item?.photo_gallery?.map(
-                            (gallery: any, index: number) => {
-                              return (
-                                <GalleryCard
-                                  key={index + 1}
-                                  {...gallery}
-                                  isAlbumPage={true}
-                                />
-                              );
-                            }
-                          )}
-                        </div>
-                      ) : (
-                        <p className="text-base text-center text-tms-blue font-bold">
-                          No Packages Available
-                        </p>
-                      )}
-                    </div>
+                    {item?.photo_gallery && (
+                      <div>
+                        {Array.isArray(item?.photo_gallery) &&
+                        item?.photo_gallery?.length > 0 ? (
+                          <div className="space-y-3 sm:space-y-5">
+                            {item?.photo_gallery?.map(
+                              (gallery: any, index: number) => {
+                                return (
+                                  <GalleryCard
+                                    key={index + 1}
+                                    {...gallery}
+                                    isAlbumPage={true}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                        ) : (
+                          <p className="text-base text-center text-tms-blue font-bold">
+                            No Packages Available
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    {item?.video_gallery && (
+                      <div>
+                        {Array.isArray(item?.video_gallery) &&
+                        item?.video_gallery?.length > 0 ? (
+                          <div className="space-y-3 sm:space-y-5">
+                            {item?.video_gallery?.map(
+                              (gallery: any, index: number) => {
+                                const youtubeId = getYoutubeId(gallery.link);
+                                return (
+                                  <VideoCard
+                                    key={index + 1}
+                                    title={gallery.title}
+                                    link={gallery.link}
+                                    youtube_id={youtubeId ?? ""}
+                                  />
+                                );
+                              }
+                            )}
+                          </div>
+                        ) : (
+                          <p className="text-base text-center text-tms-blue font-bold">
+                            No Packages Available
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
