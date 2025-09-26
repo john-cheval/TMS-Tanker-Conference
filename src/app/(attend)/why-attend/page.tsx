@@ -1,9 +1,10 @@
 import SharedTopSection from "@/components/shared/Sections/TopSection";
-// import Sponsors from "@/components/shared/Sponsors";
+import Sponsors from "@/components/shared/Sponsors";
 import WhyAttendSectionOne from "@/components/why-attend/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import generateMetadDataDetails from "@/lib/generateMetaData";
+import Link from "next/link";
 import React from "react";
 
 export async function generateMetadata() {
@@ -16,7 +17,6 @@ const WhyAttend = async () => {
   );
   const {
     page_top_banner,
-    become_a_sponsor_form,
     sponsors,
     supporting_associations,
     media_partners,
@@ -32,16 +32,33 @@ const WhyAttend = async () => {
         }}
       />
       <WhyAttendSectionOne data={why_attend_page?.why_attend_list} />
-      {/* <div className="section-wrapper pb-12 md:pb-20 space-y-5 pt-6 md:pt-12 lg:pt-16 xl:pt-20">
-        <Sponsors
-          data={pageContent?.data?.section_list?.sponsors}
-          isSponsor={true}
-        />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
-      </div> */}
+
+      <section className="section-wrapper mt-4 sm:mt-5 md:mt-6 lg:mt-8 mb-5 md:mb-8 xl:mb-12">
+        <div className="  bg-[#f0f0f0] px-5 pt-5 md:pt-7 lg:pt-9 xl:pt-12 pb-8 w-full flex flex-col items-center justify-center">
+          <h4 className="gradient-text-3 main-heading leading-3  md:leading-[40px]  lg:leading-main font-bold">
+            Next Steps
+          </h4>
+          <p className="text-black description text-center mt-1">
+            Sign up now and attend this year’s high profile and
+            thought-provoking The Maritime Standard Tanker Conference!
+          </p>
+          <Link
+            href={"#"}
+            className="buttonGradient-3 px-6 md:px-8 py-3 md:py-4 text-white text-center font-medium block mt-3 md:mt-5 hover:scale-[1.02] transition-all duration-300 text-sm md:text-base w-fit"
+          >
+            Sign Up Now.
+          </Link>
+        </div>
+      </section>
+      {sponsors && (
+        <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16">
+          <div className="space-y-9">
+            <Sponsors data={sponsors} isSponsor={true} />
+            <Sponsors data={supporting_associations} />
+            <Sponsors data={media_partners} />{" "}
+          </div>
+        </div>
+      )}
     </>
   );
 };

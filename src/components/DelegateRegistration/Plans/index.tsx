@@ -1,7 +1,16 @@
-import { SectionOnePropsTyps } from "@/types/common";
 import React from "react";
 import PlansTable from "../PlansTable";
 import DelegateRegisterForm from "../RegisterForm";
+
+type Props = {
+  heading: string;
+  price_list: any;
+  table_heading: string;
+  table_heading_2: string;
+  register_heading: string;
+  register_price: any;
+  companyList: any;
+};
 
 const PricingPlans = ({
   heading,
@@ -10,11 +19,20 @@ const PricingPlans = ({
   table_heading_2,
   register_heading,
   register_price,
-}: SectionOnePropsTyps) => {
+  companyList,
+}: Props) => {
   return (
-    <section className="pt-5 md:pt-8 lg:pt-12  xl:pt-16 2xl:pt-20 section-wrapper">
+    <section className="pt-5 md:pt-8 lg:pt-12  xl:pt-14 section-wrapper">
       <div>
-        <h2 className="main-heading-2 gradient-text  md:mx-auto w-fit !leading-2 mb-3 md:mb-5 xl:mb-8">
+        <h2
+          className="main-heading-2   mx-auto w-fit mb-4 md:mb-5 xl:mb-6 font-bold"
+          style={{
+            background: "linear-gradient(90deg, #38C7FF 0.19%, #00A25D 66.61%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
           {heading}
         </h2>
 
@@ -28,6 +46,7 @@ const PricingPlans = ({
       <DelegateRegisterForm
         heading={register_heading}
         priceDetails={register_price}
+        NatureOfCompanyList={companyList}
       />
     </section>
   );

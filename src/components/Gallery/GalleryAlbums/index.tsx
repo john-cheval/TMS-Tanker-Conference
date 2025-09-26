@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import GalleryCard from "@/components/shared/ui/Cards/GalleryCard";
+import GalleryAccordion from "../GalleryAccordion";
 
 export interface PhotoGalleryType {
   id: number;
@@ -33,55 +34,45 @@ const GalleryAlbums = ({ data }: Props) => {
   const filteredAlbum = data?.find((item) => item?.name === selectedConferece);
   return (
     <section className="section-wrapper pt-6 md:pt-8 lg:pt-10 xl:pt-14 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
-      <div className="flex gap-x-2.5 md:gap-x-3 lg:justify-center  overflow-x-auto whitespace-nowrap no-scrollbar w-full flex-nowrap">
-        {data &&
-          data?.map((item, index) => {
-            return (
-              <button
-                key={index}
-                onClick={() => setSelectedConference(item?.name)}
-                className={`
-                  relative py-2 sm:py-3 px-4 sm:px-5 text-sm sm:text-base leading-5 text-center rounded-sm
-                  border border-[#dbdbdb] font-medium text-dark-alter
-                  overflow-hidden transition-all duration-500 flex-shrink-0
-                `}
-              >
-                <span
-                  className={`
-                    absolute inset-0 z-0 transition-opacity duration-500
-                    ${
-                      selectedConferece === item?.name
-                        ? "opacity-100 bg-gradient-to-r from-[#4d1592] to-[#0078bb]"
-                        : "opacity-0"
-                    }
-                  `}
-                />
-                {/* text content */}
-                <span
-                  className={`relative z-10 ${
+      <div className="  grid-cols-12 gap-x-10 md:gap-x-12 xl:gap-x-20 hidden md:grid">
+        <div className="col-span-4">
+          {data &&
+            data?.map((item, index) => {
+              return (
+                <button
+                  key={index + 1}
+                  onClick={() => setSelectedConference(item?.name)}
+                  className={` leading-5  flex flex-col border-b gradient-border-2 w-full text-left ${
+                    index === 0 ? "pb-5" : "py-5"
+                  } hover:text-tms-green transition-all duration-300 ${
                     selectedConferece === item?.name
-                      ? "text-white font-bold"
-                      : "text-dark-alter"
+                      ? "font-semibold text-xl gradient-text-3"
+                      : "text-[#6f6e6e] text-xl font-medium"
                   }`}
                 >
                   {item?.name}
-                </span>
-              </button>
-            );
-          })}
+                </button>
+              );
+            })}
+        </div>
+        <div className="col-span-8 grid grid-cols-2 gap-5">
+          {Array.isArray(filteredAlbum?.photo_gallery) &&
+          filteredAlbum.photo_gallery.length > 0 ? (
+            filteredAlbum?.photo_gallery?.map((item, index) => {
+              return (
+                <GalleryCard key={index + 1} {...item} isAlbumPage={true} />
+              );
+            })
+          ) : (
+            <p className="text-lg sm:text-xl md:text-2xl col-span-12 font-medium text-center">
+              There is No Albums in this Conference Year
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="mt-6 md:mt-8 lg:mt-10 xl:mt-12 grid grid-cols-2 md:grid-cols-3 3xl:grid-cols-4 gap-2.5 md:gap-3 lg:gap-4">
-        {Array.isArray(filteredAlbum?.photo_gallery) &&
-        filteredAlbum.photo_gallery.length > 0 ? (
-          filteredAlbum?.photo_gallery?.map((item, index) => {
-            return <GalleryCard key={index + 1} {...item} isAlbumPage={true} />;
-          })
-        ) : (
-          <p className="text-lg sm:text-xl md:text-2xl col-span-12 font-medium text-center">
-            There is No Albums in this Conference Year
-          </p>
-        )}
+      <div className="  md:hidden">
+        <GalleryAccordion galleryData={data} />
       </div>
     </section>
   );

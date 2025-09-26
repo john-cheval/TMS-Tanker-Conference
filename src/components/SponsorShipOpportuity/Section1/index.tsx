@@ -3,7 +3,6 @@ import React, { useRef } from "react";
 import Packages from "../Packages/Packages";
 import PackagesAccordion from "../PackagesAccordion";
 import BecomeSponsorSmall from "@/components/Forms/BecomeSponsorSmall";
-import Link from "next/link";
 
 type Props = {
   heading?: string;

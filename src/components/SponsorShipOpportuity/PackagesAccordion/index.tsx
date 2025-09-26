@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import { accordionVariants } from "@/constants/motionVariants";
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
-import arrowDown from "@/assets/shared/chevron-right.png";
-import Link from "next/link";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import SponsoredOppCard from "@/components/shared/ui/Cards/SponsoredOppCard";
 
 type Props = {

@@ -6,6 +6,7 @@ import {
   ValidationRule,
   Path,
 } from "react-hook-form";
+import { CiEdit } from "react-icons/ci";
 
 // Make the interface generic
 interface TextElementProps<TFieldValues extends FieldValues>
@@ -17,6 +18,7 @@ interface TextElementProps<TFieldValues extends FieldValues>
   rules?: ValidationRule<any>;
   isBlue?: boolean;
   isLight?: boolean;
+  isIcon?: boolean;
 }
 
 const getNestedError = (errors: any, name: any) => {
@@ -47,11 +49,12 @@ const TextElement = <TFieldValues extends FieldValues>({
   rules = {},
   isBlue = false,
   isLight = false,
+  isIcon = false,
   ...rest
 }: TextElementProps<TFieldValues>) => {
   const errorMessage = getNestedError(errors, name);
   return (
-    <div className="flex flex-col gap-y-2 flex-grow-1">
+    <div className="flex flex-col gap-y-2 flex-grow-1 relative">
       <input
         className={` "fix-autofill-dark" 
           no-arrow-number   ${
@@ -61,6 +64,9 @@ const TextElement = <TFieldValues extends FieldValues>({
         {...register(name, rules)}
         {...rest}
       />
+      {isIcon && (
+        <CiEdit className="absolute top-3 md:top-5 text-white  right-5 text-lg md:text-xl" />
+      )}
       {errorMessage && (
         <p className="text-red-500 text-sm">{errorMessage as string}</p>
       )}

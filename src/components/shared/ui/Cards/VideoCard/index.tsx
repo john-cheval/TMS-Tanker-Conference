@@ -15,12 +15,12 @@ const VideoCard = ({ title, youtube_id }: VideoCardProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="relative responsive-radius overflow-hidden">
+    <div className="relative  overflow-hidden">
       <div onClick={() => setIsPlaying(true)}>
         <YoutubePlayer youtube_id={youtube_id} title={title} />
       </div>
 
-      <div
+      {/* <div
         className={`
           absolute bottom-0 left-0 w-full h-full max-h-[100px] 
           bg-gradient-to-b from-transparent to-black transition-opacity duration-300
@@ -35,7 +35,7 @@ const VideoCard = ({ title, youtube_id }: VideoCardProps) => {
         `}
       >
         {title}
-      </p>
+      </p> */}
     </div>
   );
 };

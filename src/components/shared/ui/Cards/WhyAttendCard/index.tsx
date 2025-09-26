@@ -8,7 +8,7 @@ const WhyAttendCard = ({
   description,
 }: WhyAttendListType) => {
   return (
-    <div className="rounded-sm overflow-hidden relative">
+    <div className="overflow-hidden relative">
       {" "}
       <Image
         src={image_url ?? ""}
@@ -19,13 +19,13 @@ const WhyAttendCard = ({
         className="w-full h-auto "
       />
       {(title || description) && (
-        <div className="absolute z-50 bottom-7 lg:bottom-8 xl:bottom-10 left-5 lg:left-6 xl:left-8 right-5 lg:right-6 xl:right-8">
+        <div className="absolute z-50 bottom-5 lg:bottom-8 xl:bottom-10 left-5 lg:left-6 xl:left-8 right-5 lg:right-6 xl:right-8 space-y-2">
           <h6 className="text-xl  text-white  leading-5 font-bold">{title}</h6>
           <p className="description text-white">{description}</p>
         </div>
       )}
       {(title || description) && (
-        <div className="absolute z-40 bottom-0 left-0 CardGraient w-full h-full" />
+        <div className="absolute z-40 bottom-0 left-0 CardGraient3 w-full h-full" />
       )}
     </div>
   );
