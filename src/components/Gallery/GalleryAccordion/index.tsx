@@ -21,7 +21,6 @@ type Props = {
 };
 
 const GalleryAccordion = ({ galleryData }: Props) => {
-  console.log(galleryData, "this is the gallery data");
   const [openIndex, setOpenIndex] = useState<number | null>(galleryData[0]?.id);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
