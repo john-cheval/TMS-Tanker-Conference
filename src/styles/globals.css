@@ -210,12 +210,7 @@ ul {
   background-size: 20px;
   padding-left: 30px;
 }
-.attend-description ul {
-  @apply flex flex-col md:flex-row md:flex-wrap md:justify-between gap-x-3 list-disc pl-3 lg:pl-10;
-}
-.attend-description ul li {
-  @apply text-sm md:text-base font-normal leading-5 text-dark-alter mb-2 md:w-[47%];
-}
+
 /* .delegate-description h4 {
   @apply text-2xl font-bold leading-3 text-tms-blue mb-3 md:mb-4 not-first:mt-5 lg:not-first:mt-6 xl:not-first:mt-10;
 } */
@@ -419,9 +414,18 @@ ul {
 .CardGraient {
   background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
 }
+
 .CardGraient2 {
   background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0) 100%);
 }
+
+.CardGraient3 {
+  background: linear-gradient(360deg, #0c1e23 0%, rgba(0, 0, 0, 0) 100%);
+}
+.CardGraient4 {
+  background: linear-gradient(180deg, #0c1e23 0%, rgba(0, 0, 0, 0) 100%);
+}
+
 .top-section-gradient {
   fill: linear-gradient(
     89deg,
@@ -484,6 +488,13 @@ ul {
   background-position: left 4px;
   background-size: 20px;
   padding-left: 30px;
+}
+
+.attend-description ul {
+  @apply flex flex-col md:flex-row md:flex-wrap md:justify-between gap-x-3 list-disc pl-3 lg:pl-10;
+}
+.attend-description ul li {
+  @apply text-sm md:text-base font-normal leading-5 text-dark-alter mb-2 md:w-[47%];
 }
 
 .active-1 {

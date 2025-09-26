@@ -1,77 +1,73 @@
-import BigButton from "@/components/shared/ui/Button/BigButton";
-import SmallTitle from "@/components/shared/ui/Headings/SmallTitle";
-import { SectionOnePropsTyps } from "@/types/common";
 import Image from "next/image";
-import ai from "@/assets/shared/ai_small_24.svg";
 import React from "react";
+import Link from "next/link";
+
+type Props = {
+  heading: string;
+  description: string;
+  button_link: string;
+  button_text: string;
+  image: string;
+  heading_2: string;
+  description_2: string;
+};
 
 const WhoShouldAttendSectionOne = ({
-  small_title,
   heading,
   description,
   button_link,
   button_text,
   image,
-  image_alt_tag,
-  image_2,
-  image_alt_tag_2,
   heading_2,
   description_2,
-}: SectionOnePropsTyps) => {
+}: Props) => {
   return (
-    <section className="section-wrapper pt-5 md:pt-8 lg:pt-10 xl:pt-16 2xl:pt-20 ">
-      <SmallTitle title={small_title} />
+    <section className="section-wrapper pt-5 md:pt-8 lg:pt-10 xl:pt-14 ">
+      <article className="grid grid-cols-12 bg-tms-black text-white">
+        <div className="col-span-12 md:col-span-5 lg:col-span-4 relative">
+          <Image
+            src={image ?? "image-1"}
+            alt={heading ?? "image"}
+            width={500}
+            height={300}
+            className="w-full h-full object-cover"
+          />
+          <div
+            className="absolute w-full h-full right-0 top-0 hidden md:block"
+            style={{
+              background:
+                "linear-gradient(270deg, #0C1E23 0%, rgba(12, 30, 35, 0.16) 58.47%)",
+            }}
+          />
+          <div
+            className="absolute w-full h-full left-0 bottom-0  md:hidden"
+            style={{
+              background:
+                "linear-gradient(360deg, #0C1E23 0%, rgba(12, 30, 35, 0.16) 58.47%)",
+            }}
+          />
+        </div>
 
-      <div className="grid grid-cols-12 gap-y-5 lg:gap-y-0 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 pt-4 md:pt-8 lg:pt-10 xl:pt-14">
-        <article className="col-span-12 lg:col-span-6 flex flex-col justify-center mt-6">
-          <h3 className="main-heading text-tms-purple leading-3 lg:leading-2 xl:leading-1 font-bold">
-            {heading}
-          </h3>
-          <div
-            className="description text-dark-alter mt-3 md:mt-4 mb-5 md:mb-7 lg:mb-10 xl:mb-11"
-            dangerouslySetInnerHTML={{ __html: description ?? "" }}
-          />
-          <div className="">
-            <BigButton hrefs={button_link}>{button_text}</BigButton>
-          </div>
-        </article>
-        <article className="col-span-12 lg:col-span-6 ">
-          <Image
-            src={image ?? ""}
-            alt={image_alt_tag ?? "Who Should Attend"}
-            width={285}
-            height={400}
-            className="w-full h-full  object-cover responsive-radius  shrink-0"
-          />
-        </article>
-      </div>
-      <div className="grid grid-cols-12 gap-y-6 lg:gap-y-0 md:gap-x-8 lg:gap-x-12 xl:gap-x-16 mt-4 md:mt-8 lg:mt-14 xl:mt-14">
-        <article className="col-span-12 lg:col-span-6 ">
-          <Image
-            src={image_2 ?? ""}
-            alt={image_alt_tag_2 ?? "Who Should Attend"}
-            width={285}
-            height={400}
-            className="w-full h-full  object-cover responsive-radius  shrink-0"
-          />
-        </article>
-        <article className="col-span-12 lg:col-span-6 flex flex-col justify-center">
-          <h6 className="description text-black font-bold leading-5 flex  gap-x-2.5 pb-4 border-b border-light-grey ">
-            <Image
-              src={ai}
-              alt="TMS AI"
-              width={24}
-              height={24}
-              className="w-full h-fit object-contain max-w-[24px]"
-            />
-            {heading_2}
-          </h6>
-          <div
-            className="attend-description text-dark-alter mt-4 md:mt-5 lg:mt-6 "
-            dangerouslySetInnerHTML={{ __html: description_2 ?? "" }}
-          />
-        </article>
-      </div>
+        <div className="col-span-12 md:col-span-7 lg:col-span-8 px-5 md:px-8 lg:px-10 xl:px-14  py-5 md:py-8 lg:py-10 xl:py-12 flex flex-col justify-center">
+          <p className="description text-center md:text-left">{description}</p>
+          <Link
+            href={button_link}
+            className="buttonGradient-3 px-4 sm:px-6 md:px-8 py-3 md:py-4 text-white text-center font-medium block mt-3 md:mt-5 hover:scale-[1.02] transition-all duration-300 text-sm md:text-base w-fit mx-auto md:mx-0"
+          >
+            {button_text}
+          </Link>
+        </div>
+      </article>
+
+      <article className="mt-4 md:mt-8 lg:mt-12 xl:mt-14 grid grid-cols-12 gap-x-5 md:gap-x-10 xl:gap-x-14">
+        <h4 className="text-[#008ac0] text-xl md:text-2xl font-medium leading-4 md:leading-3 col-span-12 md:col-span-6 lg:col-span-5">
+          {heading_2}
+        </h4>
+        <div
+          className="attend-description col-span-12 md:col-span-6 lg:col-span-7 text-black mt-4 md:mt-0  "
+          dangerouslySetInnerHTML={{ __html: description_2 ?? "" }}
+        />
+      </article>
     </section>
   );
 };

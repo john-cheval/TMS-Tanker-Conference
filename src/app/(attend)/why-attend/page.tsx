@@ -1,6 +1,5 @@
 import SharedTopSection from "@/components/shared/Sections/TopSection";
 import Sponsors from "@/components/shared/Sponsors";
-// import Sponsors from "@/components/shared/Sponsors";
 import WhyAttendSectionOne from "@/components/why-attend/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
@@ -18,7 +17,6 @@ const WhyAttend = async () => {
   );
   const {
     page_top_banner,
-    become_a_sponsor_form,
     sponsors,
     supporting_associations,
     media_partners,
@@ -46,7 +44,7 @@ const WhyAttend = async () => {
           </p>
           <Link
             href={"#"}
-            className="buttonGradient-3 px-6 md:px-8 py-3 md:py-4 text-white text-center font-medium block mt-3 md:mt-5 hover:scale-[1.02] transition-all duration-300 text-sm md:text-base"
+            className="buttonGradient-3 px-6 md:px-8 py-3 md:py-4 text-white text-center font-medium block mt-3 md:mt-5 hover:scale-[1.02] transition-all duration-300 text-sm md:text-base w-fit"
           >
             Sign Up Now.
           </Link>

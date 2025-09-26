@@ -46,12 +46,6 @@ export type ImageGalleryTypes = {
   image_url?: string;
 };
 
-export type WhyAttendListType = {
-  title?: string;
-  description: string;
-  image_url?: string;
-};
-
 export type SectionOnePropsTyps = {
   small_title?: string;
   small_title_2?: string;
@@ -160,4 +154,10 @@ export type sponsorDataType = {
 export type SponsorType = {
   heading: string;
   data: sponsorDataType[];
+};
+
+export type WhyAttendListType = {
+  title?: string;
+  description?: string;
+  image_url: string;
 };
