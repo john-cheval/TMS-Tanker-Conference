@@ -104,8 +104,8 @@ const TitleSelectElement = forwardRef(
       control: (styles: any) => ({
         ...styles,
         borderColor: "#fff",
-        borderRadius: "8px",
         backgroundColor: "transparent",
+        borderRadius: "0",
         paddingBlock: "8px",
         paddingLeft: getPaddingLeft(),
         color: "#fff",
@@ -126,7 +126,6 @@ const TitleSelectElement = forwardRef(
         ...styles,
         backgroundColor: isFocused ? "#0078ee" : isSelected ? "#4d1592" : "",
         color: "#fff",
-        borderRadius: "4px",
         "&:hover": {
           borderColor: "#fff",
         },

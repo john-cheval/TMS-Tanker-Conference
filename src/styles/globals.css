@@ -403,7 +403,6 @@ ul {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .gradient-text-3 {
   background: linear-gradient(90deg, #38c7ff 0%, #008f57 63.9%);
   background-clip: text;
@@ -496,7 +495,9 @@ ul {
 .attend-description ul li {
   @apply text-sm md:text-base font-normal leading-5 text-dark-alter mb-2 md:w-[47%];
 }
-
+.delegateDescription ul {
+  @apply pl-6 list-disc space-y-1;
+}
 .active-1 {
   margin-top: 0;
 }

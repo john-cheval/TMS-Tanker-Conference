@@ -1,16 +1,20 @@
 "use client";
 import FormRow from "@/components/Forms/FormRow";
+import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
+import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
 import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import TextElement from "@/components/shared/Inputs/TextElement";
+import TitleSelectElement from "@/components/shared/Inputs/TitleSelectElement";
 import { accordionVariants } from "@/constants/motionVariants";
+import { baseUrl } from "@/lib/api";
+import ReCaptcha from "@/utils/ReCaptcha";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { RiGeminiFill } from "react-icons/ri";
+import { toast } from "sonner";
 
 type Props = {
   heading?: string;
@@ -20,6 +24,7 @@ type Props = {
     min_delegates: string;
     price: string;
   }[];
+  NatureOfCompanyList: any;
 };
 
 interface DelegateData {
@@ -44,12 +49,20 @@ interface FormData {
   numberOfDelegates: number;
   delegates: DelegateData[];
 }
-
-const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
+interface RecaptchaRefType {
+  resetCaptcha: () => void;
+}
+const DelegateRegisterForm = ({
+  heading,
+  priceDetails,
+  NatureOfCompanyList,
+}: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  const [token, setToken] = useState("");
+  const recaptchaRef = useRef<RecaptchaRefType>(null);
 
   const {
     register,
@@ -57,15 +70,28 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
     watch,
     setValue,
     control,
+    reset,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
       planType: priceDetails[0]?.title || "Individual",
       numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
       delegates: [],
+      termsAccepted: false,
     },
     mode: "onBlur",
   });
+
+  const termsAccepted = watch("termsAccepted");
+  const isFormValid = termsAccepted && token;
+
+  const handleToken = useCallback((recaptchaToken: string | null) => {
+    if (recaptchaToken) {
+      setToken(recaptchaToken);
+    } else {
+      setToken("");
+    }
+  }, []);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -119,15 +145,92 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
   const vat = subtotal * 0.05;
   const grandTotal = subtotal + vat;
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form Data:", data);
+  // Add this to your DelegateRegisterForm component
+  // after the onSubmit function
+  const onSubmit = async (data: any) => {
+    const formData = new FormData();
+
+    // Append basic form data
+    formData.append("booking_type", selectedPlan);
+    formData.append("single_seat_price", ticketPrice.toFixed(2));
+    formData.append("total_seat", data.numberOfDelegates.toString());
+    formData.append("total_withouttax", subtotal.toFixed(2));
+    formData.append("total_tax", vat.toFixed(2));
+    formData.append("total_amount", grandTotal.toFixed(2));
+
+    // Assuming you'll add a state for the checkbox
+    formData.append("terms_conditions", "1"); // Or `data.agreedToTerms ? '1' : '0'`
+
+    data.delegates.forEach((delegate: any, index: number) => {
+      formData.append(`delegate[${index}][title]`, delegate.title);
+      formData.append(`delegate[${index}][fname]`, delegate.firstName);
+      formData.append(`delegate[${index}][lname]`, delegate.lastName);
+      formData.append(`delegate[${index}][nationality]`, delegate.nationality);
+      formData.append(`delegate[${index}][country]`, delegate.country);
+      formData.append(
+        `delegate[${index}][country_code]`,
+        delegate.contactCountryCode
+      );
+      formData.append(
+        `delegate[${index}][telephone]`,
+        delegate.contact.toString()
+      );
+      formData.append(`delegate[${index}][email_address]`, delegate.email);
+      formData.append(`delegate[${index}][job_title]`, delegate.designation); // Note: Renamed from designation
+      formData.append(`delegate[${index}][c_name]`, delegate.company);
+      formData.append(
+        `delegate[${index}][tax_number]`,
+        delegate.taxRegisterationNumber
+      );
+      formData.append(
+        `delegate[${index}][nature_company]`,
+        delegate.natureOfCompany
+      );
+      formData.append(
+        `delegate[${index}][nature_company_other]`,
+        delegate.ifOthers
+      );
+      formData.append(
+        `delegate[${index}][additional_details]`,
+        delegate.addditionalDetails
+      );
+    });
+
+    try {
+      const response = await fetch(`${baseUrl}/registergueststore`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        // reset();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
+      } else {
+        console.error("Form submission failed.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
     <div className=" mt-8 lg:mt-10">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-[#f5f5f5] rounded-2xl pt-5 md:pt-8 lg:pt-10  xl:pt-11 pb-20 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 3xl:px-36">
-          <h3 className="gradient-text main-heading-2 w-fit md:mx-auto">
+        <div className="bg-[#f5f5f5]  pt-5 md:pt-8 lg:pt-10  xl:pt-11 pb-20 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 3xl:px-36">
+          <h3
+            className=" main-heading-2 w-fit md:mx-auto font-bold"
+            style={{
+              background:
+                "linear-gradient(90deg, #38C7FF 0.19%, #00A25D 66.61%)",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
             {heading}
           </h3>
           <div className="mt-3 md:mt-5 lg:mt-7">
@@ -223,7 +326,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
             </div>
           </div>
         </div>
-        <div className="bg-tms-blue rounded-2xl pt-8 sm:pt-10 lg:pt-12 xl:pt-14 px-5 sm:px-6 md:px-10 lg:px-16 xl:px-[70px] pb-7 md:pb-10 lg:pb-12 xl:pb-16 2xl:pb-20 mt-[-50px] w-full">
+        <div className="bg-tms-green  pt-8 sm:pt-10 lg:pt-12 xl:pt-14 px-5 sm:px-6 md:px-10 lg:px-16 xl:px-[70px] pb-7 md:pb-10 lg:pb-12 xl:pb-16 2xl:pb-20 mt-[-50px] w-full">
           <div className="pb-4 md:pb-6 lg:pb-8">
             {fields.map((field, index) => {
               const isAccordionOpen = openIndex === index;
@@ -239,7 +342,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                     type="button"
                     onClick={() => toggleAccordion(index as number)}
                   >
-                    <span className="main-heading-2 !text-white">
+                    <span className="main-heading-2 font-bold !text-white">
                       Delegate {index + 1}
                     </span>
                     {isAccordionOpen ? (
@@ -260,26 +363,28 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                       >
                         <div className="pt-5 md:pt-7 lg:pt-9">
                           <div>
-                            <p className="flex items-center gap-x-2.5 mb-4">
-                              <RiGeminiFill color="#fff" />
-                              <span className="text-white text-base font-bold leading-5">
-                                {" "}
-                                Personal detail
-                              </span>
+                            <p className="mb-4 text-white font-medium text-xl md:text-2xl leading-5">
+                              Personal Details
                             </p>
 
                             <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
-                              <TextElement
-                                label="Title"
-                                name={`delegates.${index}.title`}
-                                type="text"
-                                placeholder="Title"
-                                register={register}
-                                errors={errors}
-                                rules={{
-                                  required: "Title is required.",
-                                }}
-                              />
+                              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.title`}
+                                    control={control}
+                                    rules={{ required: "Title is required." }}
+                                    render={({ field }) => (
+                                      <TitleSelectElement
+                                        {...field}
+                                        name={`delegates.${index}.title`}
+                                        errors={errors}
+                                      />
+                                    )}
+                                  />
+                                </div>
+                                <div className="flex-1 hidden md:block" />
+                              </FormRow>
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
                                 <TextElement
                                   label="First Name"
@@ -291,6 +396,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                   rules={{
                                     required: "First Name is required.",
                                   }}
+                                  isLight={true}
                                 />
 
                                 <TextElement
@@ -303,34 +409,43 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                   rules={{
                                     required: "Last Name is required.",
                                   }}
+                                  isLight={true}
                                 />
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
-                                <TextElement
-                                  label="Nationality"
-                                  name={`delegates.${index}.nationality`}
-                                  type="text"
-                                  placeholder="Nationality"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required: "Nationality is required.",
-                                  }}
-                                />
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.nationality`}
+                                    control={control}
+                                    rules={{
+                                      required: "Nationality is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <NationalitySelectElement
+                                        {...field}
+                                        name={`delegates.${index}.nationality`}
+                                        errors={errors}
+                                      />
+                                    )}
+                                  />
+                                </div>
 
-                                <TextElement
-                                  label="Country of Residence"
-                                  name={`delegates.${index}.country`}
-                                  type="text"
-                                  placeholder="Country of Residence"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required:
-                                      "Country of Residence is required.",
-                                  }}
-                                />
+                                <div className=" flex-1">
+                                  <TextElement
+                                    label="Country of Residence"
+                                    name={`delegates.${index}.country`}
+                                    type="text"
+                                    placeholder="Country of Residence"
+                                    register={register}
+                                    errors={errors}
+                                    rules={{
+                                      required:
+                                        "Country of Residence is required.",
+                                    }}
+                                    isLight={true}
+                                  />
+                                </div>
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
@@ -356,6 +471,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                         message: "Please enter a valid number.",
                                       },
                                     }}
+                                    isLight={true}
                                   />
                                 </div>
 
@@ -375,6 +491,7 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                           "Please enter a valid email address.",
                                       },
                                     }}
+                                    isLight={true}
                                   />
                                 </div>
                               </FormRow>
@@ -382,12 +499,8 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                           </div>
 
                           <div className="mt-5 md:mt-7 lg:mt-9">
-                            <p className="flex items-center gap-x-2.5 mb-4">
-                              <RiGeminiFill color="#fff" />
-                              <span className="text-white text-base font-bold leading-5">
-                                {" "}
-                                Company detail
-                              </span>
+                            <p className="mb-4 text-white font-medium text-xl md:text-2xl leading-5">
+                              Company Details
                             </p>
 
                             <div className=" flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
@@ -402,6 +515,8 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                   rules={{
                                     required: "Designation is required.",
                                   }}
+                                  isLight={true}
+                                  isIcon={true}
                                 />
 
                                 <TextElement
@@ -414,34 +529,48 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                   rules={{
                                     required: "Company is required.",
                                   }}
+                                  isLight={true}
+                                  isIcon={true}
                                 />
                               </FormRow>
 
                               <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
-                                <TextElement
-                                  label="Tax Registration Number"
-                                  name={`delegates.${index}.taxRegisterationNumber`}
-                                  type="number"
-                                  placeholder="Tax Registration Number"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required:
-                                      "Tax Registration Number is required.",
-                                  }}
-                                />
+                                <div className="flex-1">
+                                  <TextElement
+                                    label="Tax Registration Number"
+                                    name={`delegates.${index}.taxRegisterationNumber`}
+                                    type="number"
+                                    placeholder="Tax Registration Number"
+                                    register={register}
+                                    errors={errors}
+                                    rules={{
+                                      required:
+                                        "Tax Registration Number is required.",
+                                    }}
+                                    isLight={true}
+                                    isIcon={true}
+                                  />
+                                </div>
 
-                                <TextElement
-                                  label="Nature of Company"
-                                  name={`delegates.${index}.natureOfCompany`}
-                                  type="text"
-                                  placeholder="Nature of Company"
-                                  register={register}
-                                  errors={errors}
-                                  rules={{
-                                    required: "Nature of Company is required.",
-                                  }}
-                                />
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.natureOfCompany`}
+                                    control={control}
+                                    rules={{
+                                      required:
+                                        "Nature of Company is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <NatureOfCompanySelectElement
+                                        {...field}
+                                        name={`delegates.${index}.natureOfCompany`}
+                                        errors={errors}
+                                        companyListData={NatureOfCompanyList}
+                                        isDark={true}
+                                      />
+                                    )}
+                                  />
+                                </div>
                               </FormRow>
 
                               <TextAreaElement
@@ -451,6 +580,8 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                 register={register}
                                 errors={errors}
                                 rows={3}
+                                isLight={true}
+                                isIcon={true}
                               />
 
                               <TextAreaElement
@@ -463,6 +594,8 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
                                 rules={{
                                   required: "Additional Details is required.",
                                 }}
+                                isLight={true}
+                                isIcon={true}
                               />
                             </div>
                           </div>
@@ -479,7 +612,8 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
             <input
               id="default-checkbox"
               type="checkbox"
-              value=""
+              // value=""
+              {...register("termsAccepted", { required: true })}
               className="w-5 h-5 text-blue-600 outline-0  border-white rounded-sm focus:ring-0 dark:bg-gray-700 bg-transparent "
             />{" "}
             <label
@@ -487,18 +621,35 @@ const DelegateRegisterForm = ({ heading, priceDetails }: Props) => {
               className="ms-2 description text-white leading-3"
             >
               I agree to the delegate booking{" "}
-              <Link href="#" className="underline">
+              <Link
+                href="/delegate-booking-terms-and-conditions"
+                className="underline"
+              >
                 Terms and Conditions
               </Link>
             </label>
           </div>
+          {errors.termsAccepted && (
+            <p className="text-red-500 text-sm mt-1">
+              Please accept the terms and conditions.
+            </p>
+          )}
+          <div className="mt-4 md:mt-6 flex justify-center ">
+            <ReCaptcha
+              siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+              callback={handleToken}
+              ref={recaptchaRef}
+            />
+          </div>
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
-              className="bg-white text-tms-purple text-lg font-bold leading-5 rounded-lg py-6 px-5 flex gap-x-2.5 group items-center"
+              className={`bg-white text-black text-base font-medium leading-5  py-3 px-8 flex gap-x-2.5 group items-center border border-white hover:bg-transparent hover:text-white transiiton-colors duration-300 ${
+                isFormValid ? "" : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={!isFormValid}
             >
-              Proceed to Pay{" "}
-              <MdOutlineKeyboardArrowRight className="text-2xl text-tms-purple group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+              Proceed to Pay
             </button>
           </div>
         </div>

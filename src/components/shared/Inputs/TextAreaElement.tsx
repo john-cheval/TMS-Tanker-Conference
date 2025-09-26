@@ -6,6 +6,7 @@ import {
   ValidationRule,
   Path,
 } from "react-hook-form";
+import { CiEdit } from "react-icons/ci";
 
 // Update the interface to extend TextareaHTMLAttributes
 interface TextAreaElementProps<TFieldValues extends FieldValues>
@@ -17,6 +18,7 @@ interface TextAreaElementProps<TFieldValues extends FieldValues>
   isBlue?: boolean;
   rules?: ValidationRule<any>;
   isLight?: boolean;
+  isIcon?: boolean;
 }
 
 const getNestedError = (errors: any, name: any) => {
@@ -46,6 +48,7 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   errors,
   isBlue = false,
   isLight = false,
+  isIcon = false,
   rules = {},
   ...rest
 }: TextAreaElementProps<TFieldValues>) => {
@@ -53,7 +56,7 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
   const errorMessage = getNestedError(errors, name);
 
   return (
-    <div className="flex flex-col gap-y-2 flex-grow-1">
+    <div className="flex flex-col gap-y-2 flex-grow-1 relative">
       <textarea
         className={` fix-autofill-dark ${
           isLight ? "input-alter " : " input gradient-border-2"
@@ -62,6 +65,9 @@ const TextAreaElement = <TFieldValues extends FieldValues>({
         {...register(name, rules)}
         {...rest}
       />
+      {isIcon && (
+        <CiEdit className="absolute top-3 md:top-5 text-white  right-5 text-lg md:text-xl" />
+      )}
       {errorMessage && (
         <p className="text-red-500 text-sm">{errorMessage as string}</p>
       )}
