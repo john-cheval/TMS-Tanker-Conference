@@ -79,7 +79,7 @@ const GalleryCard = ({
     <>
       <div
         onClick={() => handleOpenModal(index)}
-        className="responsive-radius overflow-hidden relative cursor-pointer"
+        className=" overflow-hidden relative cursor-pointer"
       >
         <Image
           src={image_url}
