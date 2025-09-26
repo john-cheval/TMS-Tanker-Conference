@@ -1,36 +1,41 @@
 "use client";
 import React, { useState } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa6";
-import { accordionVariants } from "@/constants/motionVariants";
+import { PhotoGalleryType } from "../GalleryAlbums";
+import { FaMinus, FaPlus } from "react-icons/fa6";
 import { AnimatePresence, motion } from "motion/react";
-import SponsoredOppCard from "@/components/shared/ui/Cards/SponsoredOppCard";
+import { accordionVariants } from "@/constants/motionVariants";
+import GalleryCard from "@/components/shared/ui/Cards/GalleryCard";
+
+interface GalleryType {
+  id: number;
+  name: string;
+  year: string;
+  photo_gallery: PhotoGalleryType[];
+}
 
 type Props = {
-  packageData?: any;
+  galleryData: GalleryType[];
 };
 
-const PackagesAccordion = ({ packageData }: Props) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(packageData?.id);
+const GalleryAccordion = ({ galleryData }: Props) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(galleryData[0]?.id);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-  if (!packageData || packageData.length === 0) {
+  if (!galleryData || galleryData.length === 0) {
     return (
       <p className="text-2xl text-center text-tms-blue font-bold">
         No Packages Available
       </p>
     );
   }
-  return (
-    <article className="w-full" id="packageList">
-      {packageData?.map((item: any, index: number) => {
-        const isAccordionOpen = openIndex === item?.id;
 
+  return (
+    <article className="w-full">
+      {galleryData?.map((item, index) => {
+        const isAccordionOpen = openIndex === item?.id;
         return (
-          <div
-            className="py-2 border-b border-b-tms-tanker-blue-2"
-            key={index + 1}
-          >
+          <div className="py-2 border-b border-b-tms-tanker-blue-2" key={index}>
             <>
               <button
                 className={`flex gap-x-5 items-center justify-between w-full   leading-1 py-2`}
@@ -39,11 +44,11 @@ const PackagesAccordion = ({ packageData }: Props) => {
                 <p
                   className={`gradient-text w-fit  text-left transition-all duration-300 ${
                     isAccordionOpen
-                      ? "text-2xl sm:text-3xl mb-5 font-bold"
+                      ? "text-2xl sm:text-[25px] mb-5 font-bold"
                       : "text-xl font-semibold"
                   }`}
                 >
-                  {item?.title} {item?.small_title}
+                  {item?.name}
                 </p>
                 {isAccordionOpen ? (
                   <FaMinus className="text-black text-sm" />
@@ -63,14 +68,16 @@ const PackagesAccordion = ({ packageData }: Props) => {
                     className="overflow-hidden"
                   >
                     <div>
-                      {item?.sponsors && item?.sponsors?.length > 0 ? (
+                      {Array.isArray(item?.photo_gallery) &&
+                      item?.photo_gallery?.length > 0 ? (
                         <div className="space-y-3 sm:space-y-5">
-                          {item?.sponsors?.map(
-                            (sponsor: any, index: number) => {
+                          {item?.photo_gallery?.map(
+                            (gallery: any, index: number) => {
                               return (
-                                <SponsoredOppCard
+                                <GalleryCard
                                   key={index + 1}
-                                  {...sponsor}
+                                  {...gallery}
+                                  isAlbumPage={true}
                                 />
                               );
                             }
@@ -93,4 +100,4 @@ const PackagesAccordion = ({ packageData }: Props) => {
   );
 };
 
-export default PackagesAccordion;
+export default GalleryAccordion;
