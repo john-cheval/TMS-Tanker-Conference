@@ -1,48 +1,40 @@
 import { SpeakersDataProps } from "@/types/common";
 import Image from "next/image";
 import React from "react";
-import Ai from "@/assets/shared/ai-speakers.png";
+import overlayIcon from "@/assets/icons/speakerCardOVerlay.png";
 
 const SpeakersCardAlter = (props: SpeakersDataProps) => {
   const { image_url, name, post, company } = props;
   return (
-    <div className="rounded-sm bg-tms-light-blue px-4 md:px-5 lg:px-7  pt-10 md:pt-8 pb-6 md:pb-8 h-full md:min-h-[300px] relative">
-      <div className="flex flex-col items-center justify-center gap-y-3 md:gap-y-5 relative z-10">
+    <div className=" flex flex-col h-full">
+      <div className="relative border gradient-border-2 p-3 sm:p-5 md:p-6 lg:p-8">
         <Image
           src={image_url ?? ""}
           alt={name ?? ""}
           width={95}
           height={100}
-          className="w-full h-auto object-cover rounded-sm max-w-[100px] md:max-w-[150px]"
+          className="w-full h-auto border gradient-border-2 relative z-50"
         />
-
-        <div>
-          <p className="text-tms-purple text-center text-base md:text-lg lg:text-xl font-bold leading-5 max-w-[250px] mb-1 md:mb-2">
-            {name}
-          </p>
-          <p className="text-dark-alter text-center text-sm md:text-base font-normal leading-5">
-            {post}
-          </p>
-          <p className="text-dark-alter text-center text-sm md:text-base font-normal leading-5">
-            {company}
-          </p>
-        </div>
+        <Image
+          src={overlayIcon}
+          alt={"overlay_arrow"}
+          width={95}
+          height={100}
+          className="w-full h-auto  absolute right-1 sm:right-3  lg:right-5 top-5  md:top-8 max-w-[170px]"
+        />
       </div>
-      <Image
-        src={Ai}
-        alt="small_AI"
-        width={34}
-        height={34}
-        className="w-full h-auto max-w-[18px] md:max-w-8 object-cover absolute top-1 xl:top-2.5 right-16 xl:right-24"
-      />
 
-      <Image
-        src={Ai}
-        alt="small_AI"
-        width={129}
-        height={129}
-        className="w-full h-auto max-w-[75px] lg:max-w-[100px] xl:max-w-[129px] object-cover absolute top-3 md:top-8 right-[10%] sm:right-[20%]  md:right-0 xl:right-8"
-      />
+      <div className="border border-t-0 gradient-border-2 p-2 md:p-3 lg:p-5 h-full">
+        <p className="text-tms-tanker-blue-2 text-center text-sm sm:text-lg lg:text-2xl font-medium leading-4  mb-1 ">
+          {name}
+        </p>
+        <p className="text-tms-tanker-blue-2 text-center text-sm md:text-base font-normal leading-5">
+          {post}
+        </p>
+        <p className="text-tms-tanker-blue-2 text-center text-sm md:text-base font-semibold leading-5">
+          {company}
+        </p>
+      </div>
     </div>
   );
 };
