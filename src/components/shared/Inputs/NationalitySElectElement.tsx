@@ -18,6 +18,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
   ) => void;
   onBlur: (e: React.FocusEvent) => void;
   value: any;
+  isLight?: boolean;
 }
 
 import { GroupBase } from "react-select";
@@ -27,7 +28,7 @@ const DropdownIndicator = (
     { value: string; label: string },
     false,
     GroupBase<{ value: string; label: string }>
-  >
+  > & { isLight?: boolean }
 ) => {
   return (
     <div
@@ -35,7 +36,11 @@ const DropdownIndicator = (
       style={{ padding: "8px" }}
       className="cursor-pointer"
     >
-      <MdOutlineArrowDropDown className="text-2xl text-white mr-3" />
+      <MdOutlineArrowDropDown
+        className={`text-2xl mr-3 ${
+          props.isLight ? "text-[#0078BA]" : "text-white"
+        }`}
+      />
     </div>
   );
 };
@@ -46,6 +51,7 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
   onBlur,
   value,
   errors,
+  isLight = false,
 }: TitleSelectProps<TFieldValues>) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -85,11 +91,16 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
     control: (styles: any) => ({
       ...styles,
       borderColor: "#fff",
+      borderImage: isLight
+        ? "linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%)"
+        : "none",
+      borderImageSlice: isLight ? 1 : 0,
       borderRadius: "0",
       backgroundColor: "transparent",
       paddingBlock: "8px",
       paddingLeft: getPaddingLeft(),
-      color: "#fff",
+      color: isLight ? "#000" : "#fff",
+
       "&:hover": {
         borderColor: "#fff",
       },
@@ -116,11 +127,11 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
     }),
     placeholder: (styles: any) => ({
       ...styles,
-      color: "#fff",
+      color: isLight ? "#000" : "#fff",
     }),
     singleValue: (styles: any) => ({
       ...styles,
-      color: "#fff",
+      color: isLight ? "#000" : "#fff",
     }),
   };
 
@@ -140,7 +151,11 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
         styles={customStyles}
         placeholder="Nationality"
         // CORRECTED: Pass an object with the component
-        components={{ DropdownIndicator: DropdownIndicator }}
+        components={{
+          DropdownIndicator: (props) => (
+            <DropdownIndicator {...props} isLight={isLight} />
+          ),
+        }}
       />
       {errors[name]?.message && (
         <p className="text-red-500 text-sm mt-1">

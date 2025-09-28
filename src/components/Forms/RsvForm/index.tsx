@@ -8,6 +8,7 @@ import TextElement from "@/components/shared/Inputs/TextElement";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
 import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
 import ReCaptcha from "@/utils/ReCaptcha";
+import { baseUrl } from "@/lib/api";
 
 type FormData = {
   title: string;
@@ -52,22 +53,34 @@ const RsvForm = ({ description }: Props) => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch(`${baseUrl}/becomearsvp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: data?.title,
+          fname: data?.firstName,
+          lname: data?.lastName,
+          c_name: data?.companyName,
+          country_code: data?.contactCountryCode,
+          telephone: data?.contactNumber,
+          email_address: data?.email,
+          designation: data?.designation,
+          nationality: data?.nationality,
+          messcountryage: data?.countryOfResidence,
+        }),
+      });
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
 
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
-
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
-
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
       }
-      setToken("");
     } catch (error) {
-      // Handle any submission errors
       toast.error("Failed to submit form. Please try again.");
     }
   };
@@ -82,11 +95,16 @@ const RsvForm = ({ description }: Props) => {
               control={control}
               rules={{ required: "Title is required." }}
               render={({ field }) => (
-                <TitleSelectElement {...field} name="title" errors={errors} />
+                <TitleSelectElement
+                  {...field}
+                  name="title"
+                  errors={errors}
+                  isLight={true}
+                />
               )}
             />
           </div>
-          <div className="flex-1hidden md:block" />
+          <div className="flex-1 hidden md:block" />
         </FormRow>
         <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
           <TextElement
@@ -108,9 +126,9 @@ const RsvForm = ({ description }: Props) => {
             placeholder="Last Name"
             register={register}
             errors={errors}
-            rules={{
-              required: "Last Name is required.",
-            }}
+            // rules={{
+            //   required: "Last Name is required.",
+            // }}
           />
         </FormRow>
 
@@ -199,6 +217,7 @@ const RsvForm = ({ description }: Props) => {
                   {...field}
                   name="nationality"
                   errors={errors}
+                  isLight={true}
                 />
               )}
             />
@@ -220,7 +239,7 @@ const RsvForm = ({ description }: Props) => {
         </FormRow>
       </div>
 
-      <p className="description text-white leading-3 mt-5">{description}</p>
+      <p className="description text-black leading-3 mt-5">{description}</p>
 
       <div className="mt-4 md:mt-6 flex justify-center ">
         <ReCaptcha
@@ -233,11 +252,18 @@ const RsvForm = ({ description }: Props) => {
         <button
           type="submit"
           className={`
-          rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-dark-alter bg-white md:py-5 w-fit  py-3 px-8 md:px-16 lg:px-[100px] text-center mt-4 
+           text-sm sm:text-base  font-medium leading-5 text-white w-fit  py-3 px-8 md:px-16 text-center mt-4 
           transition-all duration-300 
-          ${!token ? "opacity-50 cursor-not-allowed" : "hover:bg-tms-purple/90"}
+          ${
+            !token
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-tms-purple/90 hover:text-white"
+          }
         `}
           disabled={!token}
+          style={{
+            background: "linear-gradient(93deg, #38C7FF 4.01%, #008F57 82.77%)",
+          }}
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>
