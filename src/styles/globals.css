@@ -444,6 +444,10 @@ ul {
   border-image: linear-gradient(0deg, #00a25e 0%, #38c7ff 100%);
   border-image-slice: 1;
 }
+.gradient-border-3 {
+  border-image: linear-gradient(90deg, #00a25e 4.01%, #38c7ff 82.77%);
+  border-image-slice: 1;
+}
 .gradient-border-2 {
   border-image: linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%);
   border-image-slice: 1;

@@ -26,7 +26,7 @@ const VideoGallery = ({ data }: Props) => {
   return (
     <section className="section-wrapper pt-6 md:pt-8 lg:pt-10 xl:pt-14 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
       <div className="hidden md:block">
-        <div className="flex gap-x-2.5 md:gap-x-3 lg:justify-center  overflow-x-auto whitespace-nowrap no-scrollbar w-full flex-nowrap border-b pb-5 gradient-border-2 ">
+        <div className="flex gap-x-2.5 md:gap-x-5 lg::gap-x-8 lg:justify-center  overflow-x-auto whitespace-nowrap no-scrollbar w-full flex-nowrap border-b pb-5 gradient-border-2 ">
           {data &&
             data?.map((item, index) => {
               return (

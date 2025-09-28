@@ -25,7 +25,6 @@ const PreReleaseCardResponsive = ({ detail }: Props) => {
       !allItemsLoaded
     ) {
       setIsLoading(true);
-      // Simulate a small delay for a better user experience
       setTimeout(() => {
         setVisibleCount((prevCount) => prevCount + ITEMS_PER_LOAD);
         setIsLoading(false);
@@ -48,27 +47,31 @@ const PreReleaseCardResponsive = ({ detail }: Props) => {
         return (
           <div
             key={item.id || index}
-            className="space-y-3 border-b pb-2 border-b-[#D8D8D8]"
+            className="space-y-3  pb-2 border-b-[3px]  gradient-border-3"
           >
             <Image
               src={item?.image_url}
               alt={item?.title}
               width={700}
               height={350}
-              className="responsive-radius overflow-hidden w-full h-auto object-cover"
+              className=" overflow-hidden w-full h-auto object-cover"
             />
 
             <div>
-              <p className="description text-tms-purple font-medium lg:!leading-3">
-                {dayjs(item?.date).format("MMMM YYYY")}
+              <p className="description text-[#919191] font-normal  leading-5 text-center">
+                {dayjs(item?.date).format("DD MMMM YYYY")}
               </p>
-              <h6 className="text-dark-alter text-lg lg:leading-3 font-normal">
+              <h6 className="text-tms-tanker-blue-2 text-xl md:text-2xl font-semibold leading-3 text-center ">
+                {" "}
                 {item.title}
               </h6>
-
+              <div
+                className="description text-[#2a2a2a] space-y-3 text-center "
+                dangerouslySetInnerHTML={{ __html: item?.description }}
+              />
               <Link
                 href={`press-release/${item.slug}`}
-                className="description text-dark-alter !leading-3 hover:underline hover:text-tms-purple transition-all duration-300"
+                className="description text-dark-alter w-fit !leading-3 underline hover:no-underline hover:text-tms-green transition-all duration-300 flex justify-center mt-2"
               >
                 Read More
               </Link>
@@ -79,7 +82,7 @@ const PreReleaseCardResponsive = ({ detail }: Props) => {
 
       {isLoading && (
         <div className="text-center py-4">
-          <p className="text-tms-purple font-medium">Loading...</p>
+          <p className="text-tms-green font-medium">Loading...</p>
         </div>
       )}
     </div>
