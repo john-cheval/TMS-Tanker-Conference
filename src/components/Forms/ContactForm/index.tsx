@@ -5,6 +5,7 @@ import TextElement from "@/components/shared/Inputs/TextElement";
 import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import ReCaptcha from "@/utils/ReCaptcha";
 import { toast } from "sonner";
+import { baseUrl } from "@/lib/api";
 
 type FormData = {
   fullName: string;
@@ -37,28 +38,34 @@ const ContactForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch(`${baseUrl}/submitcontactus`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data?.fullName,
+          email: data?.email,
+          subject: data?.subject,
+          message: data?.message,
+        }),
+      });
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
 
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
-
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
-
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
       }
-      setToken("");
     } catch (error) {
-      // Handle any submission errors
       toast.error("Failed to submit form. Please try again.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-4 md:mt-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="mt-6 md:mt-0">
       <div className=" space-y-2.5 md:space-y-3 lg:space-y-4">
         <TextElement
           label="Your Name"
@@ -70,8 +77,6 @@ const ContactForm = () => {
           rules={{
             required: "Name is required.",
           }}
-          isBlue={true}
-          isLight={true}
         />
 
         <TextElement
@@ -88,8 +93,6 @@ const ContactForm = () => {
               message: "Please enter a valid email address.",
             },
           }}
-          isLight={true}
-          isBlue={true}
         />
 
         <TextElement
@@ -102,22 +105,18 @@ const ContactForm = () => {
           rules={{
             required: "Subject is required.",
           }}
-          isBlue={true}
-          isLight={true}
         />
 
         <TextAreaElement
           label="message"
           name="message"
-          placeholder="Message"
+          placeholder="Enquiries"
           register={register}
           errors={errors}
           rows={3}
           rules={{
             required: "Message is required.",
           }}
-          isLight={true}
-          isBlue={true}
         />
       </div>
 
@@ -133,9 +132,9 @@ const ContactForm = () => {
         <button
           type="submit"
           className={`
-          rounded-sm text-sm sm:text-base md:text-lg font-bold leading-5 text-white bg-tms-purple md:py-5 w-fit px-7 py-3 md:w-full mt-4 
-          transition-all duration-300 
-          ${!token ? "opacity-50 cursor-not-allowed" : "hover:bg-tms-purple/90"}
+          text-sm sm:text-base  font-medium leading-5 text-white button-gradient md:py-5 w-fit px-7 py-3 md:w-full mt-4 
+          transition-all duration-300 hoverLbg 
+          ${!token ? "opacity-50 cursor-not-allowed" : ""}
         `}
           disabled={!token}
         >
