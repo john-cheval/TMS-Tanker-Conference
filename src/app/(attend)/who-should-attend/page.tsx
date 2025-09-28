@@ -30,7 +30,7 @@ const WhoShouldAttend = async () => {
       <WhoShouldAttendSectionOne {...who_should_attend} />
       <WhyAttendSection {...why_attend} />
       {sponsors && (
-        <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16">
+        <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-14">
           <div className="space-y-9">
             <Sponsors data={sponsors} isSponsor={true} />
             <Sponsors data={supporting_associations} />
