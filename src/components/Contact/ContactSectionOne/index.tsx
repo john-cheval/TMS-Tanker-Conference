@@ -11,85 +11,76 @@ type Props = {
 const ContactSectionOne = ({ content }: Props) => {
   return (
     <section className="section-wrapper  pt-8 m lg:pt-10 xl:pt-16 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
-      <div className="px-5 md:px-8 lg:px-11 pt-8 md:pt-10 lg:pt-14 xl:pt-16 2xl:pt-24 pb-6 md:pb-12 bg-[#F4F4F4] rounded-2xl gap-x-12 lg:gap-x-16 xl:gap-x-24 grid grid-cols-1  md:grid-cols-2">
+      <div className="px-5 md:px-8 lg:px-11 pt-8 md:pt-10 lg:pt-14 xl:pt-16 2xl:pt-24 pb-6 md:pb-12 bg-[#F4F4F4]  gap-x-8 xl:gap-x-16 2xl:gap-x-24 grid grid-cols-1  md:grid-cols-2">
         <div>
-          <h3 className="main-heading-2  !text-dark-alter pb-4 border-b border-b-tms-blue">
+          <h3 className="main-heading gradient-text w-fit  leading-3 font-bold md:leading-[40px]  xl:leading-main mb-4 mx-auto md:mx-0 text-center md:text-left ">
             {content?.heading}
           </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2  md:gap-y-4 lg:gap-y-0 lg:gap-x-5 ">
+            {content?.contact_persons &&
+              content?.contact_persons?.map((item: any, index: number) => {
+                return (
+                  <div
+                    key={index}
+                    className={` flex flex-col  items-center w-full md:items-start${
+                      index === 0
+                        ? "border-b lg:border-r lg:border-b-0 pb-3 m:pb-5 lg:pb-0 border-b-light-grey-1 lg:border-r-light-grey-1"
+                        : "lg:place-content-end lg:ml-auto"
+                    }`}
+                  >
+                    <h5 className=" w-fit text-black text-base sm:text-lg md:text-xl lg:text-2xl font-semibold leading-3">
+                      {item?.title}
+                    </h5>
+                    <p className="description text-tms-tanker-blue-2 font-semibold mt-1">
+                      {item?.position}
+                    </p>
 
-          {content?.contact_persons &&
-            content?.contact_persons?.map((item: any, index: number) => {
-              return (
-                <div
-                  key={index}
-                  className={`py-5 lg:py-8  ${
-                    index === 0 ? "border-b border-b-tms-blue" : ""
-                  }`}
-                >
-                  <h5 className="gradient-text w-fit text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-3">
-                    {item?.title}
-                  </h5>
-                  <p className="description text-black font-bold mt-2">
-                    {item?.position}
-                  </p>
-
-                  {item?.phone_no !== null ? (
-                    <div className="mt-3 md:mt-4">
-                      <div className="flex gap-2 md:gap-3 flex-wrap lg:flex-nowrap lg:gap-x-5 mb-2 md:mb-3  lg:mb-3">
+                    {item?.phone_no !== null ? (
+                      <div className="mt-2">
+                        <div className="flex flex-col">
+                          <Link
+                            href={`tel: ${item?.mobile_no}`}
+                            className="description text-[#2a2a2a] leading-3"
+                          >
+                            M: {item?.mobile_no}
+                          </Link>
+                          <Link
+                            href={`tel:${item?.phone_no}`}
+                            className="description text-[#2a2a2a] leading-3"
+                          >
+                            T: {item?.phone_no}
+                          </Link>
+                        </div>
+                        <Link
+                          href={`mailto: ${item?.email_address}`}
+                          className="description text-[#2a2a2a] leading-3 "
+                        >
+                          E: {item?.email_address}
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col mt-2">
                         <Link
                           href={`tel: ${item?.mobile_no}`}
-                          className="description text-dark-alter leading-3"
+                          className="description text-[#2a2a2a] leading-3"
                         >
                           M: {item?.mobile_no}
                         </Link>
                         <Link
-                          href={`tel:${item?.phone_no}`}
-                          className="description text-dark-alter leading-3"
+                          href={`mailto: ${item?.email_address}`}
+                          className="description text-[#2a2a2a] leading-3"
                         >
-                          T: {item?.phone_no}
+                          E: {item?.email_address}
                         </Link>
                       </div>
-                      <Link
-                        href={`mailto: ${item?.email_address}`}
-                        className="description text-dark-alter leading-3 "
-                      >
-                        E: {item?.email_address}
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="flex gap-2 md:gap-3 flex-wrap lg:flex-nowrap lg:gap-x-5 mt-3 md:mt-4">
-                      <Link
-                        href={`tel: ${item?.mobile_no}`}
-                        className="description text-dark-alter leading-3"
-                      >
-                        M: {item?.mobile_no}
-                      </Link>
-                      <Link
-                        href={`mailto: ${item?.email_address}`}
-                        className="description text-dark-alter leading-3"
-                      >
-                        E: {item?.email_address}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                    )}
+                  </div>
+                );
+              })}
+          </div>
         </div>
 
-        <div>
-          <p className="flex  gap-x-2.5 text-xl mt-6 md:mt-0 md:text-2xl font-bold leading-3 text-dark-alter ">
-            <Image
-              src={ai}
-              alt="TMS AI"
-              width={24}
-              height={24}
-              className="w-full h-fit object-contain max-w-[24px] mt-1"
-            />
-            {content?.form_heading}
-          </p>
-          <ContactForm />
-        </div>
+        <ContactForm />
       </div>
     </section>
   );

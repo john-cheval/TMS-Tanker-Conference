@@ -15,10 +15,6 @@ const VideoGalleryPage = async () => {
     `${baseUrl}/getmasterdetails?master_name=cms&id=29`
   );
 
-  const generalSettings = pageContent?.gernalsettings;
-  const conferenceData =
-    pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
   const {
     page_top_banner,
     video_gallery,
@@ -29,16 +25,9 @@ const VideoGalleryPage = async () => {
   return (
     <>
       {" "}
-      <SharedTopSection
-        {...page_top_banner}
-        title={pageContent?.data?.name}
-        awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
-      />
+      <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <VideoGallery data={video_gallery?.data} />
-      <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16  space-y-9">
+      <div className="sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />

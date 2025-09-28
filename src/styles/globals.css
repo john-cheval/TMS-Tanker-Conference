@@ -534,6 +534,9 @@ ul {
 .input-alter {
   @apply border border-white  py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-white outline-0 text-white text-sm md:text-base font-normal leading-4 md:leading-3;
 }
+.sponsor-wrapper {
+  @apply pb-8 md:pb-10 lg:pb-12 xl:pb-16  space-y-9;
+}
 /* Media Queries */
 
 @media (max-width: 768px) {
