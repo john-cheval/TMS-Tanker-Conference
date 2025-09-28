@@ -31,7 +31,7 @@ const RsvpPage = async () => {
         small__title={rsvp_form?.small_title}
         form_description={rsvp_form?.form_description}
       />
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
+      <div className="section-wrapper pb-16 md:pb-20  space-y-9">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
