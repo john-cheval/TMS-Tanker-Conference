@@ -19,6 +19,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
   ) => void;
   onBlur: (e: React.FocusEvent) => void;
   value: any;
+  isLight?: boolean;
 }
 
 import { GroupBase } from "react-select";
@@ -28,7 +29,7 @@ const DropdownIndicator = (
     { value: string; label: string },
     false,
     GroupBase<{ value: string; label: string }>
-  >
+  > & { isLight?: boolean }
 ) => {
   return (
     <div
@@ -36,7 +37,11 @@ const DropdownIndicator = (
       style={{ padding: "8px" }}
       className="cursor-pointer"
     >
-      <MdOutlineArrowDropDown className="text-2xl text-white mr-3" />
+      <MdOutlineArrowDropDown
+        className={`text-2xl mr-3 ${
+          props.isLight ? "text-[#0078BA]" : "text-white"
+        }`}
+      />
     </div>
   );
 };
@@ -63,7 +68,14 @@ const getNestedError = <TFieldValues extends FieldValues>(
 // Use React.forwardRef to pass the ref down
 const TitleSelectElement = forwardRef(
   <TFieldValues extends FieldValues>(
-    { name, onChange, onBlur, value, errors }: TitleSelectProps<TFieldValues>,
+    {
+      name,
+      onChange,
+      onBlur,
+      value,
+      errors,
+      isLight = false,
+    }: TitleSelectProps<TFieldValues>,
     ref: React.ForwardedRef<any> // The ref is passed as the second argument
   ) => {
     const [windowWidth, setWindowWidth] = useState(
@@ -105,10 +117,14 @@ const TitleSelectElement = forwardRef(
         ...styles,
         borderColor: "#fff",
         backgroundColor: "transparent",
+        borderImage: isLight
+          ? "linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%)"
+          : "none",
+        borderImageSlice: isLight ? 1 : 0,
         borderRadius: "0",
         paddingBlock: "8px",
         paddingLeft: getPaddingLeft(),
-        color: "#fff",
+        color: isLight ? "#000" : "#fff",
         "&:hover": {
           borderColor: "#fff",
         },
@@ -132,11 +148,11 @@ const TitleSelectElement = forwardRef(
       }),
       placeholder: (styles: any) => ({
         ...styles,
-        color: "#fff",
+        color: isLight ? "#000" : "#fff",
       }),
       singleValue: (styles: any) => ({
         ...styles,
-        color: "#fff",
+        color: isLight ? "#000" : "#fff",
       }),
     };
     // const errorMessage = getNestedError(errors, name);
@@ -158,7 +174,12 @@ const TitleSelectElement = forwardRef(
           value={options.find((option) => option.value === value) || null}
           styles={customStyles}
           placeholder="Title"
-          components={{ DropdownIndicator: DropdownIndicator }}
+          // components={{ DropdownIndicator: DropdownIndicator }}
+          components={{
+            DropdownIndicator: (props) => (
+              <DropdownIndicator {...props} isLight={isLight} />
+            ),
+          }}
         />
         {/* {errors[name]?.message && (
           <p className="text-red-500 text-sm mt-1">
