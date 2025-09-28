@@ -14,13 +14,15 @@ interface GalleryType {
   year: string;
   photo_gallery?: PhotoGalleryType[];
   video_gallery?: any;
+  winners_catalogue?: string;
 }
 
 type Props = {
   galleryData: GalleryType[];
+  isArchives?: boolean;
 };
 
-const GalleryAccordion = ({ galleryData }: Props) => {
+const GalleryAccordion = ({ galleryData, isArchives = false }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(galleryData[0]?.id);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -61,7 +63,7 @@ const GalleryAccordion = ({ galleryData }: Props) => {
               </button>
 
               <AnimatePresence>
-                {isAccordionOpen && (
+                {isAccordionOpen && !isArchives && (
                   <motion.div
                     key="accordion-content"
                     initial="closed"
@@ -116,6 +118,39 @@ const GalleryAccordion = ({ galleryData }: Props) => {
                         ) : (
                           <p className="text-base text-center text-tms-blue font-bold">
                             No Packages Available
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+
+                {isAccordionOpen && isArchives && (
+                  <motion.div
+                    key="accordion-content"
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    variants={accordionVariants}
+                    className="overflow-hidden"
+                  >
+                    {item?.winners_catalogue && (
+                      <div>
+                        {item?.winners_catalogue ? (
+                          <iframe
+                            className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:[650px] 2xl:h-[700px]"
+                            // src="https://online.pubhtml5.com/kmcsa/ezhw/"
+                            src={item?.winners_catalogue}
+                            // seamless="seamless"
+                            scrolling="no"
+                            frameBorder="0"
+                            allowTransparency={true}
+                            allowFullScreen={true}
+                          ></iframe>
+                        ) : (
+                          <p className="text-base text-center text-tms-blue font-bold">
+                            There is No Winner Catelouge For this Conference
+                            Year
                           </p>
                         )}
                       </div>
