@@ -27,7 +27,7 @@ const VideoGalleryPage = async () => {
       {" "}
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <VideoGallery data={video_gallery?.data} />
-      <div className="sponsor-wrapper">
+      <div className="sponsor-wrapper section-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
