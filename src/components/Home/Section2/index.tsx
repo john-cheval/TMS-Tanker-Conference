@@ -27,9 +27,11 @@ const HomeSectionTwo = ({
             <h5 className="text-xl md:text-2xl text-tms-tanker-blue leading-5 font-medium text-center md:text-left">
               {main_heading}
             </h5>
-            <p className="description text-center md:text-left">
-              {description}
-            </p>
+
+            <div
+              className="description text-center md:text-left"
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
           </div>
         </div>
 

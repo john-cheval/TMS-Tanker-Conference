@@ -18,7 +18,8 @@ const BecomeASpeaker = async () => {
   const generalSettings = pageContent?.gernalsettings;
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
+  const { AWARD_YEAR, Enquery_emails_nature_of_company_list } =
+    generalSettings?.general_settings;
   const { page_top_banner, become_a_speaker_page } =
     pageContent?.data?.section_list;
   return (
@@ -45,7 +46,10 @@ const BecomeASpeaker = async () => {
         </div>
       </section>
 
-      <BecomeASpeakerSectionThree {...become_a_speaker_page} />
+      <BecomeASpeakerSectionThree
+        {...become_a_speaker_page}
+        companyList={Enquery_emails_nature_of_company_list}
+      />
 
       <div className="section-wrapper pb-12 md:pb-20 space-y-5">
         <Sponsors

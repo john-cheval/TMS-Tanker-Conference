@@ -15,6 +15,7 @@ type Props = {
   form_heading: string;
   form_description: string;
   list_of_date: ListofDateType[];
+  companyList: any;
 };
 
 const BecomeASpeakerSectionThree = (props: Props) => {
@@ -25,6 +26,7 @@ const BecomeASpeakerSectionThree = (props: Props) => {
     description_2,
     form_heading,
     form_description,
+    companyList,
   } = props;
   return (
     <section className=" mt-5 md:mt-8 lg:mt-10 mb-12">
@@ -46,7 +48,10 @@ const BecomeASpeakerSectionThree = (props: Props) => {
 
         <div className="mt-5 md:mt-8 lg:mt-11 space-y-4 md:space-y-6">
           <h4 className="main-heading-2 !text-dark-alter">{form_heading}</h4>
-          <BecomeSponsorPageForm formDescription={form_description} />
+          <BecomeSponsorPageForm
+            formDescription={form_description}
+            NatureOfCompanyList={companyList}
+          />
         </div>
       </div>
     </section>
