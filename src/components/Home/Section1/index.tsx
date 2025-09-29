@@ -60,7 +60,7 @@ const HomeSectionOne = ({
           <div className="block  w-14 h-[1px] gradient-seperator1 mx-auto mt-4" />
 
           <div className="flex flex-col md:flex-row items-center justify-center- gap-4 md:gap-6 mt-8  w-fit mx-auto px-4 py-3 md:px-6 md:py-4  font-semibold text-[#0C1E23] bg-[#FFFFFF63] backdrop-blur-[10.4px] rounded-xs md:rounded-xs ">
-            <div className="flex items-center gap-x-2 md:gap-x-2.5 ">
+            <div className="flex items-center gap-x-2 md:gap-x-2.5  ">
               <Image
                 src={calendar}
                 width={20}
@@ -102,7 +102,8 @@ const HomeSectionOne = ({
             {/* Important Dates Title */}
             <div className="flex items-center mb-4 md:mb-0">
               <p className="font-bold text-base md:text-xl lg:text-2xl">
-                {small_title_2}
+                {/* {small_title_2} */}
+                Important Dates
               </p>
             </div>
 

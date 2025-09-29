@@ -51,8 +51,12 @@ interface RecaptchaRefType {
 }
 type Props = {
   formDescription: string;
+  NatureOfCompanyList: any;
 };
-const BecomeSponsorPageForm = ({ formDescription }: Props) => {
+const BecomeSponsorPageForm = ({
+  formDescription,
+  NatureOfCompanyList,
+}: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const isSmallScreen = useMediaQuery("(max-width: 650px)");
@@ -381,6 +385,7 @@ const BecomeSponsorPageForm = ({ formDescription }: Props) => {
                       {...field}
                       name="aboutCompany.natureOfCompany"
                       errors={errors}
+                      companyListData={NatureOfCompanyList}
                     />
                   )}
                 />
