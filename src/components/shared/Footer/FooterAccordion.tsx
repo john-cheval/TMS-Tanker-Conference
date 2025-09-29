@@ -22,18 +22,23 @@ const FooterAccordion = ({ links }: FooterAccordionPropsType) => {
         links?.map((link: any, index: number) => {
           const isAccordionOpen = openIndex === link?.id;
           return (
-            <li key={index + 1} className="py-4 border-b border-[#BDBDBD]">
+            <li
+              key={index + 1}
+              className={`py-4 ${
+                index == 0 ? "border-t" : ""
+              } border-b border-[#BBBBBB]`}
+            >
               <>
                 <button
-                  className="flex items-center justify-between w-full text-dark-grey text-base  font-normal leading-5"
+                  className="flex items-center justify-between w-full text-[#38C7FF] text-base sm:text-lg font-medium leading-5"
                   onClick={() => toggleAccordion(link.id as number)}
                 >
                   {link?.name}
 
                   {isAccordionOpen ? (
-                    <FaMinus className="text-white" />
+                    <FaMinus className="text-white text-base" />
                   ) : (
-                    <FaPlus className="text-white" />
+                    <FaPlus className="text-white text-base" />
                   )}
                 </button>
 
@@ -53,7 +58,7 @@ const FooterAccordion = ({ links }: FooterAccordionPropsType) => {
                             <li key={index}>
                               <Link
                                 href={childLink.link ?? ""}
-                                className="text-white text-sm  leading-6 "
+                                className="text-[#bbb] text-sm  leading-6 "
                               >
                                 {childLink.name}
                               </Link>

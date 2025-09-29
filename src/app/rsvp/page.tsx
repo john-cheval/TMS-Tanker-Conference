@@ -22,7 +22,6 @@ const RsvpPage = async () => {
     media_partners,
     rsvp_form,
   } = pageContent?.data?.section_list;
-  console.log(rsvp_form?.heading, "rsvp_form?.heading");
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
@@ -31,7 +30,7 @@ const RsvpPage = async () => {
         small__title={rsvp_form?.small_title}
         form_description={rsvp_form?.form_description}
       />
-      <div className="section-wrapper pb-16 md:pb-20  space-y-9">
+      <div className="section-wrapper section-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />

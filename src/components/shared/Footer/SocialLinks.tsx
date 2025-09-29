@@ -42,38 +42,50 @@ interface SocialLinksPropsType {
 
 const SocialLinks = ({ data }: SocialLinksPropsType) => {
   return (
-    <div className="flex space-x-3">
-      {data?.map((item, index) => {
-        const platform = item.key.toUpperCase() as PlatformKey;
-        const Icon = socialIcons[platform];
-        const colorClass = socialColors[platform];
+    <motion.div
+      initial={{ y: 50, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
+      viewport={{ once: true, amount: 0.3 }}
+      className="mt-4 md:mt-6"
+    >
+      <motion.h6 className="text-[#38C7FF] text-base md:text-2xl font-medium leading-3 mb-2 text-center md:text-left">
+        Follow us on
+      </motion.h6>
 
-        if (!Icon || !colorClass) return null;
+      <div className="flex space-x-2 md:space-x-3 mt-2">
+        {data?.map((item, index) => {
+          const platform = item.key.toUpperCase() as PlatformKey;
+          const Icon = socialIcons[platform];
+          const colorClass = socialColors[platform];
 
-        return (
-          <motion.div
-            key={index + 1}
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{
-              duration: 0.3,
-              delay: index * 0.2,
-            }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <Link
-              key={item.id}
-              href={item.value}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group text-dark-grey transition-colors duration-200 ease-in-out ${colorClass}`}
+          if (!Icon || !colorClass) return null;
+
+          return (
+            <motion.div
+              key={index + 1}
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.3,
+                delay: index * 0.2,
+              }}
+              viewport={{ once: true, amount: 0.3 }}
             >
-              <Icon className=" text-xl md:text-2xl" />
-            </Link>
-          </motion.div>
-        );
-      })}
-    </div>
+              <Link
+                key={item.id}
+                href={item.value}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group text-[#38C7FF] transition-colors duration-200 ease-in-out ${colorClass} border border-[#818181] rounded-full p-2 flex items-center justify-center `}
+              >
+                <Icon className=" text-sm sm:text-base md:text-xl  shrink-0 " />
+              </Link>
+            </motion.div>
+          );
+        })}
+      </div>
+    </motion.div>
   );
 };
 

@@ -3,6 +3,8 @@ import { baseUrl } from "@/lib/api";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import sendSvg from "@/assets/icons/send.svg";
+import Image from "next/image";
 
 type FormData = {
   email: string;
@@ -48,7 +50,7 @@ const FooterNewsLetterForm = () => {
     <form className="relative" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="email"
-        className="w-full bg-transparent placeholder:text-[#bbbbbbba]   text-white text-base border border-[#1C75BC] rounded-sm pl-6 pr-24 py-2.5 transition duration-300 ease-in-out focus:outline-none focus:border-[#1C75BC] hover:border-tms-purple"
+        className="w-full mt-3 md:mt-5  lg:mt-8 xl:mt-12 bg-transparent placeholder:text-[#bbbbbbba]   text-[#bbb]  text-base border-b border-b-[#BBBBBB] pb-4 md:pb-5 lg:pb-8  pr-24 5transition duration-300 ease-in-out focus:outline-none focus:border-[#BBBBBB] "
         placeholder="Enter your email here"
         {...register("email", {
           required: "Email is required",
@@ -65,10 +67,14 @@ const FooterNewsLetterForm = () => {
         </p>
       )}
       <button
-        className="absolute right-0 top-0 rounded-tr-sm rounded-br-sm bg-[#1C75BC] py-4 px-7 border border-transparent text-center text-base font-medium text-white transition-all  focus:bg-[#1C75BC]  active:bg-[#1C75BC]    hover:bg-[#1C75BC]  disabled:pointer-events-none h-full flex items-center justify-center "
+        className="absolute right-0 top-0 rounded-tr-sm h-full flex items-center justify-center "
         type="submit"
       >
-        Send
+        <Image
+          src={sendSvg}
+          alt="sendSvg"
+          className="w-full max-w-5 sm:max-w-6 md:max-w-8 mt-1 h-auto"
+        />
       </button>
     </form>
   );

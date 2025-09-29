@@ -26,7 +26,7 @@ const PressRelease = async () => {
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <PreReleaseSectionOne data={press_release?.data} />
-      <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16  space-y-9">
+      <div className="section-wrapper section-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />

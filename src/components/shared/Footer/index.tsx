@@ -1,175 +1,94 @@
+import { footerLinksLeft, quickLinks } from "@/constants/footerLinks";
 import React from "react";
-import SectionHeading from "../ui/Headings/SectionHeading";
-import FooterButton from "../ui/Button/FooterButton";
 import FooterLinks from "./FooterLinks";
-import Link from "next/link";
-import SocialLinks from "./SocialLinks";
-import AiBig from "@/assets/shared/Ai_colored_big.svg";
-import Image from "next/image";
-import FooterAccordion from "./FooterAccordion";
 import * as motion from "motion/react-client";
-import { buttonApIPropsType } from "@/types/common";
 import FooterNewsLetterForm from "@/components/Forms/FooterNewsLetterForm";
+import SocialLinks from "./SocialLinks";
+import Link from "next/link";
+import BackToTopButton from "./BackToTopButton";
+import FooterAccordion from "./FooterAccordion";
 
-export type footerTypeProps = {
-  footerMainLinks?: any;
-  footerBottom?: any;
+type Props = {
   socialLinks?: any;
-  footer_heading1: string;
-  footer_heading2: string;
-  newsLetterHeading: string;
-  registerNow: buttonApIPropsType;
-  sponsorBtnData: buttonApIPropsType;
+  footerMainLinks?: any;
 };
-const Footer = ({
-  footerMainLinks,
-  footerBottom,
-  socialLinks,
-  footer_heading1,
-  footer_heading2,
-  registerNow,
-  sponsorBtnData,
-  newsLetterHeading,
-}: footerTypeProps) => {
+
+const Footer = ({ socialLinks, footerMainLinks }: Props) => {
   const footerMainLinksData = Object.values(footerMainLinks);
-  const footerBottomlinksData = Object.values(footerBottom);
-
-  const heading = ` <span>${footer_heading1} </span> ${footer_heading2}.`;
-
   return (
-    <footer className="bg-black relative pt-16 md:pt-20 lg:pt-24 pb-8 md:pb-10 section-wrapper">
-      <div className="grid grid-cols-12 lg:gap-x-8 2xl:gap-x-12">
-        {/* Footer Title */}
-        <div className="col-span-12 lg:col-span-5 flex flex-col items-start">
+    <div className="bg-black relative pt-8 md:pt-10 lg:pt-14 xl:pt-20 pb-6 md:pb-8 lg:pb-14">
+      <div className="section-wrapper">
+        <div className=" grid grid-cols-12 gap-x-5 lg:gap-x-8 2xl:gap-x-12">
+          <div className=" hidden md:col-span-4">
+            <FooterLinks links={footerLinksLeft} name="Our Products" />
+          </div>
+
+          <div className="hidden md:col-span-3">
+            <FooterLinks links={quickLinks} name="Quick Links" />
+          </div>
+
+          <div className="col-span-12 block md:hidden">
+            <FooterAccordion links={footerMainLinksData} />
+          </div>
+
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
             viewport={{ once: true, amount: 0.3 }}
+            className="hidden md:col-span-5"
           >
-            <SectionHeading
-              main_title={heading}
-              isDark={true}
-              isCenter={false}
-            />
+            {" "}
+            <motion.h6 className="text-[#38C7FF] text-lg md:text-2xl font-medium leading-3">
+              Newsletter
+            </motion.h6>
+            <motion.p className="text-[#BBBBBB] description">
+              Sign up for our newsletter to get the latest waves of updates,
+              insights, and exclusive conference content.
+            </motion.p>
+            <FooterNewsLetterForm />
           </motion.div>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="mt-4 md:mt-6 lg:mt-8 xl:mt-10 flex items-center  gap-x-2 md:gap-x-2.5"
-          >
-            <FooterButton hrefs={registerNow?.value} isSponsor={true}>
-              {registerNow?.title}
-            </FooterButton>
-            <FooterButton hrefs={sponsorBtnData?.value}>
-              {sponsorBtnData?.title}
-            </FooterButton>
-          </motion.div>
-
-          <div className="mt-4 md:mt-6 lg:mt-8">
-            <div className="sub_heading-1 !text-white !font-semibold mb-6 ">
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true, amount: 0.3 }}
-                dangerouslySetInnerHTML={{ __html: newsLetterHeading }}
-              />
-
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="w-full max-w-sm min-w-[200px] relative mt-4 lg:mt-6"
-              >
-                <FooterNewsLetterForm />
-              </motion.div>
-            </div>
-          </div>
         </div>
 
-        {/* Footer Links */}
-        <div className="col-span-12 lg:col-span-7 hidden md:grid grid-cols-3 gap-x-5 2xl:gap-x-7 mt-4 lg:mt-0">
-          <div className="space-y-6 lg:space-y-8 xl:space-y-10  2xl:space-y-12">
-            {footerMainLinksData &&
-              footerMainLinksData?.length > 0 &&
-              footerMainLinksData?.slice(0, 2)?.map((link, index) => {
-                return <FooterLinks key={index} links={link} splits={true} />;
-              })}
-          </div>
-          <div className="space-y-6 lg:space-y-8 xl:space-y-10  2xl:space-y-12">
-            {footerMainLinksData &&
-              footerMainLinksData?.length > 0 &&
-              footerMainLinksData?.slice(2, 4)?.map((link, index) => {
-                return <FooterLinks key={index} links={link} />;
-              })}
-          </div>
-
-          <div className="space-y-6 lg:space-y-8 xl:space-y-10  2xl:space-y-12">
-            {footerMainLinksData &&
-              footerMainLinksData?.length > 0 &&
-              footerMainLinksData?.slice(4)?.map((link, index) => {
-                return <FooterLinks key={index} links={link} />;
-              })}
-          </div>
-        </div>
-
-        {/* Footer Accordion */}
-        <div className="col-span-12 block md:hidden">
-          <FooterAccordion links={footerMainLinksData} />
-        </div>
-      </div>
-
-      {/* Footer Bottom */}
-      <div className="pt-8 md:pt-10 lg:pt-14 xl:pt-16  2xl:pt-24 3xl:pt-28 flex flex-col sm:flex-row sm:items-center gap-y-5 sm:gap-y-0 sm:gap-x-5 sm:justify-between ">
-        <div className="flex items-center gap-x-6 gap-y-4 sm:gap-y-0 flex-wrap sm:flex-nowrap">
-          {footerBottomlinksData &&
-            footerBottomlinksData?.length > 0 &&
-            footerBottomlinksData?.map((link: any, index) => (
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index * 0.2,
-                }}
-                viewport={{ once: true, amount: 0.3 }}
-                key={index}
-              >
-                <Link
-                  className="text-white text-sm md:text-base leading-6 hover:text-tms-blue transition-colors duration-300 ease-in-out flex gap-x-4 md:inline-block  "
-                  key={index + 1}
-                  href={link?.link}
-                >
-                  {link?.name}{" "}
-                  {footerBottomlinksData?.length - 1 !== index && (
-                    <span className="sm:hidden text-[#bdbdbd]">|</span>
-                  )}
-                </Link>
-              </motion.div>
-            ))}
-        </div>
-
-        <div className="">
+        <div className="flex justify-center">
           {socialLinks && socialLinks?.length > 0 && (
             <SocialLinks data={socialLinks} />
           )}
         </div>
-      </div>
 
-      {/* <Image
-        src={AiBig}
-        alt="TMSAI"
-        width={185}
-        height={185}
-        sizes="100vw"
-        className="w-du
-         h-auto object-cover max-w-24 md:max-w-[120px] lg:max-w-[170px] absolute top-0 -translate-y-1/2 right-3 md:right-10"
-      /> */}
-    </footer>
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="mt-4 md:hidden"
+        >
+          {" "}
+          <motion.h6 className="text-[#38C7FF] text-lg md:text-2xl font-medium leading-3 text-center">
+            Newsletter
+          </motion.h6>
+          <motion.p className="text-[#BBBBBB] description text-center">
+            Sign up for our newsletter to get the latest waves of updates,
+            insights, and exclusive conference content.
+          </motion.p>
+          <FooterNewsLetterForm />
+        </motion.div>
+
+        <div className="flex flex-col sm:flex-row items-center sm:justify-between sm:gap-x-5 mt-5 md:mt-8 lg:mt-10 xl:mt-14">
+          <p className="description text-[#bbb] text-center sm:text-left">
+            © TMS Marine Conference 2025.{" "}
+            <span className="block sm:inline-block">
+              Designed & Developed by{" "}
+              <Link href="https://chevalme.com/" target="_blank">
+                Cheval
+              </Link>
+            </span>
+          </p>
+
+          <BackToTopButton />
+        </div>
+      </div>
+    </div>
   );
 };
 

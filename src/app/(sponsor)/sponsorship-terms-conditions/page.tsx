@@ -18,40 +18,29 @@ const SponsorshipTermsConditions = async () => {
   const pageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=73`
   );
-
-  const generalSettings = pageContent?.gernalsettings;
-  const conferenceData =
-    pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
+  const {
+    page_top_banner,
+    page_description,
+    sponsors,
+    supporting_associations,
+    media_partners,
+  } = pageContent?.data?.section_list;
   return (
     <>
-      <SharedTopSection
-        {...pageContent?.data?.section_list?.page_top_banner}
-        title={pageContent?.data?.name}
-        awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
-      />
+      <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
 
       <div className="section-wrapper pt-5 md:pt-7 lg:pt-12  pb-8 md:pb-10 lg:pb-14">
         <div
           className="sponsor-terms-description"
           dangerouslySetInnerHTML={{
-            __html:
-              pageContent?.data?.section_list?.page_description?.description,
+            __html: page_description?.description,
           }}
         />
       </div>
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
-        <Sponsors
-          data={pageContent?.data?.section_list?.sponsors}
-          isSponsor={true}
-        />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      <div className="sponsor-wrapper section-wrapper">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} />
+        <Sponsors data={media_partners} />
       </div>
     </>
   );

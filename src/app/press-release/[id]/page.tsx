@@ -42,7 +42,7 @@ const PressReleaseDetailPage = async ({ params }: Props) => {
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <DetailsSectionone content={pressReleaseContent?.data} />
       {/* <RecentlyViewed data={press_release?.data} /> */}
-      <div className="section-wrapper pb-16 md:pb-20  space-y-5">
+      <div className="section-wrapper section-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
