@@ -476,6 +476,9 @@ ul {
 .main-heading-3 {
   @apply text-sm sm:text-base md:text-lg;
 }
+.form-heading {
+  @apply text-2xl md:text-3xl lg:text-[40px] text-center font-bold leading-2 md:text-left;
+}
 
 /* Descriptions */
 .description {

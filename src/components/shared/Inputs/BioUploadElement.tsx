@@ -3,7 +3,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import uploadImage from "@/assets/icons/backup_white.svg";
-import uploadImage2 from "@/assets/icons/backup_purple.svg";
+import uploadImage2 from "@/assets/icons/backup.png";
 
 import Image from "next/image";
 import { FieldValues, FieldErrors, Path } from "react-hook-form";

@@ -140,8 +140,8 @@ const BecomeSponsorPageForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
-        <h4 className="main-heading-2 !text-white pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
+      <div className=" bg-tms-green  px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20 border border-tms-green border-b-0">
+        <h4 className=" form-heading text-white  pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
           About You
         </h4>
 
@@ -175,6 +175,7 @@ const BecomeSponsorPageForm = ({
               rules={{
                 required: "First Name is required.",
               }}
+              isLight={true}
             />
 
             <TextElement
@@ -187,6 +188,7 @@ const BecomeSponsorPageForm = ({
               rules={{
                 required: "Last Name is required.",
               }}
+              isLight={true}
             />
           </FormRow>
 
@@ -206,6 +208,7 @@ const BecomeSponsorPageForm = ({
                     message: "Please enter a valid email address.",
                   },
                 }}
+                isLight={true}
               />
             </div>
 
@@ -234,6 +237,7 @@ const BecomeSponsorPageForm = ({
                     message: "Please enter a valid number.",
                   },
                 }}
+                isLight={true}
               />
             </div>
           </FormRow>
@@ -255,6 +259,7 @@ const BecomeSponsorPageForm = ({
                     message: "Please enter a valid URL.",
                   },
                 }}
+                isLight={true}
               />
             </div>
 
@@ -340,9 +345,9 @@ const BecomeSponsorPageForm = ({
         </div>
       </div>
 
-      <div className=" bg-tms-light-blue px-5 md:px-10 lg:px-16  xl:px-[72px] pb-6 md:pb-8  lg:pb-11 -mt-12 md:-mt-10">
+      <div className=" bg-white px-5 md:px-10 lg:px-16  xl:px-[72px] pb-6 md:pb-8  lg:pb-11 -mt-12 md:-mt-10 border border-tms-tanker-blue">
         <div>
-          <h4 className="main-heading-2 pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
+          <h4 className=" form-heading pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5 gradient-text w-fit">
             About the company
           </h4>
           <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
@@ -357,7 +362,6 @@ const BecomeSponsorPageForm = ({
                 rules={{
                   required: "Designation is required.",
                 }}
-                isBlue={true}
               />
 
               <TextElement
@@ -370,7 +374,6 @@ const BecomeSponsorPageForm = ({
                 rules={{
                   required: "Company Nameis required.",
                 }}
-                isBlue={true}
               />
             </FormRow>
 
@@ -386,6 +389,7 @@ const BecomeSponsorPageForm = ({
                       name="aboutCompany.natureOfCompany"
                       errors={errors}
                       companyListData={NatureOfCompanyList}
+                      isLight={true}
                     />
                   )}
                 />
@@ -399,7 +403,7 @@ const BecomeSponsorPageForm = ({
                   placeholder="Please specify others"
                   register={register}
                   errors={errors}
-                  isBlue={true}
+                  isLight={true}
                 />
               </div>
             </FormRow>
@@ -407,7 +411,7 @@ const BecomeSponsorPageForm = ({
         </div>
 
         <div>
-          <h4 className="main-heading-2 pt-6 md:pt-8 mb-4  md:mb-5">
+          <h4 className="form-heading gradient-text w-fit pt-6 md:pt-8 mb-4  md:mb-5">
             About your presentation
           </h4>
           <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
@@ -423,7 +427,6 @@ const BecomeSponsorPageForm = ({
                   rules={{
                     required: "Presentation Title is required.",
                   }}
-                  isBlue={true}
                 />
               </div>
 
@@ -511,7 +514,7 @@ const BecomeSponsorPageForm = ({
         </div>
 
         <div
-          className="mt-3 md:mt-5 lg:mt-7 space-y-3 md:space-y-4"
+          className="mt-3 md:mt-5 lg:mt-7 space-y-3 md:space-y-4 dark-alter text-sm sm:text-base"
           dangerouslySetInnerHTML={{ __html: formDescription }}
         />
 
@@ -525,10 +528,9 @@ const BecomeSponsorPageForm = ({
         <div className="mt-4 md:mt-5 flex justify-center">
           <button
             type="submit"
-            className="bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center"
+            className="gradient-master text-white text-sm sm:text-base  font-medium leading-normal  py-3  px-10 md:px-14 "
           >
             Submit
-            <MdOutlineKeyboardArrowRight className="text-2xl text-white group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
           </button>
         </div>
       </div>

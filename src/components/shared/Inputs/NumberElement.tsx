@@ -1,4 +1,10 @@
-import React, { InputHTMLAttributes, useState, useEffect } from "react";
+import React, {
+  InputHTMLAttributes,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 import {
   FieldErrors,
   FieldValues,
@@ -62,13 +68,11 @@ const formatDialCode = (idd: CountryType["idd"]): string => {
 };
 
 const NumberElement = <TFieldValues extends FieldValues>({
-  label,
   name,
   codeName,
   register,
   errors,
   rules = {},
-  isBlue = false,
   setValue,
   isLight = false,
   ...rest
@@ -81,6 +85,56 @@ const NumberElement = <TFieldValues extends FieldValues>({
   const [selectedCountry, setSelectedCountry] = useState<CountryType | null>(
     null
   );
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (isOpen) {
+        const key = event.key;
+
+        if (key.length === 1 && key.match(/[a-z0-9]/i)) {
+          // If the key is alphanumeric, add it to the search term
+          setSearchTerm((prevSearchTerm) => prevSearchTerm + key);
+        } else if (key === "Backspace") {
+          // Handle backspace to delete the last character
+          setSearchTerm((prevSearchTerm) => prevSearchTerm.slice(0, -1));
+        } else if (key === "Escape") {
+          // Handle escape key to close the dropdown
+          setIsOpen(false);
+          setSearchTerm("");
+        }
+
+        // Prevent the key event from propagating (e.g., scrolling the page with space/arrows)
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    },
+    [isOpen]
+  );
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        event.target &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+        setSearchTerm("");
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      // We use keydown because keypress is deprecated, and keyup can be unreliable
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [dropdownRef, isOpen, handleKeyDown]);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -140,12 +194,16 @@ const NumberElement = <TFieldValues extends FieldValues>({
   }, [setValue, codeName]);
 
   const handleButtonClick = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => {
+      setSearchTerm("");
+      return !prev;
+    });
   };
 
   const handleCountrySelect = (country: CountryType) => {
     setSelectedCountry(country);
     setIsOpen(false);
+    setSearchTerm("");
 
     setValue(
       codeName,
@@ -174,12 +232,16 @@ const NumberElement = <TFieldValues extends FieldValues>({
     onChange(e);
   };
 
+  const filteredCountries = countries.filter((country) =>
+    country.name.common.toLowerCase().startsWith(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="flex flex-col gap-y-2 flex-grow">
+    <div className="flex flex-col gap-y-2 flex-grow" ref={dropdownRef}>
       <div className="flex items-center relative">
         <div
           id="dropdown-phone"
-          className={`absolute left-0 top-full mt-2 w-52 overflow-y-scroll max-h-52 bg-tms-tanker-blue rounded-md border border-light-grey shadow-sm z-50 no-scrollbar ${
+          className={`absolute left-0 top-full mt-2 w-52 overflow-y-scroll max-h-52 bg-tms-green rounded-md border border-light-grey shadow-sm z-50 no-scrollbar ${
             isOpen ? "block" : "hidden"
           }`}
         >
@@ -187,20 +249,28 @@ const NumberElement = <TFieldValues extends FieldValues>({
             className="py-2 text-dark text-sm md:text-base"
             aria-labelledby="dropdown-phone-button"
           >
-            {countries.map((country, index) => (
-              <li key={index}>
-                <button
-                  type="button"
-                  className={`inline-flex w-full px-4 py-2 text-tms-dark-1 hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
-                  role="menuitem"
-                  onClick={() => handleCountrySelect(country)}
-                >
-                  <div className="inline-flex items-center text-left ">
-                    {country.name.common} ({country.dialCode})
-                  </div>
-                </button>
+            {filteredCountries.length > 0 ? (
+              filteredCountries.map((country, index) => (
+                <li key={index}>
+                  <button
+                    type="button"
+                    className={`inline-flex w-full px-4 py-2 text-white hover:bg-tms-blue/[.2] dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white text-sm md:text-base`}
+                    role="menuitem"
+                    onClick={() => handleCountrySelect(country)}
+                  >
+                    <div className="inline-flex items-center text-left ">
+                      {country.name.common} ({country.dialCode})
+                    </div>
+                  </button>
+                </li>
+              ))
+            ) : (
+              <li
+                className={`px-4 py-2 ${isLight ? "text-white" : "text-white"}`}
+              >
+                No country found for {searchTerm}
               </li>
-            ))}
+            )}
           </ul>
         </div>
 
