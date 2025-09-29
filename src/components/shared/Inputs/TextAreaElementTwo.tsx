@@ -81,8 +81,8 @@ const TextAreaElementTwo = <TFieldValues extends FieldValues>({
     >
       <div className="relative flex w-full">
         <textarea
-          className={`relative ${
-            isLight ? "fix-autofill-dark" : "fix-autofill"
+          className={`relative fix-autofill-dark ${
+            isLight ? "input-alter" : "input gradient-border-2"
           } ${isBlue ? "input-alter" : "input"}`}
           id={name}
           {...restRegister}

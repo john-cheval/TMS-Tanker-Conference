@@ -13,6 +13,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { toast } from "sonner";
 import ReCaptcha from "@/utils/ReCaptcha";
+import { baseUrl } from "@/lib/api";
 interface AboutYouData {
   title: string;
   firstName: string;
@@ -51,12 +52,9 @@ interface RecaptchaRefType {
 }
 type Props = {
   formDescription: string;
-  NatureOfCompanyList: any;
+  NatureOfCompany: any;
 };
-const BecomeSponsorPageForm = ({
-  formDescription,
-  NatureOfCompanyList,
-}: Props) => {
+const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const isSmallScreen = useMediaQuery("(max-width: 650px)");
@@ -66,7 +64,7 @@ const BecomeSponsorPageForm = ({
     handleSubmit,
     control,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     setFocus,
   } = useForm<FormData>();
@@ -81,22 +79,67 @@ const BecomeSponsorPageForm = ({
 
   const onSubmit = async (data: FormData) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const formData = new FormData();
 
-      console.log(data, "This is the form data");
-      console.log("reCAPTCHA Token:", token);
+      // Append all text fields to the FormData object
+      formData.append("title", data?.aboutYou?.title);
+      formData.append("fname", data?.aboutYou.firstName);
+      formData.append("lname", data?.aboutYou.lastName);
+      formData.append("email_address", data?.aboutYou?.email);
+      formData.append("country_code", data?.aboutYou?.contactCountryCode);
+      formData.append("telephone", data?.aboutYou?.contact.toString()); // Convert number to string
+      formData.append("linkedin_url", data?.aboutYou?.linkedinUrl);
 
-      // Show a success toast notification
-      toast.success("Form submitted successfully!");
+      formData.append("designation", data?.aboutCompany?.designation);
+      formData.append("c_name", data?.aboutCompany?.company);
+      formData.append("nature_company", data?.aboutCompany?.natureOfCompany);
+      formData.append("nature_company_other", data?.aboutCompany?.ifOthers);
 
-      // Reset the form and reCAPTCHA widget
-      reset();
-      if (recaptchaRef.current) {
-        recaptchaRef.current.resetCaptcha();
+      formData.append("job_title", data?.aboutPresentation?.presentationTitle);
+      formData.append("abstract_details", data?.aboutPresentation?.abstract);
+      formData.append(
+        "your_presentation",
+        data?.aboutPresentation?.aboutPresentation
+      );
+      formData.append("additional_details", data?.aboutPresentation?.takewayas);
+
+      // Append file fields to FormData
+      // Always check if the file exists before appending
+      if (data?.aboutYou?.headshotFile?.[0]) {
+        formData.append("headshot", data.aboutYou.headshotFile[0]);
       }
-      setToken("");
+      if (data?.aboutYou?.bio?.[0]) {
+        formData.append("bio", data.aboutYou.bio[0]);
+      }
+      if (data?.aboutPresentation?.paperSubmit?.[0]) {
+        formData.append(
+          "papers_details",
+          data.aboutPresentation.paperSubmit[0]
+        );
+      }
+
+      const response = await fetch(`${baseUrl}/becomeaspeaker`, {
+        method: "POST",
+
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Form submitted successfully!");
+        reset();
+
+        if (recaptchaRef.current) {
+          recaptchaRef.current.resetCaptcha();
+        }
+        setToken("");
+      } else {
+        // You might want to handle error responses from the server here
+        const errorData = await response.json();
+        console.error("Server error:", errorData);
+        toast.error("Failed to submit form. Please try again.");
+      }
     } catch (error) {
-      // Handle any submission errors
+      console.error("Fetch error:", error);
       toast.error("Failed to submit form. Please try again.");
     }
   };
@@ -140,8 +183,8 @@ const BecomeSponsorPageForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <div className=" bg-tms-blue rounded-2xl px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20">
-        <h4 className="main-heading-2 !text-white pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
+      <div className="  bg-tms-green px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20 border border-tms-green border-b-0">
+        <h4 className=" form-heading text-white  pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
           About You
         </h4>
 
@@ -175,6 +218,7 @@ const BecomeSponsorPageForm = ({
               rules={{
                 required: "First Name is required.",
               }}
+              isLight={true}
             />
 
             <TextElement
@@ -187,6 +231,7 @@ const BecomeSponsorPageForm = ({
               rules={{
                 required: "Last Name is required.",
               }}
+              isLight={true}
             />
           </FormRow>
 
@@ -206,6 +251,7 @@ const BecomeSponsorPageForm = ({
                     message: "Please enter a valid email address.",
                   },
                 }}
+                isLight={true}
               />
             </div>
 
@@ -234,6 +280,7 @@ const BecomeSponsorPageForm = ({
                     message: "Please enter a valid number.",
                   },
                 }}
+                isLight={true}
               />
             </div>
           </FormRow>
@@ -255,6 +302,7 @@ const BecomeSponsorPageForm = ({
                     message: "Please enter a valid URL.",
                   },
                 }}
+                isLight={true}
               />
             </div>
 
@@ -340,9 +388,9 @@ const BecomeSponsorPageForm = ({
         </div>
       </div>
 
-      <div className=" bg-tms-light-blue px-5 md:px-10 lg:px-16  xl:px-[72px] pb-6 md:pb-8  lg:pb-11 -mt-12 md:-mt-10">
+      <div className=" bg-white px-5 md:px-10 lg:px-16  xl:px-[72px] pb-6 md:pb-8  lg:pb-11 -mt-0 md:-mt-10 border border-tms-tanker-blue">
         <div>
-          <h4 className="main-heading-2 pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
+          <h4 className=" form-heading pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5 gradient-text w-fit">
             About the company
           </h4>
           <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
@@ -357,7 +405,6 @@ const BecomeSponsorPageForm = ({
                 rules={{
                   required: "Designation is required.",
                 }}
-                isBlue={true}
               />
 
               <TextElement
@@ -370,7 +417,6 @@ const BecomeSponsorPageForm = ({
                 rules={{
                   required: "Company Nameis required.",
                 }}
-                isBlue={true}
               />
             </FormRow>
 
@@ -385,7 +431,8 @@ const BecomeSponsorPageForm = ({
                       {...field}
                       name="aboutCompany.natureOfCompany"
                       errors={errors}
-                      companyListData={NatureOfCompanyList}
+                      companyListData={NatureOfCompany}
+                      isLight={true}
                     />
                   )}
                 />
@@ -399,7 +446,6 @@ const BecomeSponsorPageForm = ({
                   placeholder="Please specify others"
                   register={register}
                   errors={errors}
-                  isBlue={true}
                 />
               </div>
             </FormRow>
@@ -407,7 +453,7 @@ const BecomeSponsorPageForm = ({
         </div>
 
         <div>
-          <h4 className="main-heading-2 pt-6 md:pt-8 mb-4  md:mb-5">
+          <h4 className="form-heading gradient-text w-fit pt-6 md:pt-8 mb-4  md:mb-5">
             About your presentation
           </h4>
           <div className="flex flex-col gap-y-2.5 md:gap-y-3 lg:gap-y-5">
@@ -423,7 +469,6 @@ const BecomeSponsorPageForm = ({
                   rules={{
                     required: "Presentation Title is required.",
                   }}
-                  isBlue={true}
                 />
               </div>
 
@@ -439,7 +484,6 @@ const BecomeSponsorPageForm = ({
               rules={{
                 required: "Abstract is required.",
               }}
-              isBlue={true}
               wordLimit={500}
             />
 
@@ -453,7 +497,6 @@ const BecomeSponsorPageForm = ({
               rules={{
                 required: "Key Takeaways is required.",
               }}
-              isBlue={true}
               wordLimit={500}
             />
 
@@ -525,10 +568,12 @@ const BecomeSponsorPageForm = ({
         <div className="mt-4 md:mt-5 flex justify-center">
           <button
             type="submit"
-            className="bg-tms-purple text-white text-base md:text-lg font-bold leading-5 rounded-lg py-4 md:py-6 px-10 md:px-7 flex gap-x-2.5 group items-center"
+            className={`gradient-master text-white text-sm sm:text-base  font-medium leading-normal  py-3  px-10 md:px-14 ${
+              !token ? "opacity-50 cursor-not-allowed" : " hover:text-white"
+            }`}
+            disabled={!token}
           >
-            Submit
-            <MdOutlineKeyboardArrowRight className="text-2xl text-white group-hover:translate-x-1 group-hover:text-tms-blue- transition-all duration-300 ease-in-out" />
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </div>

@@ -40,6 +40,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
   value: any;
   companyListData: any;
   isDark?: boolean;
+  isLight?: boolean;
 }
 
 import { GroupBase } from "react-select";
@@ -52,6 +53,7 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   errors,
   companyListData,
   isDark = false,
+  isLight = false,
 }: TitleSelectProps<TFieldValues>) => {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -110,14 +112,18 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
   const customStyles = {
     control: (styles: any) => ({
       ...styles,
-      borderColor: isDark ? "#fff" : "#1C75BC",
+      borderColor: "#fff",
+      borderImage: isLight
+        ? "linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%)"
+        : "none",
+      borderImageSlice: isLight ? 1 : 0,
       borderRadius: "0px",
       backgroundColor: "transparent",
       paddingBlock: "8px",
       paddingLeft: getPaddingLeft(),
       color: "",
       "&:hover": {
-        borderColor: isDark ? "#fff" : "#1C75BC",
+        borderColor: "#fff",
       },
     }),
     menu: (styles: any) => ({
@@ -141,11 +147,11 @@ const NatureOfCompanySelectElement = <TFieldValues extends FieldValues>({
     }),
     placeholder: (styles: any) => ({
       ...styles,
-      color: isDark ? "#fff" : "#00081b",
+      color: isLight ? "#000" : "#fff",
     }),
     singleValue: (styles: any) => ({
       ...styles,
-      color: isDark ? "#fff" : "#00081b",
+      color: isLight ? "#000" : "#fff",
     }),
   };
   const errorMessage = getNestedError<TFieldValues>(errors, name);

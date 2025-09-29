@@ -476,6 +476,9 @@ ul {
 .main-heading-3 {
   @apply text-sm sm:text-base md:text-lg;
 }
+.form-heading {
+  @apply text-2xl md:text-3xl lg:text-[40px] text-center font-bold leading-2 md:text-left;
+}
 
 /* Descriptions */
 .description {
@@ -498,6 +501,13 @@ ul {
 }
 .delegateDescription ul {
   @apply pl-6 list-disc space-y-1;
+}
+.session-description,
+.session-description ul li {
+  @apply text-sm md:text-base  leading-5 text-dark-alter;
+}
+.session-description ul {
+  @apply pt-2 list-disc pl-5 space-y-2;
 }
 .active-1 {
   margin-top: 0;
