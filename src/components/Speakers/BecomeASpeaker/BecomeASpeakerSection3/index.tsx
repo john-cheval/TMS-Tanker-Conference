@@ -36,7 +36,7 @@ const BecomeASpeakerSectionThree = (props: Props) => {
         </h4>
         <BecomeSponsorPageForm
           formDescription={form_description}
-          NatureOfCompanyList={companyList}
+          NatureOfCompany={companyList}
         />
       </div>
     </section>
