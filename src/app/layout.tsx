@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import ServerNavbar from "@/components/shared/Navbar/ServerNavbar";
-import Footer from "@/components/shared/Footer";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import Providers from "@/Providers/ToastProviders";
+import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
   title:
@@ -56,7 +56,8 @@ export default async function RootLayout({
         <main className="flex-grow">
           <Providers>{children}</Providers>
         </main>
-        <Footer
+        <Footer socialLinks={socialMediaLinks} footerMainLinks={menuLinks[2]} />
+        {/* <Footer
           footerMainLinks={menuLinks[2]}
           footerBottom={menuLinks[3]}
           socialLinks={socialMediaLinks}
@@ -67,7 +68,7 @@ export default async function RootLayout({
           }
           registerNow={COMMON_SETTINGS_VALUES_register_now}
           sponsorBtnData={COMMON_SETTINGS_VALUES_become_a_sponsor}
-        />
+        /> */}
       </body>
     </html>
   );
