@@ -16,22 +16,18 @@ const BecomeASpeaker = async () => {
   );
 
   const generalSettings = pageContent?.gernalsettings;
-  const conferenceData =
-    pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR, Enquery_emails_nature_of_company_list } =
+  const { Enquery_emails_nature_of_company_list } =
     generalSettings?.general_settings;
-  const { page_top_banner, become_a_speaker_page } =
-    pageContent?.data?.section_list;
+  const {
+    page_top_banner,
+    become_a_speaker_page,
+    sponsors,
+    supporting_associations,
+    media_partners,
+  } = pageContent?.data?.section_list;
   return (
     <>
-      <SharedTopSection
-        {...page_top_banner}
-        title={pageContent?.data?.name}
-        awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
-      />
+      <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <section className="section-wrapper">
         <div className="border-b border-b-light-grey-1 py-5 md:py-8 lg:py-10  space-y-3 md:space-y-4 ">
           <h3 className="main-heading-2 gradient-text-3 w-fit font-bold leading-3 lg:leading-2 xl:leading-1 text-center md:text-left">
@@ -51,15 +47,10 @@ const BecomeASpeaker = async () => {
         companyList={Enquery_emails_nature_of_company_list}
       />
 
-      <div className="section-wrapper pb-12 md:pb-20 space-y-5">
-        <Sponsors
-          data={pageContent?.data?.section_list?.sponsors}
-          isSponsor={true}
-        />
-        <Sponsors
-          data={pageContent?.data?.section_list?.supporting_associations}
-        />
-        <Sponsors data={pageContent?.data?.section_list?.media_partners} />
+      <div className="section-wrapper sponsor-wrapper">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} />
+        <Sponsors data={media_partners} />
       </div>
     </>
   );

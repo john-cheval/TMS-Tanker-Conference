@@ -78,7 +78,7 @@ const DelegateRegistration = async () => {
         {...pricing_plans}
         companyList={Enquery_emails_nature_of_company_list}
       />
-      <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16 pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 space-y-9">
+      <div className="section-wrapper sponsor-wrapper pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 ">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />

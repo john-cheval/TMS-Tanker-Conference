@@ -32,12 +32,10 @@ const WhySponsor = async () => {
       <SponsorBenifits {...key_sponsorship_benefits} />
       <WhySponsorSectionThree {...key_sponsorship_benefits} />
       <BecomeSponsorForm {...become_a_sponsor_form} />
-      <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16">
-        <div className="space-y-9">
-          <Sponsors data={sponsors} isSponsor={true} />
-          <Sponsors data={supporting_associations} />
-          <Sponsors data={media_partners} />{" "}
-        </div>
+      <div className="section-wrapper section-wrapper">
+        <Sponsors data={sponsors} isSponsor={true} />
+        <Sponsors data={supporting_associations} />
+        <Sponsors data={media_partners} />{" "}
       </div>
     </>
   );

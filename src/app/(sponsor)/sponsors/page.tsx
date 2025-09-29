@@ -13,22 +13,19 @@ const Sponsors = async () => {
   const sponsorPageContent = await fetchData(
     `${baseUrl}/getmasterdetails?master_name=cms&id=15`
   );
-  const generalSettings = sponsorPageContent?.gernalsettings;
-  const conferenceData =
-    sponsorPageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
-  const SponsorsData = sponsorPageContent?.data?.section_list?.sponsors?.data;
+
+  const {
+    page_top_banner,
+
+    sponsors,
+  } = sponsorPageContent?.data?.section_list;
   return (
     <>
       <SharedTopSection
-        {...sponsorPageContent?.data?.section_list?.page_top_banner}
+        {...page_top_banner}
         title={sponsorPageContent?.data?.name}
-        awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
       />
-      <SponsorsList sponsors={SponsorsData} />
+      <SponsorsList sponsors={sponsors?.data} />
     </>
   );
 };

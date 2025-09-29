@@ -26,7 +26,7 @@ const ContactUs = async () => {
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <ContactSectionOne content={contact_us} />
-      <div className="sponsor-wrapper">
+      <div className="sponsor-wrapper section-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />

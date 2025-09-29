@@ -51,7 +51,7 @@ const WhyAttend = async () => {
         </div>
       </section>
       {sponsors && (
-        <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16">
+        <div className="section-wrapper sponsor-wrapper">
           <div className="space-y-9">
             <Sponsors data={sponsors} isSponsor={true} />
             <Sponsors data={supporting_associations} />

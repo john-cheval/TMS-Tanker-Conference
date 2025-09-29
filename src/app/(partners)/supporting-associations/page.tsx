@@ -34,12 +34,11 @@ const SupportingAssosiations = async () => {
       <BecomeSponsorForm {...become_a_sponsor_form} isPaddingTop={false} />
 
       {/* {sponsors && (
-        <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16">
-          <div className="space-y-9">
+        <div className="section-wrapper sponsor-wrapper">
             <Sponsors data={sponsors} isSponsor={true} />
             <Sponsors data={supporting_associations} />
             <Sponsors data={media_partners} />{" "}
-          </div>
+
         </div>
       )} */}
     </>

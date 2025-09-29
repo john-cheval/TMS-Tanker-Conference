@@ -43,7 +43,7 @@ const ConfernceGalleryPhotos = async ({ params }: Props) => {
           There is No Albums in this Conference Year
         </p>
       )}
-      <div className="section-wrapper pb-8 md:pb-10 lg:pb-12 xl:pb-16  space-y-9">
+      <div className="section-wrapper sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />

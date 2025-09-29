@@ -19,10 +19,6 @@ const Blogs = async () => {
     `${baseUrl}/getmasterdetails?master_name=cms&id=68`
   );
 
-  const generalSettings = pageContent?.gernalsettings;
-  const conferenceData =
-    pageContent?.gernalsettings?.current_year_coneference[0];
-  const { AWARD_YEAR } = generalSettings?.general_settings;
   const {
     page_top_banner,
     sponsors,
@@ -33,14 +29,7 @@ const Blogs = async () => {
   const clonedBlogList = Array.from({ length: 6 }, () => blog_list.data).flat();
   return (
     <>
-      <SharedTopSection
-        {...page_top_banner}
-        title={pageContent?.data?.name}
-        awardTitle={AWARD_YEAR?.title}
-        conferenceTitle={conferenceData?.Coneference_title}
-        conferenceLocation={conferenceData.location}
-        conferenceDate={conferenceData.end_date}
-      />
+      <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
 
       <section className="section-wrapper pt-5 md:pt-8 lg:pt-14 pb-3 md:pb-5  lg:pb-10">
         <div className="grid grid-cols-12 gap-y-3 md:gap-y-0 md:gap-x-3  lg:gap-x-5">
@@ -186,7 +175,7 @@ const Blogs = async () => {
         })}
       </section>
 
-      <div className="section-wrapper pb-16 md:pb-20  space-y-9 pt-6 md:pt-8 lg:pt-14  ">
+      <div className="section-wrapper section-wrapper pt-6 md:pt-8 lg:pt-14  ">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
