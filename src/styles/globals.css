@@ -502,6 +502,13 @@ ul {
 .delegateDescription ul {
   @apply pl-6 list-disc space-y-1;
 }
+.session-description,
+.session-description ul li {
+  @apply text-sm md:text-base  leading-5 text-dark-alter;
+}
+.session-description ul {
+  @apply pt-2 list-disc pl-5 space-y-2;
+}
 .active-1 {
   margin-top: 0;
 }
