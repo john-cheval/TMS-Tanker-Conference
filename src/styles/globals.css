@@ -544,6 +544,17 @@ ul {
 .sponsor-wrapper {
   @apply pb-8 md:pb-10 lg:pb-12 xl:pb-16  space-y-9;
 }
+
+.conference-item::before {
+  content: " ";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #008ac0;
+  border-radius: 50%;
+  top: -10px;
+  right: -12px;
+}
 /* Media Queries */
 
 @media (max-width: 768px) {
