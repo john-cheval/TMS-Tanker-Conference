@@ -6,6 +6,8 @@ import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
 import Providers from "@/Providers/ToastProviders";
 import Footer from "@/components/shared/Footer";
+import StickyCountDown from "@/components/shared/Countdown/StickyCountDown";
+import ClientStickyWrapper from "@/components/shared/Countdown/ClientStickyWrapper";
 
 export const metadata: Metadata = {
   title:
@@ -45,6 +47,8 @@ export default async function RootLayout({
     YOUTUBE,
   ].filter(Boolean);
 
+  const { award_date } = menuLinks?.current_year_coneference[0];
+
   const mainMenuLinks = menuLinks?.[1];
   const sideBarlinks = menuLinks?.[4];
   return (
@@ -55,8 +59,19 @@ export default async function RootLayout({
         <ServerNavbar mainLinks={mainMenuLinks} sidebarLinks={sideBarlinks} />
         <main className="flex-grow">
           <Providers>{children}</Providers>
+          {/* <StickyCountDown
+            targetDate={award_date}
+            registerNowBtn={COMMON_SETTINGS_VALUES_register_now}
+            sponsorBtn={COMMON_SETTINGS_VALUES_become_a_sponsor}
+          /> */}
+          <ClientStickyWrapper
+            targetDate={award_date}
+            registerNowBtn={COMMON_SETTINGS_VALUES_register_now}
+            sponsorBtn={COMMON_SETTINGS_VALUES_become_a_sponsor}
+          />
         </main>
         <Footer socialLinks={socialMediaLinks} footerMainLinks={menuLinks[2]} />
+
         {/* <Footer
           footerMainLinks={menuLinks[2]}
           footerBottom={menuLinks[3]}
