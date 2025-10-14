@@ -14,8 +14,8 @@ const SharedTopSection = ({ banner, title }: SharedTopSectionPropsTypes) => {
       <div className="relative ">
         {!isVideo(banner ?? "") ? (
           <Image
-            // src={banner ?? imageLocal}
-            src={imageLocal}
+            src={banner ?? imageLocal}
+            // src={imageLocal}
             width={500}
             height={400}
             alt="title"
