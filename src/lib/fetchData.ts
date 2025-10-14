@@ -3,9 +3,9 @@
 export const fetchData = /*cache*/ async (url: string) => {
   try {
     const response = await fetch(url, {
-      // next: {
-      //   revalidate: 120,
-      // },
+      next: {
+        revalidate: 10,
+      },
     });
 
     if (!response.ok) {
