@@ -11,9 +11,10 @@ import type SwiperCore from "swiper";
 //   MdOutlineKeyboardArrowRight,
 // } from "react-icons/md";
 import Image from "next/image";
+import { imageGallery } from "@/types/common";
 
 type Props = {
-  swiperGallery: string[];
+  swiperGallery: imageGallery[];
 };
 
 const data = [
@@ -59,8 +60,8 @@ const HomeSwiperOne = ({ swiperGallery }: Props) => {
           },
         }}
       >
-        {data?.length > 0 &&
-          data?.map((item, index) => {
+        {swiperGallery?.length > 0 &&
+          swiperGallery?.map((item, index) => {
             const classIndex = index % 3;
 
             let marginClass = "";
@@ -83,8 +84,9 @@ const HomeSwiperOne = ({ swiperGallery }: Props) => {
             return (
               <SwiperSlide key={index + 1} className={`${marginClass} `}>
                 <Image
-                  src={item}
-                  alt={`image-${index + 1}`}
+                  src={item.image_url}
+                  // alt={`image-${index + 1}`}
+                  alt={item?.image_alt_tag ?? ""}
                   width={350}
                   height={360}
                   className="w-full h-auto "

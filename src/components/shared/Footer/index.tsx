@@ -15,15 +15,16 @@ type Props = {
 
 const Footer = ({ socialLinks, footerMainLinks }: Props) => {
   const footerMainLinksData = Object.values(footerMainLinks);
+  console.log("footerMainLinksData",footerMainLinksData)
   return (
     <div className="bg-black relative pt-8 md:pt-10 lg:pt-14 xl:pt-20 pb-6 md:pb-8 lg:pb-14">
       <div className="section-wrapper">
         <div className=" grid grid-cols-12 gap-x-5 lg:gap-x-8 2xl:gap-x-12">
-          <div className=" hidden md:col-span-4">
+          <div className=" hiddens md:col-span-4">
             <FooterLinks links={footerLinksLeft} name="Our Products" />
           </div>
 
-          <div className="hidden md:col-span-3">
+          <div className="hiddens md:col-span-3">
             <FooterLinks links={quickLinks} name="Quick Links" />
           </div>
 
@@ -36,7 +37,7 @@ const Footer = ({ socialLinks, footerMainLinks }: Props) => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="hidden md:col-span-5"
+            className="hiddens md:col-span-5"
           >
             {" "}
             <motion.h6 className="text-[#38C7FF] text-lg md:text-2xl font-medium leading-3">

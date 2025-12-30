@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import attend1 from "@/assets/Home/attend1.jpg";
+import { imageGallery } from "@/types/common";
 
 interface ImageGalleryType {
   title: string;
@@ -13,7 +14,7 @@ type Props = {
   short_description: string;
   button_text: string;
   button_link: string;
-  image_gallery: ImageGalleryType[];
+  image_gallery: imageGallery[];
 };
 
 const HomeSectionSix = ({
@@ -47,12 +48,13 @@ const HomeSectionSix = ({
       <div className="mt-5 md:mt-8 lg:mt-10 grid grid-cols-12 border border-tms-black h-full  ">
         <div className="col-span-12  md:col-span-4 md:border-r pt-3 md:pt-4 px-3 md:px-4 pb-4 md:pb-6 lg:pb-8 border-b border-b-tms-black md:border-b-0 border-r-tms-black h-full">
           <Image
-            // src={image_gallery[0]?.image_url}
-            src={attend1}
-            alt={image_gallery[0]?.title}
+            src={image_gallery[0]?.image_url}
+            // src={attend1}
+            // alt={image_gallery[0]?.title}
+            alt={image_gallery[0]?.image_alt_tag ?? ""}
             width={500}
             height={600}
-            className="w-full h-full- object-cover max-w-[500px]-"
+            className="w-full h-[588px] object-cover max-w-[500px]-"
           />
           <p className="text-base md:text-lg lg:text-2xl text-tms- font-medium leading-5 md:leading-3 mt-4">
             {image_gallery[0]?.title}
@@ -77,7 +79,7 @@ const HomeSectionSix = ({
                   alt={item?.title}
                   width={350}
                   height={240}
-                  className="w-full h-full- object-cover max-w-[350px]-"
+                  className="w-full h-[240px] object-cover max-w-[350px]-"
                 />
                 <p className="text-base md:text-lg lg:text-2xl text-tms- font-medium leading-5 md:leading-3 mt-4">
                   {item?.title}

@@ -1,6 +1,7 @@
 import Sponsors from "@/components/shared/Sponsors";
 import { SponsorType } from "@/types/common";
 import React from "react";
+import SponsorsOld from "@/components/shared/Sponsors/indexOld";
 
 type Props = {
   sponsorsData: SponsorType;

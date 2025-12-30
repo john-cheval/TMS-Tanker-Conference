@@ -5,6 +5,7 @@ import calendar from "@/assets/icons/calendar_month.png";
 import ButtonOrLink from "@/components/shared/ui/Button";
 import { formatDate } from "@/utils/formatDate";
 import { ButtonLinksProps } from "@/types/common";
+import { formatDateDay } from "@/utils/formatDataDay";
 
 type Props = {
   banner_image: string;
@@ -20,6 +21,7 @@ type Props = {
   callForPaperDate: string;
   earlyBirdsDate: string;
   eventDate: string;
+  data:any;
 };
 
 const HomeSectionOne = ({
@@ -36,6 +38,7 @@ const HomeSectionOne = ({
   callForPaperDate,
   earlyBirdsDate,
   eventDate,
+  data
 }: Props) => {
   return (
     <>
@@ -70,14 +73,16 @@ const HomeSectionOne = ({
               />
 
               <span className="main-heading-3 font-semibold w-full">
-                Thursday, 30th October 2025
+                {/* Thursday, 30th October 2025 */}
+                {formatDateDay(data.award_date)}
               </span>
             </div>
 
             <div className="flex items-center gap-x-2 md:gap-x-2.5 ">
               <FaLocationDot className="text-tms-green" />
               <span className="main-heading-3 font-semibold">
-                {location_heading}
+                {/* {location_heading} */}
+                {data.location}
               </span>
             </div>
           </div>

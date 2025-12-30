@@ -10,7 +10,7 @@ type Props = {
   button_text: string;
   button_link: string;
   image: string;
-  key_benifits: benifitsType[];
+  benefit_list: benifitsType[];
 };
 
 const HomeSectionEight = ({
@@ -19,7 +19,7 @@ const HomeSectionEight = ({
   button_link,
   button_text,
   image,
-  key_benifits,
+  benefit_list,
 }: Props) => {
   return (
     <section className=" pt-8 md:pt-10 lg:pt-12 xl:pt-16">
@@ -42,7 +42,7 @@ const HomeSectionEight = ({
           </p>
 
           <div className="mt-4 grid grid-cols-1  gap-y-5 md:gap-y-0 md:grid-cols-3 gap-x-5 xl:gap-x-12 2xl:gap-x-16">
-            {key_benifits?.map((item, index) => {
+            {benefit_list?.map((item, index) => {
               return (
                 <div key={index} className="space-y-3">
                   <Image

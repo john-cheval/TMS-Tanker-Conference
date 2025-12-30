@@ -1,5 +1,6 @@
 "use client";
 import { useScrollVisibility } from "@/hooks/useScrollVisibility";
+import { useFooterReached } from "@/hooks/useFooterReach";
 import StickyCountDown, { StickyCountDownProps } from "./StickyCountDown";
 import { usePathname } from "next/navigation";
 
@@ -11,11 +12,17 @@ export default function ClientStickyWrapper(props: WrapperProps) {
   const isHomePage = pathname === "/";
   const scrolledPastThreshold = useScrollVisibility(HOME_PAGE_SCROLL_THRESHOLD);
 
-  let isVisible: boolean;
-  if (isHomePage) {
-    isVisible = scrolledPastThreshold;
+  const reachedFooter = useFooterReached(100);
+
+  let isVisible = true;
+
+  if (reachedFooter) {
+    isVisible = false; // ❌ footer always hides
+  } else if (isHomePage) {
+    isVisible = scrolledPastThreshold; // home page rule
   } else {
-    isVisible = true;
+    isVisible = true; // other pages always visible
   }
+  
   return <StickyCountDown {...props} isVisible={isVisible} />;
 }

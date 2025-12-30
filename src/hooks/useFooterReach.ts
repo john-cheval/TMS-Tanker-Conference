@@ -1,13 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const SCROLL_THRESHOLD = 0;
-
-export const useScrollVisibility = (
-  threshold = SCROLL_THRESHOLD,
-  footerOffset = 0 // increase if needed
-) => {
-  const [isVisible, setIsVisible] = useState(false);
+export const useFooterReached = (footerOffset = 0) => {
+  const [reachedFooter, setReachedFooter] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,19 +10,17 @@ export const useScrollVisibility = (
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      const scrolledPastThreshold = scrollY > threshold;
-      const reachedFooter =
+      const isAtFooter =
         scrollY + windowHeight >= documentHeight - footerOffset;
 
-      // ✅ SHOW only when scrolled AND NOT at footer
-      setIsVisible(scrolledPastThreshold && !reachedFooter);
+      setReachedFooter(isAtFooter);
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [threshold, footerOffset]);
+  }, [footerOffset]);
 
-  return isVisible;
+  return reachedFooter;
 };

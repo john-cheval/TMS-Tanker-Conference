@@ -1,19 +1,21 @@
 import HomeSwiperOne from "@/components/shared/Swiper/TankerSwipers/HomeSwiperOne";
 import ResponsiveSwiper from "@/components/shared/Swiper/TankerSwipers/ResponsiveSwiper";
 import React from "react";
+import { imageGallery } from "@/types/common";
+
 
 type Props = {
   heading: string;
   main_heading: string;
   description: string;
-  gallery: string[];
+  image_gallery: imageGallery[];
 };
 
 const HomeSectionTwo = ({
   heading,
   main_heading,
   description,
-  gallery,
+  image_gallery,
 }: Props) => {
   return (
     <section className="section-wrapper section-container- mt-[210px] md:mt-0 pt-12 md:py-16  lg:py-20">
@@ -35,12 +37,12 @@ const HomeSectionTwo = ({
           </div>
         </div>
 
-        <div className="mt-10 lg:mt-16 xl:mt-20 hidden md:block">
-          <HomeSwiperOne swiperGallery={gallery} />
+        <div className="test mt-10 lg:mt-16 xl:mt-20 hidden md:block">
+          <HomeSwiperOne swiperGallery={image_gallery} />
         </div>
 
         <div className="mt-10 md:hidden">
-          <ResponsiveSwiper swiperGallery={gallery} />
+          <ResponsiveSwiper swiperGallery={image_gallery} />
         </div>
       </div>
     </section>

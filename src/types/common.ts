@@ -161,3 +161,9 @@ export type WhyAttendListType = {
   description?: string;
   image_url: string;
 };
+
+export type imageGallery = { 
+  title:string;
+  image_url:string;
+  image_alt_tag?:string;
+}

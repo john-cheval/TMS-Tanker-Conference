@@ -14,13 +14,13 @@ interface SpeakerDescriptionList {
 type Props = {
   heading: string;
   description: string;
-  speaker_description_list: SpeakerDescriptionList[];
+  image_gallery: SpeakerDescriptionList[];
 };
 
 const HomeSectionFour = ({
   heading,
   description,
-  speaker_description_list,
+  image_gallery,
 }: Props) => {
   const colorSchema = [
     {
@@ -59,14 +59,15 @@ const HomeSectionFour = ({
         </ButtonOrLink>
       </div>
 
-      <p className="description text-black mt-5 md:mt-4 md:max-w-[700px] text-center md:text-left px-3 md:px-0">
+      {/* <p className="description text-black mt-5 md:mt-4 md:max-w-[700px] text-center md:text-left px-3 md:px-0">
         {description}
-      </p>
+      </p> */}
+      <div dangerouslySetInnerHTML={{__html:description}} />
 
       <div className="grid grid-cols-12 gap-3 lg:gap-4 2xl:gap-5 mt-6 md:mt-10">
-        {speaker_description_list &&
-          speaker_description_list?.map((item, index) => {
-            const isLast = index === speaker_description_list?.length - 1;
+        {image_gallery &&
+          image_gallery?.map((item, index) => {
+            const isLast = index === image_gallery?.length - 1;
             const isBig = index == 0 || isLast;
             const colSpanClass = isBig
               ? "col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-6"

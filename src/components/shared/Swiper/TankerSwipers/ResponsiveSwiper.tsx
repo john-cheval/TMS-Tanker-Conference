@@ -7,9 +7,10 @@ import { Navigation, Autoplay } from "swiper/modules";
 import type SwiperCore from "swiper";
 import Image from "next/image";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
+import { imageGallery } from "@/types/common";
 
 type Props = {
-  swiperGallery: string[];
+  swiperGallery: imageGallery[];
 };
 
 const ResponsiveSwiper = ({ swiperGallery }: Props) => {
@@ -56,8 +57,9 @@ const ResponsiveSwiper = ({ swiperGallery }: Props) => {
             return (
               <SwiperSlide key={index + 1} className={` `}>
                 <Image
-                  src={item}
-                  alt={`image-${index + 1}`}
+                  src={item.image_url}
+                  // alt={`image-${index + 1}`}
+                  alt={item.image_alt_tag ?? ""}
                   width={350}
                   height={360}
                   className="w-full h-auto "
