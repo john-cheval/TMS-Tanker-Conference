@@ -74,7 +74,7 @@ const HomeSectionOne = ({
 
               <span className="main-heading-3 font-semibold w-full">
                 {/* Thursday, 30th October 2025 */}
-                {formatDateDay(data.award_date)}
+                {formatDateDay(data?.award_date)}
               </span>
             </div>
 
@@ -82,7 +82,7 @@ const HomeSectionOne = ({
               <FaLocationDot className="text-tms-green" />
               <span className="main-heading-3 font-semibold">
                 {/* {location_heading} */}
-                {data.location}
+                {data?.location}
               </span>
             </div>
           </div>

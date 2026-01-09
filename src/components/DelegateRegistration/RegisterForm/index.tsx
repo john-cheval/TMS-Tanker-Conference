@@ -1,5 +1,6 @@
 "use client";
 import FormRow from "@/components/Forms/FormRow";
+import CountryOfResidence from "@/components/shared/Inputs/CountryOfResidence";
 import NationalitySelectElement from "@/components/shared/Inputs/NationalitySElectElement";
 import NatureOfCompanySelectElement from "@/components/shared/Inputs/NatureOfCompanySelect";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
@@ -15,6 +16,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Props = {
   heading?: string;
@@ -25,6 +27,8 @@ type Props = {
     price: string;
   }[];
   NatureOfCompanyList: any;
+  earlyBirdDates?: string;
+  isFree?:any;
 };
 
 interface DelegateData {
@@ -33,7 +37,7 @@ interface DelegateData {
   lastName: string;
   nationality: string;
   country: string;
-  contact: number;
+  contact: string;
   email: string;
   designation: string;
   company: string;
@@ -52,17 +56,48 @@ interface FormData {
 interface RecaptchaRefType {
   resetCaptcha: () => void;
 }
+
+const defaultDelegate = {
+  title: "",
+  firstName: "",
+  lastName: "",
+  nationality: "",
+  country: "",
+  contact: "",
+  email: "",
+  designation: "",
+  company: "",
+  natureOfCompany: "",
+  addditionalDetails: "",
+  taxRegisterationNumber: "",
+  ifOthers: "",
+  contactCountryCode: "+971",
+};
 const DelegateRegisterForm = ({
   heading,
   priceDetails,
   NatureOfCompanyList,
+  earlyBirdDates,
+  isFree = false
 }: Props) => {
+  const earlyBirdCutoffDate = new Date(earlyBirdDates ?? "");
+  const currentDate = new Date();
+
+  const isEarlyBirdExpired = currentDate > earlyBirdCutoffDate;
+
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
   const [token, setToken] = useState("");
   const recaptchaRef = useRef<RecaptchaRefType>(null);
+
+  const router = useRouter();
+
+  const defaultPlan =
+  priceDetails.find(p => p.title === "Group") ?? priceDetails[0];
+
+  const minDefaultDelegates = parseInt(defaultPlan.min_delegates);
 
   const {
     register,
@@ -74,16 +109,30 @@ const DelegateRegisterForm = ({
     formState: { errors },
   } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
-      planType: priceDetails[0]?.title || "Individual",
-      numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
-      delegates: [],
+      // planType: priceDetails[0]?.title || "Group",
+      // numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
+      planType: defaultPlan.title || "Group",
+      numberOfDelegates: minDefaultDelegates || 1,
+      // delegates: [],
+      delegates: Array.from(
+      { length: minDefaultDelegates },
+      () => defaultDelegate
+    ),
       termsAccepted: false,
     },
-    mode: "onBlur",
+    shouldFocusError: false,
+    // mode: "onBlur",
+    // mode: "onSubmit",
+    mode: "onSubmit",
   });
 
   const termsAccepted = watch("termsAccepted");
-  const isFormValid = termsAccepted && token;
+  // const isFormValid = termsAccepted && token;
+  const isFormValid = termsAccepted;
+
+  const [openAccordion, setOpenAccordion] = useState<number | null>(0);
+  const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
+
 
   const handleToken = useCallback((recaptchaToken: string | null) => {
     if (recaptchaToken) {
@@ -105,40 +154,69 @@ const DelegateRegisterForm = ({
     (item) => item.title === selectedPlan
   );
 
-  useEffect(() => {
-    if (findSelectedPlan) {
-      const minDelegates = parseInt(findSelectedPlan.min_delegates);
-      setValue("numberOfDelegates", minDelegates, { shouldValidate: true });
-    }
-  }, [selectedPlan, findSelectedPlan, setValue]);
+  // useEffect(() => {
+  //   if (findSelectedPlan) {
+  //     const minDelegates = parseInt(findSelectedPlan.min_delegates);
+  //     setValue("numberOfDelegates", minDelegates, { shouldValidate: true });
+  //   }
+  // }, [selectedPlan, findSelectedPlan, setValue]);
 
   useEffect(() => {
-    const currentCount = fields.length;
-    if (numberOfDelegates > currentCount) {
-      for (let i = currentCount; i < numberOfDelegates; i++) {
-        append({
-          title: "",
-          firstName: "",
-          lastName: "",
-          nationality: "",
-          country: "",
-          contact: 0,
-          email: "",
-          designation: "",
-          company: "",
-          natureOfCompany: "",
-          addditionalDetails: "",
-          taxRegisterationNumber: "",
-          ifOthers: "",
-          contactCountryCode: "+971",
-        });
-      }
-    } else if (numberOfDelegates < currentCount) {
-      for (let i = currentCount; i > numberOfDelegates; i--) {
-        remove(i - 1);
-      }
+    const plan = priceDetails.find(p => p.title === selectedPlan);
+    if (!plan) return;
+
+    const minDelegates = parseInt(plan.min_delegates);
+
+    setValue("numberOfDelegates", minDelegates, {
+      shouldDirty: false,
+      shouldValidate: true,
+    });
+  }, [selectedPlan]);
+
+  useEffect(() => {
+  const currentCount = fields.length;
+
+  if (numberOfDelegates > currentCount) {
+    for (let i = currentCount; i < numberOfDelegates; i++) {
+      append(defaultDelegate, { shouldFocus: false });
     }
-  }, [numberOfDelegates, fields.length, append, remove]);
+  }
+
+  if (numberOfDelegates < currentCount) {
+    for (let i = currentCount; i > numberOfDelegates; i--) {
+      remove(i - 1);
+    }
+  }
+}, [numberOfDelegates]);
+  
+
+  // useEffect(() => {
+  //   const currentCount = fields.length;
+  //   if (numberOfDelegates > currentCount) {
+  //     for (let i = currentCount; i < numberOfDelegates; i++) {
+  //       append({
+  //         title: "",
+  //         firstName: "",
+  //         lastName: "",
+  //         nationality: "",
+  //         country: "",
+  //         contact: 0,
+  //         email: "",
+  //         designation: "",
+  //         company: "",
+  //         natureOfCompany: "",
+  //         addditionalDetails: "",
+  //         taxRegisterationNumber: "",
+  //         ifOthers: "",
+  //         contactCountryCode: "+971",
+  //       });
+  //     }
+  //   } else if (numberOfDelegates < currentCount) {
+  //     for (let i = currentCount; i > numberOfDelegates; i--) {
+  //       remove(i - 1);
+  //     }
+  //   }
+  // }, [numberOfDelegates, fields.length, append, remove]);
 
   const ticketPrice = findSelectedPlan ? parseFloat(findSelectedPlan.price) : 0;
   const subtotal = ticketPrice * (numberOfDelegates ?? 0);
@@ -167,10 +245,7 @@ const DelegateRegisterForm = ({
       formData.append(`delegate[${index}][lname]`, delegate.lastName);
       formData.append(`delegate[${index}][nationality]`, delegate.nationality);
       formData.append(`delegate[${index}][country]`, delegate.country);
-      formData.append(
-        `delegate[${index}][country_code]`,
-        delegate.contactCountryCode
-      );
+      formData.append(`delegate[${index}][country_code]`,delegate.contactCountryCode);
       formData.append(
         `delegate[${index}][telephone]`,
         delegate.contact.toString()
@@ -197,29 +272,206 @@ const DelegateRegisterForm = ({
     });
 
     try {
+      setFormSubmitting(true);
       const response = await fetch(`${baseUrl}/registergueststore`, {
         method: "POST",
         body: formData,
       });
 
+      const result = await response.json();
+
+      console.log("response",response)
+      console.log("response",result)
+
       if (response.ok) {
-        toast.success("Form submitted successfully!");
-        // reset();
+        setFormSubmitting(false);
+        reset();
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
         }
         setToken("");
+        // ✅ Redirect to thank you page
+        if(isFree) {
+          toast.success("Form submitted successfully!");
+          router.push("/thank-you");
+        } else {
+          // response
+          const redirectPayLink = result.paymentdetails.payment_link;
+          window.location.href = redirectPayLink;
+        }
       } else {
-        console.error("Form submission failed.");
+        toast.error("Form submission failed.");
+        setFormSubmitting(false);
       }
     } catch (error) {
-      console.error("An error occurred:", error);
+      toast.error("An error occurred:");
+      setFormSubmitting(false);
     }
   };
 
+  const companyFields: (keyof DelegateData)[] = [
+    // "designation",
+    "company",
+    "natureOfCompany",
+    "taxRegisterationNumber",
+    "ifOthers",
+    "addditionalDetails",
+  ];
+
+  // const initializedRef = useRef(false);
+
+  // useEffect(() => {
+  //   if (initializedRef.current) return;
+
+  //   const count = numberOfDelegates || 1;
+
+  //   for (let i = 0; i < count; i++) {
+  //     append(defaultDelegate, { shouldFocus: false });
+  //   }
+
+  //   initializedRef.current = true;
+  // }, []);
+
+  useEffect(() => {
+    const first = watch("delegates.0");
+    if (!first) return;
+
+    for (let index = 1; index < numberOfDelegates; index++) {
+      companyFields.forEach((field) => {
+        const sourceValue = first[field];
+
+        setValue(
+          `delegates.${index}.${field}` as `delegates.${number}.${keyof DelegateData}`,
+          sourceValue,
+          {
+            shouldValidate: false,
+            shouldDirty: false,
+          }
+        );
+      });
+    }
+  }, [
+    numberOfDelegates,
+    // watch("delegates.0.designation"),
+    watch("delegates.0.company"),
+    watch("delegates.0.natureOfCompany"),
+    watch("delegates.0.taxRegisterationNumber"),
+    watch("delegates.0.ifOthers"),
+    watch("delegates.0.addditionalDetails"),
+  ]);
+
+  
+  // useEffect(() => {
+  //   // alert("errors "+errors)
+  //   // console.log("errors",errors['delegates'])
+  //   window.scrollTo(0, 0);
+  // },[errors]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Disable browser scroll restoration
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    // Force top on mount (mobile-safe)
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        const el = document.activeElement as HTMLElement | null;
+        el?.blur();
+      }, 0);
+    }
+  }, []);
+
+
+  // const onError = (errors: any) => {
+  //   if (!errors?.delegates) return;
+
+  //   const errorIndex = errors.delegates.findIndex(
+  //     (err: any) => err && Object.keys(err).length > 0
+  //   );
+
+  //   if (errorIndex !== -1) {
+  //     setOpenIndex(errorIndex); // 👈 open accordion with error
+  //   }
+  // };
+
+  const getScrollableParent = (el: HTMLElement | null): HTMLElement | Window => {
+    if (!el) return window;
+
+    let parent = el.parentElement;
+    while (parent) {
+      const style = window.getComputedStyle(parent);
+      const overflowY = style.overflowY;
+
+      if (overflowY === "auto" || overflowY === "scroll") {
+        return parent;
+      }
+      parent = parent.parentElement;
+    }
+
+    return window;
+  };
+
+
+  const onError = (errors: any) => {
+  if (!errors?.delegates) return;
+
+  const errorIndex = errors.delegates.findIndex(
+    (err: any) => err && Object.keys(err).length > 0
+  );
+
+  if (errorIndex === -1) return;
+
+  setOpenIndex(errorIndex);
+
+  // ⬇️ WAIT for accordion + layout (mobile needs this)
+  setTimeout(() => {
+    const el = document.querySelector(
+      `[data-delegate-index="${errorIndex}"]`
+    ) as HTMLElement | null;
+
+    if (!el) return;
+
+    const scrollParent = getScrollableParent(el);
+
+    const offset = 100; // header spacing
+
+    if (scrollParent === window) {
+      const y =
+        el.getBoundingClientRect().top +
+        window.pageYOffset -
+        offset;
+
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    } else {
+      const parentEl = scrollParent as HTMLElement;
+      const y =
+        el.offsetTop -
+        parentEl.offsetTop -
+        offset;
+
+      parentEl.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    }
+  }, 500); // ⬅️ mobile-safe delay
+};
+
+
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   return (
     <div className=" mt-8 lg:mt-10">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit,onError)}>
         <div className="bg-[#f5f5f5]  pt-5 md:pt-8 lg:pt-10  xl:pt-11 pb-20 px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 3xl:px-36">
           <h3
             className=" main-heading-2 w-fit md:mx-auto font-bold"
@@ -239,9 +491,16 @@ const DelegateRegisterForm = ({
             </p>
             <div className="flex flex-col md:flex-row justify-center flex-wrap gap-1 md:gap-x-5 xl:gap-x-7 mt-3 md:mt-4">
               {priceDetails?.map((item, index) => {
+                const isEarlyBirdPlan = item?.title === "Individual";
+                const isDisabled = isEarlyBirdPlan && isEarlyBirdExpired;
                 return (
                   <label
-                    className="flex items-center mb-4 cursor-pointer"
+                    // className="flex items-center mb-4 cursor-pointer"
+                    className={`flex items-center mb-4 ${
+                      isDisabled
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    }`}
                     key={index}
                   >
                     <input
@@ -250,6 +509,12 @@ const DelegateRegisterForm = ({
                       value={item?.title}
                       {...register("planType", {
                         required: "Plan type is required.",
+                        validate: (value) => {
+                          if (isDisabled && value === item.title) {
+                            return "This plan is no longer available.";
+                          }
+                          return true;
+                        },
                       })}
                       className="peer sr-only flex-grow-1"
                     />
@@ -284,9 +549,33 @@ const DelegateRegisterForm = ({
               <input
                 type="number"
                 min={parseInt(findSelectedPlan?.min_delegates ?? "1")}
-                max={20}
+                max={5}
                 {...register("numberOfDelegates", {
                   valueAsNumber: true,
+                  // onChange: (e) => {
+                  //   const value = Number(e.target.value);
+                  //   const currentCount = fields.length;
+
+                  //   if (value > currentCount) {
+                  //     for (let i = currentCount; i < value; i++) {
+                  //       append(defaultDelegate);
+                  //     }
+                  //   }
+
+                  //   if (value < currentCount) {
+                  //     for (let i = currentCount; i > value; i--) {
+                  //       remove(i - 1);
+                  //     }
+                  //   }
+                  // },
+                  onChange:(e) => {
+                    const value = Number(e.target.value);
+
+                    setValue("numberOfDelegates", value, {
+                      shouldValidate: true, // 👈 triggers error instantly
+                      shouldDirty: true,
+                    });
+                  },
                   required: "Number of delegates is required",
                   min: {
                     value: parseInt(findSelectedPlan?.min_delegates ?? "1"),
@@ -295,8 +584,8 @@ const DelegateRegisterForm = ({
                     )} or more for ${findSelectedPlan?.title ?? ""} plans`,
                   },
                   max: {
-                    value: 20,
-                    message: "Maximum number of delegates is 20",
+                    value: 5,
+                    message: "You can register a  maximum of 5 delegates at a time.",
                   },
                 })}
                 className="border border-black rounded-sm focus:none py-2 md:py-3 pl-3 md:pl-5 lg:pl-7 pr-2 focus:outline-none max-w-20 md:max-w-[100px]"
@@ -328,8 +617,11 @@ const DelegateRegisterForm = ({
         </div>
         <div className="bg-tms-green  pt-8 sm:pt-10 lg:pt-12 xl:pt-14 px-5 sm:px-6 md:px-10 lg:px-16 xl:px-[70px] pb-7 md:pb-10 lg:pb-12 xl:pb-16 2xl:pb-20 mt-[-50px] w-full">
           <div className="pb-4 md:pb-6 lg:pb-8">
-            {fields.map((field, index) => {
+            {fields.slice(0,5).map((field, index) => {
               const isAccordionOpen = openIndex === index;
+              const watchedNatureOfCompany = watch(
+                `delegates.${index}.natureOfCompany`
+              );
               return (
                 <div
                   className={`${
@@ -352,14 +644,18 @@ const DelegateRegisterForm = ({
                     )}
                   </button>
                   <AnimatePresence>
-                    {isAccordionOpen && (
+                    {/* {isAccordionOpen && ( */}
                       <motion.div
                         key="accordion-content"
                         initial="closed"
-                        animate="open"
+                        // animate="open"
                         exit="closed"
-                        variants={accordionVariants}
-                        className="overflow-hidden"
+                        animate={{ opacity: isAccordionOpen ? 1 : 0 }}
+                        transition={{ duration: isMobile ? 0 : 0.3 }}
+                        // variants={accordionVariants}
+                        // className="overflow-hidden"
+                        // className={` ${isAccordionOpen ? "opacity-100 visible h-full overflow-visible" : "overflow-hidden opacity-0 invisible h-0"}`}
+                        className={` ${isAccordionOpen ? "opacity-100 visible" : "opacity-0 invisible absolute"}`}
                       >
                         <div className="pt-5 md:pt-7 lg:pt-9">
                           <div>
@@ -431,7 +727,7 @@ const DelegateRegisterForm = ({
                                   />
                                 </div>
 
-                                <div className=" flex-1">
+                                {/* <div className=" flex-1">
                                   <TextElement
                                     label="Country of Residence"
                                     name={`delegates.${index}.country`}
@@ -444,6 +740,22 @@ const DelegateRegisterForm = ({
                                         "Country of Residence is required.",
                                     }}
                                     isLight={true}
+                                  />
+                                </div> */}
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.country`}
+                                    control={control}
+                                    rules={{
+                                      required: "Country of Residence is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <CountryOfResidence 
+                                        {...field}
+                                        name={`delegates.${index}.country`}
+                                        errors={errors}
+                                      />
+                                    )}
                                   />
                                 </div>
                               </FormRow>
@@ -461,10 +773,18 @@ const DelegateRegisterForm = ({
                                     errors={errors}
                                     rules={{
                                       required: "Number is required.",
-                                      min: {
+                                      // min: {
+                                      //   value: 5,
+                                      //   message:
+                                      //     "The minimum value should be 5.",
+                                      // },
+                                      minLength: {
                                         value: 5,
-                                        message:
-                                          "The minimum value should be 5.",
+                                        message: "Mobile number must be at least 5 digits.",
+                                      },
+                                      maxLength: {
+                                        value: 9,
+                                        message: "Mobile number must not exceed 9 digits.",
                                       },
                                       pattern: {
                                         value: /^\d+$/,
@@ -539,14 +859,14 @@ const DelegateRegisterForm = ({
                                   <TextElement
                                     label="Tax Registration Number"
                                     name={`delegates.${index}.taxRegisterationNumber`}
-                                    type="number"
+                                    type="text"
                                     placeholder="Tax Registration Number"
                                     register={register}
                                     errors={errors}
-                                    rules={{
-                                      required:
-                                        "Tax Registration Number is required.",
-                                    }}
+                                    // rules={{
+                                    //   required:
+                                    //     "Tax Registration Number is required.",
+                                    // }}
                                     isLight={true}
                                     isIcon={true}
                                   />
@@ -556,10 +876,10 @@ const DelegateRegisterForm = ({
                                   <Controller
                                     name={`delegates.${index}.natureOfCompany`}
                                     control={control}
-                                    rules={{
-                                      required:
-                                        "Nature of Company is required.",
-                                    }}
+                                    // rules={{
+                                    //   required:
+                                    //     "Nature of Company is required.",
+                                    // }}
                                     render={({ field }) => (
                                       <NatureOfCompanySelectElement
                                         {...field}
@@ -573,16 +893,21 @@ const DelegateRegisterForm = ({
                                 </div>
                               </FormRow>
 
-                              <TextAreaElement
-                                label="If other, Please specify here"
-                                name={`delegates.${index}.ifOthers`}
-                                placeholder="If other, Please specify here"
-                                register={register}
-                                errors={errors}
-                                rows={3}
-                                isLight={true}
-                                isIcon={true}
-                              />
+                              {
+                                  (watchedNatureOfCompany.toLowerCase() === 'other' || watchedNatureOfCompany.toLowerCase() === 'others') ? (
+                                    <TextAreaElement
+                                      label="If other, Please specify here"
+                                      name={`delegates.${index}.ifOthers`}
+                                      placeholder="If other, Please specify here"
+                                      register={register}
+                                      errors={errors}
+                                      rows={3}
+                                      isLight={true}
+                                      isIcon={true}
+                                    />
+                                  ) : ""
+                              }
+
 
                               <TextAreaElement
                                 label="Additional Details"
@@ -591,9 +916,9 @@ const DelegateRegisterForm = ({
                                 register={register}
                                 errors={errors}
                                 rows={3}
-                                rules={{
-                                  required: "Additional Details is required.",
-                                }}
+                                // rules={{
+                                //   required: "Additional Details is required.",
+                                // }}
                                 isLight={true}
                                 isIcon={true}
                               />
@@ -601,7 +926,7 @@ const DelegateRegisterForm = ({
                           </div>
                         </div>
                       </motion.div>
-                    )}
+                    {/* )} */}
                   </AnimatePresence>
                 </div>
               );
@@ -634,13 +959,13 @@ const DelegateRegisterForm = ({
               Please accept the terms and conditions.
             </p>
           )}
-          <div className="mt-4 md:mt-6 flex justify-center ">
+          {/* <div className="mt-4 md:mt-6 flex justify-center ">
             <ReCaptcha
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
               callback={handleToken}
               ref={recaptchaRef}
             />
-          </div>
+          </div> */}
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
@@ -652,6 +977,12 @@ const DelegateRegisterForm = ({
               Proceed to Pay
             </button>
           </div>
+          {formSubmitting ? (
+            <div className="flex items-center mt-[20px] justify-center">
+              <p className="text-center text-white ">Please wait form is submitting... </p>
+              <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
+            </div>
+          ) : ""}
         </div>
       </form>
     </div>

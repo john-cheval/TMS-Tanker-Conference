@@ -6,10 +6,22 @@ import bottomSvg from "@/assets/icons/bottomUp.png";
 import Image from "next/image";
 
 type Props = {
+  id:string | number;
   title: string;
+  activeTitle: string;
+  small_title: string;
+  getSelectedPackage?: any;
+  getSelectedPackageCategoryId?: any;
 };
 
-const SponsoredOppCard = ({ title }: Props) => {
+const SponsoredOppCard = ({ 
+  id,
+  title,
+  activeTitle,
+  small_title,
+  getSelectedPackage,
+  getSelectedPackageCategoryId, 
+}: Props) => {
   return (
     <div className="grid grid-cols-12 border gradient-border-image">
       <div className="col-span-12 sm:col-span-6 lg:col-span-5 px-7 lg:px-10 xl:px-14 py-6 sm:py-8 md:py-11 border-b border-b-tms-tanker-blue sm:border-b-0 sm:border-r border-r-tms-tanker-blue flex  flex-col items-center sm:items-start justify-center relative overflow-hidden">
@@ -23,6 +35,12 @@ const SponsoredOppCard = ({ title }: Props) => {
           </p>
           <Link
             href="#"
+            onClick={() => {
+                getSelectedPackage(
+                  `${title} - ${activeTitle} ${small_title}`
+                );
+                getSelectedPackageCategoryId(id);
+              }}
             className="text-white gradient-master text-sm md:text-base font-medium leading-normal py-3 px-7 xl:px-10 block w-fit mt-4 mx-auto sm:mx-0"
           >
             Send Enquiry

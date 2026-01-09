@@ -53,16 +53,43 @@ const Home = async () => {
         earlyBirdsDate={conferenceYear?.Early_Bird_date}
         eventDate={conferenceYear?.end_date}
       />
-      <HomeSectionTwo {...about_the_conference} />
-      <HomeSectionThree
-        {...highlights_from_past_edition}
-        registerNow={COMMON_SETTINGS_VALUES_register_now}
-      />
-      <HomeSectionFour {...agenda_featured_speakers} />
-      <HomeSectionFive {...conference_speakers} />
-      <HomeSectionSix {...agenda_featured_speakers_2} />
-      <HomeSectionSeven {...words_from_our_guests} />
-      <HomeSectionEight {...why_sponsor_tms_ai_tech} />
+      {
+        (about_the_conference?.heading !== "" && about_the_conference?.main_heading !== '') && (
+          <HomeSectionTwo {...about_the_conference} />
+        )
+      }
+      {
+        highlights_from_past_edition?.heading !== "" && (
+          <HomeSectionThree
+            {...highlights_from_past_edition}
+            registerNow={COMMON_SETTINGS_VALUES_register_now}
+          />
+        )
+      }
+      {
+        (agenda_featured_speakers?.heading !== "" && agenda_featured_speakers?.description !== '') && (
+          <HomeSectionFour {...agenda_featured_speakers} />
+        ) 
+      }
+      {
+        (conference_speakers?.heading !== "" && conference_speakers?.data?.length > 0) && (
+          <HomeSectionFive {...conference_speakers} />
+        ) 
+      }
+      {
+        agenda_featured_speakers_2?.heading !== '' && 
+        <HomeSectionSix {...agenda_featured_speakers_2} />
+      }
+      {
+        (words_from_our_guests?.heading !== '' && words_from_our_guests?.youtube_testimonials?.length > 0) && (
+          <HomeSectionSeven {...words_from_our_guests} />
+        ) 
+      }
+      {
+        (why_sponsor_tms_ai_tech?.heading != '' && why_sponsor_tms_ai_tech?.benefit_list?.length > 0) && (
+          <HomeSectionEight {...why_sponsor_tms_ai_tech} />
+        )
+      }
       <HomeSectionNine
         sponsorsData={sponsors}
         suppotiveData={supporting_associations}

@@ -23,9 +23,11 @@ interface RecaptchaRefType {
 
 type Props = {
   title?: string | undefined;
+  packageName?: string;
+  packageId?: number | string;
 };
 
-const BecomeSponsorSmall = ({ title }: Props) => {
+const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const {
@@ -45,8 +47,19 @@ const BecomeSponsorSmall = ({ title }: Props) => {
   }, []);
 
   const onSubmit = async (data: FormData) => {
+
+    if (!packageName ) {
+      toast.error("Please Select a package first");
+      // const packagesSection = document.getElementById("packages");
+      // if (packagesSection) {
+      //   packagesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      // }
+      return;
+    }
+
     try {
-      const response = await fetch(`${baseUrl}/becomearsvp`, {
+      // const response = await fetch(`${baseUrl}/becomearsvp`, {
+      const response = await fetch(`${baseUrl}/becomeasponsor`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,6 +71,8 @@ const BecomeSponsorSmall = ({ title }: Props) => {
           contactno: data?.contact,
           comments: data?.comments,
           country_code: data?.contactCountryCode,
+          sponsor_cate: packageId ? packageId : 0,
+          sponsor_cate_name: packageName ? packageName : "",
         }),
       });
       if (response.ok) {
@@ -165,18 +180,20 @@ const BecomeSponsorSmall = ({ title }: Props) => {
         />
 
         <div className="mt-4 md:mt-6 flex justify-center ">
-          <ReCaptcha
+          {/* <ReCaptcha
             siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
             callback={handleToken}
             ref={recaptchaRef}
-          />
+          /> */}
         </div>
 
         <button
-          className={`text-black py-3 bg-white w-full text-center text-sm md:text-base font-medium ${
-            !token ? "cursor-not-allowed" : "cursor-pointer"
-          } `}
-          disabled={!token}
+          className={`text-black py-3 bg-white w-full text-center text-sm md:text-base font-medium 
+            ${
+            token ? "cursor-not-allowed" : "cursor-pointer"
+          } 
+          `}
+          // disabled={!token}
         >
           Send Enquiry
         </button>

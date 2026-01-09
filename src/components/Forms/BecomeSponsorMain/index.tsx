@@ -72,7 +72,8 @@ const BecomeSponsorForm = ({
     let requestBody;
 
     if (isPartnerForm) {
-      apiUrl = `${baseUrl}/becomeasponsor`;
+      // apiUrl = `${baseUrl}/becomeasponsor`;
+      apiUrl = `${baseUrl}/becomeapartners`;
       requestBody = {
         name: data.fullName,
         email: data?.email,

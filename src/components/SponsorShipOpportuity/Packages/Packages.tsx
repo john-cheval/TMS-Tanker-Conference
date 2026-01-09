@@ -1,7 +1,7 @@
 "use client";
 // import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 // import arrowDown from "@/assets/shared/chevron-right.png";
 // import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { listOppData } from "@/constants/sponsorOppData";
@@ -20,36 +20,47 @@ const Packages = ({
   // getSelectedPackageCategoryId,
   formTitle,
 }: Props) => {
+  const filterRef = useRef<HTMLDivElement | null>(null);
+
   const [activeTitle, setActiveTitle] = useState(packageData[0]?.title);
   const handleTitleClick = (item: string) => {
     setActiveTitle(item);
+    if (!filterRef.current) return;
+    const y =filterRef?.current?.getBoundingClientRect().top + window.pageYOffset-80;
+    // setExpandedStates({});
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
+
+  const [selectedPackageCategoryId, setSelectedPackageCategoryId] = useState("");
+  const [selectedPackageform, setSelectedPackageForm] = useState<string>("");
+  console.log("selectedPackageCategoryId",selectedPackageCategoryId)
+  console.log("selectedPackageCategoryId",selectedPackageform)
 
   const selectedPackage = packageData?.find(
     (item: any) => item?.title === activeTitle
   );
 
   return (
-    <div id="packageList">
+    <div id="packageList" ref={filterRef}>
+      <div className="sticky top-[0px] z-100 flex bg-white py-[20px]  gap-x-2.5 mb-7 lg:mb-10 xl:mb-14 overflow-x-auto whitespace-nowrap no-scrollbar">
+        {packageData?.map((item: any, index: number) => {
+          const isActive = item?.title === activeTitle;
+          return (
+            <button
+              className={`text-center text-base border  font-medium leading-5 px-5 py-4  cursor-pointer transition-all duration-300 ease-in-out ${
+                isActive
+                  ? "buttonGradient-3 text-white"
+                  : "bg-white text-black border-[#dadada] hover:bg-tms-tanker-blue-2 hover:text-white hover:border-tms-tanker-blue"
+              }`}
+              key={index + 1}
+              onClick={() => handleTitleClick(item?.title)}
+            >
+              {item?.title} {item?.small_title ? `${item?.small_title}` : ""}
+            </button>
+          );
+        })}
+      </div>
       <div>
-        <div className="flex  gap-x-2.5 mb-7 lg:mb-10 xl:mb-14 overflow-x-auto whitespace-nowrap no-scrollbar">
-          {packageData?.map((item: any, index: number) => {
-            const isActive = item?.title === activeTitle;
-            return (
-              <button
-                className={`text-center text-base border  font-medium leading-5 px-5 py-4  cursor-pointer transition-all duration-300 ease-in-out ${
-                  isActive
-                    ? "buttonGradient-3 text-white"
-                    : "bg-transparent text-black border-[#dadada] hover:bg-tms-tanker-blue-2 hover:text-white hover:border-tms-tanker-blue"
-                }`}
-                key={index + 1}
-                onClick={() => handleTitleClick(item?.title)}
-              >
-                {item?.title} {item?.small_title ? `${item?.small_title}` : ""}
-              </button>
-            );
-          })}
-        </div>
         <h3 className="main-heading-2 gradient-text-3 leading-1 font-bold pb-5 xl:pb-8">
           <span className="main-heading  leading-1 font-bold">
             {activeTitle}
@@ -65,7 +76,7 @@ const Packages = ({
           {selectedPackage?.sponsors &&
           selectedPackage?.sponsors?.length > 0 ? (
             selectedPackage?.sponsors?.map((sponsor: any, index: number) => {
-              return <SponsoredOppCard key={index + 1} {...sponsor} />;
+              return <SponsoredOppCard key={index + 1} activeTitle={activeTitle} {...sponsor} getSelectedPackage={setSelectedPackageForm} getSelectedPackageCategoryId={setSelectedPackageCategoryId} />;
             })
           ) : (
             <p className="text-center font-medium">There is No Package</p>
@@ -73,7 +84,11 @@ const Packages = ({
         </div>
 
         <div className="col-span-4">
-          <BecomeSponsorSmall title={formTitle} />
+          <BecomeSponsorSmall 
+            title={formTitle}
+            packageName={selectedPackageform}
+            packageId={selectedPackageCategoryId} 
+          />
         </div>
       </div>
     </div>

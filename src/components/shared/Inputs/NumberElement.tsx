@@ -15,6 +15,7 @@ import {
   PathValue,
 } from "react-hook-form";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { toast } from "sonner";
 
 // Define the shape of a country object
 interface CountryType {
@@ -79,14 +80,14 @@ const NumberElement = <TFieldValues extends FieldValues>({
 }: NumbertElementProps<TFieldValues>) => {
   // const errorMessage = errors[name]?.message;
   const errorMessage = getNestedError(errors, name);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);
   const [countries, setCountries] = useState<CountryType[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<CountryType | null>(
     null
   );
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -145,7 +146,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
         const data = await response.json();
 
         if (!Array.isArray(data)) {
-          console.error("API response is not an array");
+          toast.error("API response is not an array");
           return;
         }
 
@@ -187,7 +188,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
           }
         }
       } catch (error) {
-        console.error("Failed to fetch country data:", error);
+        toast.error("Failed to fetch country data:");
       }
     };
     fetchCountries();
@@ -216,20 +217,31 @@ const NumberElement = <TFieldValues extends FieldValues>({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    const maxLengthRule = rules?.maxLength as {
-      value: number;
-      message: string;
-    };
-    const maxLength = maxLengthRule?.value || 15;
+    // Allow only digits
+    const numericValue = value.replace(/\D/g, "");
 
-    const truncatedValue = value.slice(0, maxLength);
+    const maxLength =
+      typeof rules?.maxLength === "object"
+        ? rules.maxLength.value
+        : typeof rules?.maxLength === "number"
+        ? rules.maxLength
+        : 9;
+
+    const truncatedValue = numericValue.slice(0, maxLength);
 
     setValue(
       name,
-      truncatedValue as PathValue<TFieldValues, Path<TFieldValues>>
+      truncatedValue as PathValue<TFieldValues, Path<TFieldValues>>,
+      { shouldValidate: true }
     );
 
-    onChange(e);
+    onChange({
+      ...e,
+      target: {
+        ...e.target,
+        value: truncatedValue,
+      },
+    });
   };
 
   const filteredCountries = countries.filter((country) =>

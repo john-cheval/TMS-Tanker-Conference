@@ -18,8 +18,8 @@ const HomeSectionNine = ({
     <section className="section-wrapper py-8 md:py-10 lg:py-12 xl:py-16">
       <div className="space-y-9">
         <Sponsors data={sponsorsData} isSponsor={true} />
+        <Sponsors data={suppotiveData} isAssosiation={true} />{" "}
         <Sponsors data={mediaPartnersData} />
-        <Sponsors data={suppotiveData} />{" "}
       </div>
     </section>
   );

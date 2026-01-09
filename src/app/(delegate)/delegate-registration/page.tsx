@@ -18,6 +18,8 @@ const DelegateRegistration = async () => {
     `${baseUrl}/getmasterdetails?master_name=cms&id=79`
   );
 
+  const conferenceData =
+    pageContent?.gernalsettings?.current_year_coneference[0];
   const generalSettings = pageContent?.gernalsettings;
   const { Enquery_emails_nature_of_company_list } =
     generalSettings?.general_settings;
@@ -77,6 +79,7 @@ const DelegateRegistration = async () => {
       <PricingPlans
         {...pricing_plans}
         companyList={Enquery_emails_nature_of_company_list}
+        earlyBirdsDate={conferenceData?.Early_Bird_date}
       />
       <div className="section-wrapper sponsor-wrapper pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 ">
         <Sponsors data={sponsors} isSponsor={true} />
