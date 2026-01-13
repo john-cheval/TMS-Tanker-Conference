@@ -69,7 +69,7 @@ const HomeSwiperTwo = ({ sessionData }: Props) => {
                   <Image
                     //   src={item?.image_url ?? ""}
                     src={image1}
-                    alt={item?.name}
+                    alt={item?.image_alt_tag ?? ""}
                     width={350}
                     height={360}
                     className="w-full h-auto "

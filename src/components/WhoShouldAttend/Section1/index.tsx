@@ -8,6 +8,7 @@ type Props = {
   button_link: string;
   button_text: string;
   image: string;
+  image_alt_tag?: string;
   heading_2: string;
   description_2: string;
 };
@@ -18,6 +19,7 @@ const WhoShouldAttendSectionOne = ({
   button_link,
   button_text,
   image,
+  image_alt_tag,
   heading_2,
   description_2,
 }: Props) => {
@@ -27,7 +29,8 @@ const WhoShouldAttendSectionOne = ({
         <div className="col-span-12 md:col-span-5 lg:col-span-4 relative">
           <Image
             src={image ?? "image-1"}
-            alt={heading ?? "image"}
+            // alt={heading ?? "image"}
+            alt={image_alt_tag ?? ""}
             width={500}
             height={300}
             className="w-full h-full object-cover"

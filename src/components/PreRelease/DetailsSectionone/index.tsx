@@ -13,7 +13,8 @@ const DetailsSectionone = ({ isBlog = false, content }: Props) => {
         <div className="relative">
           <Image
             src={content?.image_url}
-            alt={content?.title || "image"}
+            // alt={content?.title || "image"}
+            alt={content?.image_alt_tag ?? ""}
             width={700}
             height={350}
             className={`overflow-hidden w-full h-auto object-cover`}

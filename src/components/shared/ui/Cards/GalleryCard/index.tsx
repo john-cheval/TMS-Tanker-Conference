@@ -16,6 +16,7 @@ interface GalleryCardProps extends PhotoGalleryType {
 const GalleryCard = ({
   id,
   image_url,
+  image_alt_tag,
   title,
   slug,
   isAlbumPage = false,
@@ -43,7 +44,8 @@ const GalleryCard = ({
           <div className="relative">
             <Image
               src={image_url}
-              alt={title || slug || "image"}
+              // alt={title || slug || "image"}
+              alt={image_alt_tag ?? "" }
               width={400}
               height={300}
               sizes="100vw"
@@ -83,7 +85,8 @@ const GalleryCard = ({
       >
         <Image
           src={image_url}
-          alt={title || slug || "image"}
+          // alt={title || slug || "image"}
+          alt={image_alt_tag ?? ""}
           width={400}
           height={300}
           sizes="100vw"

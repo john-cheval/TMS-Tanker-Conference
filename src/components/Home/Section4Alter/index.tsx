@@ -10,6 +10,7 @@ const HomeSectionFourAlter = ({
   heading,
   description,
   image,
+  image_alt_tag,
   button_link,
   button_text,
 }: SectionOnePropsTyps) => {
@@ -20,7 +21,8 @@ const HomeSectionFourAlter = ({
           <article className="col-span-12 md:col-span-7 lg:col-span-6">
             <Image
               src={image ?? ""}
-              alt={heading ?? ""}
+              // alt={heading ?? ""}
+              alt={image_alt_tag ?? ""}
               width={700}
               height={800}
               className="w-full h-full object-cover"

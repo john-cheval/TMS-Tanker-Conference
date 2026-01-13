@@ -76,7 +76,8 @@ const HomeSectionSix = ({
               >
                 <Image
                   src={item?.image_url}
-                  alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
+                  // alt={item?.title}
                   width={350}
                   height={240}
                   className="w-full h-[240px] object-cover max-w-[350px]-"

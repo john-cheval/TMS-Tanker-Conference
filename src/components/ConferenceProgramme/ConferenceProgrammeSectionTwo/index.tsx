@@ -73,7 +73,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                     src={
                                       sponsorListItem?.image_url ?? "imnagw2"
                                     }
-                                    alt={sponsorListItem?.name}
+                                    // alt={sponsorListItem?.name}
+                                    alt={sponsorListItem?.image_alt_tag ?? ""}
                                     width={360}
                                     height={80}
                                     className="w-fit object-contain max-w-[200px] md:max-w-full"
@@ -161,7 +162,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                     src={
                                       sponsorListItem?.image_url ?? "imnagw2"
                                     }
-                                    alt={sponsorListItem?.name}
+                                    // alt={sponsorListItem?.name}
+                                    alt={sponsorListItem?.image_alt_tag ?? ""}
                                     width={360}
                                     height={80}
                                     className="w-fit object-contain max-w-[200px] md:max-w-full"
@@ -243,7 +245,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                     >
                                       <Image
                                         src={moderatorItem?.image_url}
-                                        alt={moderatorItem?.name}
+                                        // alt={moderatorItem?.name}
+                                        alt={moderatorItem?.image_alt_tag ?? ""}
                                         width={63}
                                         height={63}
                                         className=" w-[65px]- h-[65px]- w-fit"
@@ -283,7 +286,8 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                     >
                                       <Image
                                         src={spekersItem?.image_url}
-                                        alt={spekersItem?.name}
+                                        // alt={spekersItem?.name}
+                                        alt={spekersItem?.image_alt_tag ?? ""}
                                         width={63}
                                         height={63}
                                         className=" w-[65px]- h-[65px]- w-fit"

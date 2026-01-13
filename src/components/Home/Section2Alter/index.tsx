@@ -60,7 +60,8 @@ const HomeSectionTwoAlter = ({
                       <div className="relative flex" key={index}>
                         <Image
                           src={item?.image_url ?? ""}
-                          alt={item?.home_title ?? ""}
+                          // alt={item?.home_title ?? ""}
+                          alt={item?.image_alt_tag ?? ""}
                           width={285}
                           height={400}
                           className="w-full h-full max-w-[280px]- object-cover responsive-radius  shrink-0"

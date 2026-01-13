@@ -71,7 +71,8 @@ const SponsorSwiper = ({ swiperData }: Props) => {
                           <Image
                             // src={item?.image_url}
                             src={sponnsorimg}
-                            alt={item?.name}
+                            // alt={item?.name}
+                            alt={item?.image_alt_tag ?? ""}
                             width={150}
                             height={75}
                             sizes="100vw"

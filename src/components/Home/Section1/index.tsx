@@ -9,6 +9,7 @@ import { formatDateDay } from "@/utils/formatDataDay";
 
 type Props = {
   banner_image: string;
+  image_alt_tag?: string;
   main_heading: string;
   small_title: string;
   location_heading: string;
@@ -26,6 +27,7 @@ type Props = {
 
 const HomeSectionOne = ({
   banner_image,
+  image_alt_tag,
   main_heading,
   small_title,
   location_heading,
@@ -46,7 +48,7 @@ const HomeSectionOne = ({
         {/* Background Image */}
         <Image
           src={banner_image}
-          alt={main_heading}
+          alt={image_alt_tag ?? ""}
           fill
           priority
           className="z-0 object-cover"

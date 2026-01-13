@@ -21,7 +21,8 @@ const SponsorBenifitsAlter = ({
               >
                 <Image
                   src={item?.image_url ?? ""}
-                  alt={item?.title}
+                  // alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
                   width={390}
                   height={390}
                   className="w-full h-auto object-cover "

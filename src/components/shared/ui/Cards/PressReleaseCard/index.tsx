@@ -10,6 +10,7 @@ type Props = {
   description?: string;
   date?: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 
 const PressReleaseCard = ({
@@ -18,13 +19,15 @@ const PressReleaseCard = ({
   description,
   date,
   image_url,
+  image_alt_tag
 }: Props) => {
   return (
     <div>
       <div className="relative">
         <Image
           src={image_url ?? "image"}
-          alt={title ?? "image"}
+          // alt={title ?? "image"}
+          alt={image_alt_tag ?? ""}
           width={700}
           height={350}
           className=" overflow-hidden w-full h-auto object-cover  "

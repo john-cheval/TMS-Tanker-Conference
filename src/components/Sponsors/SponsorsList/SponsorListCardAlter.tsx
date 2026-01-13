@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SponsorDetailPopover from "../SponsorPopup/SponsorDetailPopover";
 
 const SponsorListCardAlter = (props: sponsorDataType) => {
-  const { image_url, company_name } = props;
+  const { image_url, company_name,image_alt_tag } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,7 +18,8 @@ const SponsorListCardAlter = (props: sponsorDataType) => {
         <div className="py-9 flex-grow flex justify-center items-center">
           <Image
             src={image_url ?? ""}
-            alt={company_name ?? ""}
+            // alt={company_name ?? ""}
+            alt={image_alt_tag ?? ""}
             width={200}
             height={900}
             sizes="100vw"

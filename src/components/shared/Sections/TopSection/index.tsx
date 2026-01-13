@@ -6,9 +6,10 @@ import imageLocal from "@/assets/sponsorOpp/sponsorOpp.png";
 interface SharedTopSectionPropsTypes {
   banner?: string;
   title?: string;
+  image_alt_tag?: string;
 }
 
-const SharedTopSection = ({ banner, title }: SharedTopSectionPropsTypes) => {
+const SharedTopSection = ({ banner, title,image_alt_tag }: SharedTopSectionPropsTypes) => {
   return (
     <section className=" relative text-white mt-[72px] md:mt-[102px]">
       <div className="relative ">
@@ -18,7 +19,8 @@ const SharedTopSection = ({ banner, title }: SharedTopSectionPropsTypes) => {
             // src={imageLocal}
             width={500}
             height={400}
-            alt="title"
+            // alt="title"
+            alt={image_alt_tag ?? ""}
             className="w-full h-auto object-cover  min-h-[400px] md:min-h-full"
           />
         ) : (

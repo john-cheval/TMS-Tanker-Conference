@@ -4,13 +4,14 @@ import React from "react";
 import overlayIcon from "@/assets/icons/speakerCardOVerlay.png";
 
 const SpeakersCardAlter = (props: SpeakersDataProps) => {
-  const { image_url, name, post, company } = props;
+  const { image_url,image_alt_tag, name, post, company } = props;
   return (
     <div className=" flex flex-col h-full">
       <div className="relative border gradient-border-2 p-3 sm:p-5 md:p-6 lg:p-8">
         <Image
           src={image_url ?? ""}
-          alt={name ?? ""}
+          // alt={name ?? ""}
+          alt={image_alt_tag ?? ""}
           width={95}
           height={100}
           className="w-full h-auto border gradient-border-2 relative z-50"

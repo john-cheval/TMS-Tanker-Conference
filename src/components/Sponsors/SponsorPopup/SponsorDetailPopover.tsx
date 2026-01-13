@@ -11,7 +11,7 @@ export type SponsorDetailPropsType = sponsorDataType & {
 };
 
 const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
-  const { isClose, company_name, image_url, description, website_link, name } =
+  const { isClose, company_name, image_url,image_alt_tag, description, website_link, name } =
     props;
   return (
     <motion.div
@@ -34,7 +34,8 @@ const SponsorDetailPopover = (props: SponsorDetailPropsType) => {
             <Image
               // src={image_url ?? ""}
               src={sponsorImage}
-              alt={(company_name || name) ?? ""}
+              // alt={(company_name || name) ?? ""}
+              alt={image_alt_tag ?? ""}
               width={165}
               height={60}
               className=" border gradient-border-image py-8 lg:py-5 px-7"

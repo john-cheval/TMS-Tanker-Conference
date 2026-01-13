@@ -6,14 +6,14 @@ import topSvg from "@/assets/icons/top.png";
 import bottomSvg from "@/assets/icons/bottom.png";
 
 const SpeakerCard = (props: SpeakersType) => {
-  const { image_url, name, post } = props;
+  const { image_url,image_alt_tag, name, post } = props;
   return (
     <div className="border border-tms-tanker-blue py-6 lg:py-8 px-5 md:px-10 lg:px-14  relative h-full flex flex-col">
       <div className="relative w-[130px] h-[130px] sm:w-[140px] sm:h-[140px] rounded-full p-[2px] gradient-border-wrapper mx-auto">
         <Image
-          // src={image_url ?? ""}
-          src={speaker1}
-          alt={name ?? ""}
+          src={image_url ?? ""}
+          // src={speaker1}
+          alt={image_alt_tag ?? ""}
           width={138}
           height={141}
           className="w-full h-full rounded-full object-cover"

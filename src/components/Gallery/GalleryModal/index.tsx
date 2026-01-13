@@ -67,7 +67,8 @@ const GalleryModal = ({ initialIndex, data, onClose, isOpen }: Props) => {
                 ) : (
                   <Image
                     src={item.image_url}
-                    alt={`gallery-${index}`}
+                    // alt={`gallery-${index}`}
+                    alt={item.image_alt_tag ?? ""}
                     width={1200}
                     height={800}
                     className="w-full h-full max-h-[500px]- object-contain"

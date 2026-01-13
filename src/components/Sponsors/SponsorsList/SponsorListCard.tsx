@@ -14,6 +14,7 @@ type Props = sponsorDataType & {
 const SponsorListCard = (props: Props) => {
   const {
     image_url,
+    image_alt_tag,
     company_name,
     description,
     name,
@@ -34,7 +35,8 @@ const SponsorListCard = (props: Props) => {
           <Image
             //    src={image_url}
             src={sponsorImage}
-            alt={company_name}
+            // alt={company_name}
+            alt={image_alt_tag ?? ""}
             width={200}
             height={84}
             className=""

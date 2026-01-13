@@ -10,6 +10,7 @@ type Props = {
   button_text: string;
   button_link: string;
   image: string;
+  image_alt_tag: string;
   benefit_list: benifitsType[];
 };
 
@@ -20,12 +21,14 @@ const HomeSectionEight = ({
   button_text,
   image,
   benefit_list,
+  image_alt_tag,
 }: Props) => {
   return (
     <section className=" pt-8 md:pt-10 lg:pt-12 xl:pt-16">
       <Image
         src={image}
-        alt={heading}
+        // alt={heading}
+        alt={image_alt_tag ?? ""}
         width={1200}
         height={600}
         className="w-full h-full object-cover"

@@ -9,6 +9,7 @@ interface SpeakerDescriptionList {
   title: string | null;
   description: string | null;
   image_url: string;
+  image_alt_tag?: string;
 }
 
 type Props = {
@@ -86,7 +87,8 @@ const HomeSectionFour = ({
                   <div className="relative h-full">
                     <Image
                       src={item?.image_url}
-                      alt={`image-${index + 1}`}
+                      // alt={`image-${index + 1}`}
+                      alt={item?.image_alt_tag ?? ""}
                       width={600}
                       height={300}
                       className="w-full h-full object-cover "

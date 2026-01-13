@@ -15,7 +15,8 @@ const PreReleaseSectionOne = ({ data }: Props) => {
         <div className="col-span-12 md:col-span-7 border-b border-b-[#8e8e8e] pb-4 md:pb-6 lg:pb-8 border-dashed">
           <Image
             src={data[0]?.image_url}
-            alt={data[0]?.title}
+            // alt={data[0]?.title}
+            alt={data[0]?.image_alt_tag ?? ""}
             width={700}
             height={350}
             className=" overflow-hidden w-full h-auto object-cover"
@@ -84,7 +85,8 @@ const PreReleaseSectionOne = ({ data }: Props) => {
             >
               <Image
                 src={item?.image_url}
-                alt={item?.title}
+                // alt={item?.title}
+                alt={item?.image_alt_tag ?? ""}
                 width={700}
                 height={350}
                 className=" overflow-hidden w-full h-auto object-cover  "

@@ -3,12 +3,13 @@ import Image from "next/image";
 import React from "react";
 
 const SponsorBenifitCard = (props: benifitsType) => {
-  const { title, description, image_url } = props;
+  const { title, description, image_url, image_alt_tag } = props;
   return (
     <div className="relative">
       <Image
         src={image_url ?? ""}
-        alt={title}
+        // alt={title}
+        alt={image_alt_tag ?? ""}
         width={300}
         height={420}
         className="w-full h-full object-cover"

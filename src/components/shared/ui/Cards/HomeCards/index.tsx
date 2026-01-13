@@ -10,7 +10,8 @@ const HomeCards = ({ cardData }: HomeCardProps) => {
     <div className="relative flex">
       <Image
         src={cardData?.image_url}
-        alt={cardData?.home_title}
+        // alt={cardData?.home_title}
+        alt={cardData?.image_alt_tag ?? ""}
         width={285}
         height={400}
         className="w-full h-full max-w-[280px]- object-cover responsive-radius  shrink-0"

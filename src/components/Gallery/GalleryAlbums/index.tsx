@@ -16,6 +16,7 @@ export interface PhotoGalleryType {
   created_at: string;
   updated_at: string;
   image_url: string;
+  image_alt_tag: string;
 }
 
 interface GalleryType {

@@ -18,7 +18,8 @@ const WhyAttendSection = (props: Props) => {
         <div className="col-span-12 lg:col-span-4 relative">
           <Image
             src={why_attend_list[0]?.image_url ?? ""}
-            alt={why_attend_list[0]?.title ?? ""}
+            // alt={why_attend_list[0]?.title ?? ""}
+            alt={why_attend_list[0]?.image_alt_tag ?? ""}
             width={375}
             height={345}
             sizes="100vw"

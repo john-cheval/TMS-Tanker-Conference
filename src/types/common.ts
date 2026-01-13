@@ -33,17 +33,20 @@ export type SpeakersDataProps = {
   description?: string | null;
   is_chairman?: string;
   image_url?: string;
+  image_alt_tag?: string;
   home_title?: string;
 };
 export type sectionTwoCardProps = {
   id: number;
   image_url: string;
+  image_alt_tag?: string;
   home_title?: string;
 };
 
 export type ImageGalleryTypes = {
   title?: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 
 export type SectionOnePropsTyps = {
@@ -101,6 +104,7 @@ export type SessionPropsType = {
   Time?: string;
   is_session?: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 
 export type ButtonPropsType = {
@@ -126,6 +130,7 @@ export type SpeakersType = {
   company?: string;
   is_home?: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 export type YoutubeTestimonialsTypes = {
   title?: string;
@@ -135,6 +140,7 @@ export type benifitsType = {
   title: string;
   description: string;
   image_url?: string;
+  image_alt_tag?: string;
 };
 
 export type sponsorDataType = {
@@ -148,6 +154,7 @@ export type sponsorDataType = {
   contact_number: string;
   country_code: string;
   image_url: string;
+  image_alt_tag: string;
   website_link?: string;
 };
 
@@ -160,6 +167,7 @@ export type WhyAttendListType = {
   title?: string;
   description?: string;
   image_url: string;
+  image_alt_tag: string;
 };
 
 export type imageGallery = { 
