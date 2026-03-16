@@ -15,7 +15,7 @@ type Props = {
 
 const Footer = ({ socialLinks, footerMainLinks }: Props) => {
   const footerMainLinksData = Object.values(footerMainLinks);
-  console.log("footerMainLinksData",footerMainLinksData)
+  // console.log("footerMainLinksData",footerMainLinksData)
   return (
     <div className="bg-black relative pt-8 md:pt-10 lg:pt-14 xl:pt-20 pb-6 md:pb-8 lg:pb-14">
       <div className="section-wrapper">

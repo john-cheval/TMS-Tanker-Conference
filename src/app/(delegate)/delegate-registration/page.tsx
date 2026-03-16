@@ -26,8 +26,8 @@ const DelegateRegistration = async () => {
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
   const generalSettings = pageContent?.gernalsettings;
-  const { Enquery_emails_nature_of_company_list } =
-    generalSettings?.general_settings;
+  const Enquery_emails_nature_of_company_list =
+    generalSettings?.general_settings?.Enquery_emails_nature_of_company_list;
   const {
     page_top_banner,
     sponsors,
