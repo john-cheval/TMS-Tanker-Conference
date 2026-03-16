@@ -17,9 +17,10 @@ declare global {
 interface ReCaptchaProps {
   siteKey: string;
   callback: (token: string | null) => void;
+  expiredCallback: (token: string | null) => void;
 }
 const ReCaptcha = forwardRef<any, ReCaptchaProps>(
-  ({ siteKey, callback }, ref) => {
+  ({ siteKey, callback,expiredCallback }, ref) => {
     const recaptchaRef = useRef(null);
     const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
 
@@ -51,6 +52,7 @@ const ReCaptcha = forwardRef<any, ReCaptchaProps>(
         window?.grecaptcha?.render(recaptchaRef.current, {
           sitekey: siteKey,
           callback: callback,
+          "expired-callback": expiredCallback,
         });
       }
     }, [isRecaptchaLoaded]);

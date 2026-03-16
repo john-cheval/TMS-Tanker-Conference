@@ -1,6 +1,6 @@
 "use client";
 import { sponsorDataType } from "@/types/common";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import sponsorImage from "@/assets/sponsors/sposnsor.png";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,6 +24,33 @@ const SponsorListCard = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const wordLimit = 30;
   const truncatedDescription = truncateHtmlByWords(description, wordLimit);
+
+  useEffect(() => {
+      if (isOpen) {
+          document.body.style.overflow = "hidden";   // stop scroll
+      } else {
+          document.body.style.overflow = "auto";     // restore scroll
+      }
+
+      return () => {
+          document.body.style.overflow = "auto";
+      };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false); // your function to close popup
+      }
+    };
+
+    document.addEventListener("keydown", handleEsc);
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   return (
     <>
       <div className="border border-tms-tanker-blue- gradient-border-image grid grid-cols-1 sm:grid-cols-2">

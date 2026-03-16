@@ -17,6 +17,7 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import CountryName from "@/components/shared/Inputs/CountryName";
 
 type Props = {
   heading?: string;
@@ -29,6 +30,7 @@ type Props = {
   NatureOfCompanyList: any;
   earlyBirdDates?: string;
   isFree?:any;
+  countries:any[];
 };
 
 interface DelegateData {
@@ -44,6 +46,9 @@ interface DelegateData {
   natureOfCompany: string;
   addditionalDetails: string;
   taxRegisterationNumber: string;
+  country_name: string;
+  city_name: string;
+  zip_number: string;
   ifOthers: string;
   contactCountryCode: string;
 }
@@ -70,6 +75,9 @@ const defaultDelegate = {
   natureOfCompany: "",
   addditionalDetails: "",
   taxRegisterationNumber: "",
+  country_name: "",
+  city_name: "",
+  zip_number: "",
   ifOthers: "",
   contactCountryCode: "+971",
 };
@@ -78,7 +86,8 @@ const DelegateRegisterForm = ({
   priceDetails,
   NatureOfCompanyList,
   earlyBirdDates,
-  isFree = false
+  isFree = false,
+  countries=[]
 }: Props) => {
   const earlyBirdCutoffDate = new Date(earlyBirdDates ?? "");
   const currentDate = new Date();
@@ -258,6 +267,18 @@ const DelegateRegisterForm = ({
         delegate.taxRegisterationNumber
       );
       formData.append(
+        `delegate[${index}][country_name]`,
+        delegate.country_name
+      );
+      formData.append(
+        `delegate[${index}][city_name]`,
+        delegate.city_name
+      );
+      formData.append(
+        `delegate[${index}][zip_number]`,
+        delegate.zip_number
+      );
+      formData.append(
         `delegate[${index}][nature_company]`,
         delegate.natureOfCompany
       );
@@ -285,7 +306,16 @@ const DelegateRegisterForm = ({
 
       if (response.ok) {
         setFormSubmitting(false);
-        reset();
+        // reset();
+        reset({
+          planType: defaultPlan.title || "Individual",
+          numberOfDelegates: minDefaultDelegates || 1,
+          delegates: Array.from(
+            { length: minDefaultDelegates },
+            () => defaultDelegate
+          ),
+          termsAccepted: false,
+        });
         if (recaptchaRef.current) {
           recaptchaRef.current.resetCaptcha();
         }
@@ -314,6 +344,9 @@ const DelegateRegisterForm = ({
     "company",
     "natureOfCompany",
     "taxRegisterationNumber",
+    "country_name",
+    "city_name",
+    "zip_number",
     "ifOthers",
     "addditionalDetails",
   ];
@@ -356,6 +389,9 @@ const DelegateRegisterForm = ({
     watch("delegates.0.company"),
     watch("delegates.0.natureOfCompany"),
     watch("delegates.0.taxRegisterationNumber"),
+    watch("delegates.0.country_name"),
+    watch("delegates.0.city_name"),
+    watch("delegates.0.zip_number"),
     watch("delegates.0.ifOthers"),
     watch("delegates.0.addditionalDetails"),
   ]);
@@ -494,7 +530,52 @@ const DelegateRegisterForm = ({
                 const isEarlyBirdPlan = item?.title === "Individual";
                 const isDisabled = isEarlyBirdPlan && isEarlyBirdExpired;
                 return (
-                  <label
+                  <>
+                    {
+                      isDisabled ? (
+
+                        <label
+                    // className="flex items-center mb-4 cursor-pointer"
+                    className={`flex items-center mb-4 ${
+                      isDisabled
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    }`}
+                    key={index}
+                  >
+                    {/* <input
+                      id={item?.title}
+                      type="radio"
+                      value={item?.title}
+                      {...register("planType", {
+                        required: "Plan type is required.",
+                        validate: (value) => {
+                          if (isDisabled && value === item.title) {
+                            return "This plan is no longer available.";
+                          }
+                          return true;
+                        },
+                      })}
+                      className="peer sr-only flex-grow-1"
+                    /> */}
+                    <div
+                      className="w-5 h-5 border border-black rounded-sm flex items-center justify-center 
+                   peer-checked:bg-[#0078BB] peer-checked:border-[#0078BB]  "
+                    >
+                      <div className="w-2 h-2 rounded-full bg-white scale-0 transition-transform duration-200 peer-checked:scale-100"></div>
+                    </div>
+                    <span className="ms-2 leading-5 text-dark-alter text-sm md:text-base lg:text-lg font-bold ">
+                      {item?.title}{" "}
+                      {item?.description && (
+                        <span className="font-normal">
+                          ({item?.description})
+                        </span>
+                      )}
+                    </span>
+                  </label>
+                      ) : (
+
+                        <label
                     // className="flex items-center mb-4 cursor-pointer"
                     className={`flex items-center mb-4 ${
                       isDisabled
@@ -533,6 +614,10 @@ const DelegateRegisterForm = ({
                       )}
                     </span>
                   </label>
+                      )
+                    }
+                    </>
+                  
                 );
               })}
             </div>
@@ -691,6 +776,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "First Name is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "First Name is required."
+                                    }
                                   }}
                                   isLight={true}
                                 />
@@ -704,6 +793,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "Last Name is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "Last Name is required."
+                                    }
                                   }}
                                   isLight={true}
                                 />
@@ -722,6 +815,7 @@ const DelegateRegisterForm = ({
                                         {...field}
                                         name={`delegates.${index}.nationality`}
                                         errors={errors}
+                                        countries={countries}
                                       />
                                     )}
                                   />
@@ -754,6 +848,7 @@ const DelegateRegisterForm = ({
                                         {...field}
                                         name={`delegates.${index}.country`}
                                         errors={errors}
+                                        countries={countries}
                                       />
                                     )}
                                   />
@@ -806,7 +901,8 @@ const DelegateRegisterForm = ({
                                     rules={{
                                       required: "Email is required.",
                                       pattern: {
-                                        value: /^\S+@\S+$/i,
+                                        // value: /^\S+@\S+$/i,
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                                         message:
                                           "Please enter a valid email address.",
                                       },
@@ -834,6 +930,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "Designation is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "Designation is required."
+                                    }
                                   }}
                                   isLight={true}
                                   isIcon={true}
@@ -848,6 +948,10 @@ const DelegateRegisterForm = ({
                                   errors={errors}
                                   rules={{
                                     required: "Company is required.",
+                                    pattern: {
+                                      value: /\S+/,
+                                      message: "Company is required"
+                                    }
                                   }}
                                   isLight={true}
                                   isIcon={true}
@@ -873,6 +977,63 @@ const DelegateRegisterForm = ({
                                 </div>
 
                                 <div className="flex-1">
+                                  <TextElement
+                                    label="PO Box / ZIP"
+                                    name={`delegates.${index}.zip_number`}
+                                    type="text"
+                                    placeholder="PO Box / ZIP"
+                                    register={register}
+                                    errors={errors}
+                                    rules={{
+                                      pattern: {
+                                        value: /^[a-zA-Z0-9]+$/,
+                                        message:
+                                          "Please enter a valid Zip Code.",
+                                      },
+                                    }}
+                                    isLight={true}
+                                    isIcon={true}
+                                  />
+                                </div>
+                              </FormRow>
+                              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                                <div className="flex-1">
+                                  <TextElement
+                                    label="City"
+                                    name={`delegates.${index}.city_name`}
+                                    type="text"
+                                    placeholder="City"
+                                    register={register}
+                                    errors={errors}
+                                    // rules={{
+                                    //   required:
+                                    //     "Tax Registration Number is required.",
+                                    // }}
+                                    isLight={true}
+                                    isIcon={true}
+                                  />
+                                </div>
+
+                                <div className="flex-1">
+                                  <Controller
+                                    name={`delegates.${index}.country_name`}
+                                    control={control}
+                                    rules={{
+                                      required: "Country is required.",
+                                    }}
+                                    render={({ field }) => (
+                                      <CountryName
+                                        {...field}
+                                        name={`delegates.${index}.country_name`}
+                                        errors={errors}
+                                        countries={countries}
+                                      />
+                                    )}
+                                  />
+                                </div>
+                              </FormRow>
+                              <FormRow className="md:flex-row flex-col gap-y-2.5 md:gap-y-2.5 md:gap-x-3 lg:gap-x-5">
+                                <div className="flex-1">
                                   <Controller
                                     name={`delegates.${index}.natureOfCompany`}
                                     control={control}
@@ -890,6 +1051,10 @@ const DelegateRegisterForm = ({
                                       />
                                     )}
                                   />
+                                </div>
+
+                                <div className="flex-1">
+                                  
                                 </div>
                               </FormRow>
 
@@ -959,14 +1124,22 @@ const DelegateRegisterForm = ({
               Please accept the terms and conditions.
             </p>
           )}
-          {/* <div className="mt-4 md:mt-6 flex justify-center ">
+          <div className="mt-4 md:mt-6 flex justify-center ">
             <ReCaptcha
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
               callback={handleToken}
               ref={recaptchaRef}
+              expiredCallback={() => setToken("")}
             />
-          </div> */}
+          </div>
           <div className="mt-6 flex justify-center">
+            {
+                    formSubmitting ? (
+                    <div className="flex items-center mt-[20px] justify-center">
+                  <p className="text-center ">Please wait form is submitting... </p>
+                  <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
+                </div>
+                    ) : (
             <button
               type="submit"
               className={`bg-white text-black text-base font-medium leading-5  py-3 px-8 flex gap-x-2.5 group items-center border border-white hover:bg-transparent hover:text-white transiiton-colors duration-300 ${
@@ -976,13 +1149,15 @@ const DelegateRegisterForm = ({
             >
               Proceed to Pay
             </button>
+                    )
+            }
           </div>
-          {formSubmitting ? (
+          {/* {formSubmitting ? (
             <div className="flex items-center mt-[20px] justify-center">
               <p className="text-center text-white ">Please wait form is submitting... </p>
               <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
             </div>
-          ) : ""}
+          ) : ""} */}
         </div>
       </form>
     </div>

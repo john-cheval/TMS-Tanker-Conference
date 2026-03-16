@@ -67,7 +67,7 @@ const getNestedError = (errors: any, name: any) => {
   return currentError?.message;
 };
 
-const NationalitySelectElement = <TFieldValues extends FieldValues>({
+const CountryName = <TFieldValues extends FieldValues>({
   name,
   onChange,
   onBlur,
@@ -76,17 +76,18 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
   isLight = false,
   countries=[]
 }: TitleSelectProps<TFieldValues>) => {
+    console.log("errors",errors)
+    console.log("errors name",errors[name]?.message)
+    const errorMessage = getNestedError(errors, name);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
 
-  const errorMessage = getNestedError(errors, name);
-
   const [countryList, setCountryList] = useState(countries);
 
   useEffect(() => {
-      setCountryList(countries)
-  },[countries]);
+        setCountryList(countries)
+    },[countries]);
 
   // useEffect(() => {
   //   const fetcCountries = async () => {
@@ -133,27 +134,19 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
     }
   };
 
-  // const options = [
-  //   { value: "Indian", label: "Indian" },
-  //   { value: "American", label: "American" },
-  //   { value: "British", label: "British" },
-  //   { value: "Brazilian", label: "Brazilian" },
-  // ];
-
   const customStyles = {
     control: (styles: any) => ({
       ...styles,
       borderColor: "#fff",
+      borderRadius: "8px",
       borderImage: isLight
         ? "linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%)"
         : "none",
       borderImageSlice: isLight ? 1 : 0,
-      borderRadius: "0",
       backgroundColor: "transparent",
       paddingBlock: "8px",
       paddingLeft: getPaddingLeft(),
       color: isLight ? "#000" : "#fff",
-
       "&:hover": {
         borderColor: "#fff",
       },
@@ -163,17 +156,18 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
       marginTop: "10px",
       borderRadius: "8px",
       backgroundColor: "#0078bb",
-      zIndex: 9999999,
+      zIndex: 999999999999999999,
+      scrollBarWidth: "none",
+      msOverflowStyle: "none",
     }),
     option: (
       styles: any,
       { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean }
     ) => ({
       ...styles,
-      backgroundColor: isFocused ? "transparent" : isSelected ? "#4d1592" : "",
+      backgroundColor: isFocused ? "#0078ee" : isSelected ? "#4d1592" : "",
       color: "#fff",
       borderRadius: "4px",
-      zIndex: 9999999,
       "&:hover": {
         borderColor: "#fff",
       },
@@ -193,8 +187,6 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
     label: country.countryName,
   }));
 
-  console.log("errors name",errors[name],name,errorMessage)
-
   return (
     <div>
       <Select
@@ -209,8 +201,9 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
         onBlur={onBlur}
         value={options.find((option) => option.value === value) || null}
         styles={customStyles}
-        placeholder="Nationality"
+        placeholder="Country"
         // CORRECTED: Pass an object with the component
+        // components={{ DropdownIndicator: DropdownIndicator }}
         components={{
           DropdownIndicator: (props) => (
             <DropdownIndicator {...props} isLight={isLight} />
@@ -231,4 +224,4 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
   );
 };
 
-export default NationalitySelectElement;
+export default CountryName;

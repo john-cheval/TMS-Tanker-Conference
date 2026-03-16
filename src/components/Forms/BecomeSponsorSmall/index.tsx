@@ -90,9 +90,10 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
   };
   return (
     <div className=" py-5 px-5 bg-tms-tanker-blue-2 border-tms-tanker-blue ">
-      <h4 className="text-white text-2xl font-semibold leading-3 text-center md:text-left mb-5">
+      <h4 className="text-white text-2xl font-semibold leading-3 text-center md:text-left mb-2">
         {title}
       </h4>
+      <p className="mb-3 text-white text-sm"><span>Note:</span> Please click the "Send Enquiry" button on the package you wish to enquire about.</p>
       <form
         className="space-y-2.5 md:space-y-3 lg:space-y-5"
         onSubmit={handleSubmit(onSubmit)}
@@ -106,6 +107,10 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
           errors={errors}
           rules={{
             required: "Name is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Name is required."
+            }
           }}
           isLight={true}
         />
@@ -120,7 +125,8 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
           rules={{
             required: "Email is required.",
             pattern: {
-              value: /^\S+@\S+$/i,
+              // value: /^\S+@\S+$/i,
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Please enter a valid email address.",
             },
           }}
@@ -135,6 +141,10 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
           errors={errors}
           rules={{
             required: "Company Name is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Company Name is required."
+            }
           }}
           isLight={true}
         />
@@ -155,8 +165,8 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
                 message: "The minimum value should be 5.",
               },
               maxLength: {
-                value: 15,
-                message: "The maximum value should be 15.",
+                value: 9,
+                message: "The maximum value should be 9.",
               },
               pattern: {
                 value: /^\d+$/,
@@ -174,26 +184,37 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
           errors={errors}
           rows={3}
           rules={{
-            required: "comments is required.",
+            required: "Comments is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Comments is required."
+            }
           }}
           isLight={true}
         />
 
-        <div className="mt-4 md:mt-6 flex justify-center ">
-          {/* <ReCaptcha
+        {/* <div className="mt-4 md:mt-6 flex justify-center ">
+          <ReCaptcha
             siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
             callback={handleToken}
+            expiredCallback={() => setToken("")}
             ref={recaptchaRef}
-          /> */}
-        </div>
+          />
+        </div> */}
+        <ReCaptcha
+            siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+            callback={handleToken}
+            expiredCallback={() => setToken("")}
+            ref={recaptchaRef}
+          />
 
         <button
           className={`text-black py-3 bg-white w-full text-center text-sm md:text-base font-medium 
             ${
-            token ? "cursor-not-allowed" : "cursor-pointer"
+            !token ? "cursor-not-allowed" : "cursor-pointer"
           } 
           `}
-          // disabled={!token}
+          disabled={!token}
         >
           Send Enquiry
         </button>

@@ -11,6 +11,7 @@ type Props = {
   register_price: any;
   companyList: any;
   earlyBirdsDate?: string;
+  countries?: any[];
 };
 
 const PricingPlans = ({
@@ -21,7 +22,8 @@ const PricingPlans = ({
   register_heading,
   register_price,
   companyList,
-  earlyBirdsDate
+  earlyBirdsDate,
+  countries=[]
 }: Props) => {
   return (
     <section className="pt-5 md:pt-8 lg:pt-12  xl:pt-14 section-wrapper">
@@ -50,6 +52,7 @@ const PricingPlans = ({
         priceDetails={register_price}
         NatureOfCompanyList={companyList}
         earlyBirdDates={earlyBirdsDate}
+        countries={countries}
       />
     </section>
   );

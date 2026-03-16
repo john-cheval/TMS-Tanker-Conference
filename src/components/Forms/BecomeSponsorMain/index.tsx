@@ -150,6 +150,10 @@ const BecomeSponsorForm = ({
               errors={errors}
               rules={{
                 required: "Name is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "Name is required."
+                }
               }}
             />
 
@@ -163,7 +167,8 @@ const BecomeSponsorForm = ({
               rules={{
                 required: "Email is required.",
                 pattern: {
-                  value: /^\S+@\S+$/i,
+                  // value: /^\S+@\S+$/i,
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: "Please enter a valid email address.",
                 },
               }}
@@ -180,6 +185,10 @@ const BecomeSponsorForm = ({
                 errors={errors}
                 rules={{
                   required: "Company is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Company is required."
+                  }
                 }}
               />
             </div>
@@ -201,8 +210,8 @@ const BecomeSponsorForm = ({
                     message: "The minimum value should be 5.",
                   },
                   maxLength: {
-                    value: 15,
-                    message: "The maximum value should be 15.",
+                    value: 9,
+                    message: "The maximum value should be 9.",
                   },
                   pattern: {
                     value: /^\d+$/,
@@ -220,7 +229,11 @@ const BecomeSponsorForm = ({
             errors={errors}
             rows={3}
             rules={{
-              required: "comments is required.",
+              required: "Comments is required.",
+              pattern: {
+                value: /\S+/,
+                message: "Comments is required."
+              }
             }}
           />
 
@@ -228,15 +241,18 @@ const BecomeSponsorForm = ({
             <ReCaptcha
               siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
               callback={handleToken}
+              expiredCallback={() => setToken("")}
               ref={recaptchaRef}
             />
           </div>
           <button
             type="submit"
             className={` text-white
-            } text-sm md:text-base lg:text-lg leading-5 font-medium  py-3 md:py-4 px-8 md:px-14 w-fit  mx-auto mt-4- md:mt-6- ${
+            } text-sm md:text-base lg:text-lg leading-5 font-medium  py-3 md:py-4 px-8 md:px-14 w-fit  mx-auto mt-4- md:mt-6- 
+             ${
               !token ? "cursor-not-allowed" : "cursor-pointer"
-            }`}
+            }
+            `}
             disabled={!token}
             style={{
               background: "linear-gradient(90deg, #38C7FF 0%, #00A25D 100%)",

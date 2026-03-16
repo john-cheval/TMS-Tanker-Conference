@@ -14,9 +14,14 @@ export async function generateMetadata() {
 }
 
 const DelegateRegistration = async () => {
-  const pageContent = await fetchData(
-    `${baseUrl}/getmasterdetails?master_name=cms&id=79`
-  );
+  // const pageContent = await fetchData(
+  //   `${baseUrl}/getmasterdetails?master_name=cms&id=79`
+  // );
+
+  const [pageContent,countries] = await Promise.all([
+      fetchData(`${baseUrl}/getmasterdetails?master_name=cms&id=79`,{ cache: "no-store" }),
+      fetchData(`${baseUrl}/getmasterdetails?master_name=countries`),
+    ]);
 
   const conferenceData =
     pageContent?.gernalsettings?.current_year_coneference[0];
@@ -80,6 +85,7 @@ const DelegateRegistration = async () => {
         {...pricing_plans}
         companyList={Enquery_emails_nature_of_company_list}
         earlyBirdsDate={conferenceData?.Early_Bird_date}
+        countries={countries?.data}
       />
       <div className="section-wrapper sponsor-wrapper pt-7 md:pt-8 lg:pt-14 xl:pt-16 2xl:pt-20 ">
         <Sponsors data={sponsors} isSponsor={true} />

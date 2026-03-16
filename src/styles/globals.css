@@ -518,6 +518,13 @@ ul {
 .input {
   @apply border border-white py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-black outline-0 text-black text-sm md:text-base font-normal leading-4 md:leading-3;
 }
+.inputs {
+  @apply border-none py-3 w-full pl-3 md:pl-5 lg:pl-6 placeholder-black outline-0 text-black text-sm md:text-base font-normal leading-4 md:leading-3;
+}
+
+.become-speaker-form textarea.inputs {border:none !important;}
+.become-speaker-form .textarea {padding-bottom: 30px;border: 1px solid transparent;border-image: linear-gradient(90deg, #38c7ff 4.01%, #008f57 82.77%);border-image-slice: 1;}
+.become-speaker-form .textarea p{bottom:0px;}
 
 .fix-autofill-dark:-webkit-autofill,
 .fix-autofill-dark:-webkit-autofill:hover,

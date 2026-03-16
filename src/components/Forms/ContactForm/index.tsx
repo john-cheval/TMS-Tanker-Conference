@@ -76,6 +76,10 @@ const ContactForm = () => {
           errors={errors}
           rules={{
             required: "Name is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Name is required."
+            }
           }}
         />
 
@@ -89,7 +93,8 @@ const ContactForm = () => {
           rules={{
             required: "Email is required.",
             pattern: {
-              value: /^\S+@\S+$/i,
+              // value: /^\S+@\S+$/i,
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Please enter a valid email address.",
             },
           }}
@@ -104,6 +109,10 @@ const ContactForm = () => {
           errors={errors}
           rules={{
             required: "Subject is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Subject is required."
+            }
           }}
         />
 
@@ -116,6 +125,10 @@ const ContactForm = () => {
           rows={3}
           rules={{
             required: "Message is required.",
+            pattern: {
+              value: /\S+/,
+              message: "Message is required."
+            }
           }}
         />
       </div>
@@ -125,6 +138,7 @@ const ContactForm = () => {
           siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
           callback={handleToken}
           ref={recaptchaRef}
+          expiredCallback={() => setToken("")}
         />
       </div>
 

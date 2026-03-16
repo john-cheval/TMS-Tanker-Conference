@@ -36,6 +36,7 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
 
             const timeObject = dayjs(`2000-01-01T${innerItem?.Time}`);
             const formattedTime = timeObject.format("h:mm");
+            const isSession = innerItem?.is_session === '1';
 
             return (
               <>
@@ -45,7 +46,7 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                 >
                   <div
                     className={`col-span-3 p-8 conference-item relative  ${
-                      isAnyItemASession
+                      isSession
                         ? ""
                         : "border-r-4 gradient-border-image"
                     }`}
@@ -55,7 +56,7 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                       {formattedTime}
                     </p>
 
-                    {isAnyItemASession && (
+                    {isSession && (
                       <>
                         {innerItem?.sponsor_list?.length && (
                           <div className="pt-6 flex gap-y-5 flex-col items-center w-fit ">
@@ -87,13 +88,16 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                       </>
                     )}
                   </div>
+
                   <div className="col-span-8 p-8">
-                    {!isAnyItemASession && (
+                    {!isSession && (
                       <>
                         <p className="text-base sm:text-xl md:text-2xl font-medium leading-4 text-[#2a2a2a]">
                           {" "}
                           {innerItem?.name}
                         </p>
+
+                        <div className="pt-2 session-description" dangerouslySetInnerHTML={{__html:innerItem?.description}} />
 
                         {innerItem?.speakers_users !== null &&
                           innerItem?.speakers_users?.length > 0 && (
@@ -130,6 +134,9 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                       </p>
                                       <p className="description text-[#2a2a2a] leading-5 mt-1">
                                         {moderatorItem?.post}
+                                      </p>
+                                      <p className="description text-[#2a2a2a] leading-5 mt-1">
+                                        {moderatorItem?.company}
                                       </p>
                                     </div>
                                   );
@@ -176,14 +183,16 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                       </>
                     )}
 
-                    {isAnyItemASession && (
+                    {isSession && (
                       <>
                         <h6 className="text-lg md:text-xl lg:text-2xl  font-bold leading-3 text-[#2a2a2a]">
                           {" "}
                           {innerItem?.post}: {innerItem?.name}{" "}
                         </h6>
 
-                        <div className="pt-2 session-description">
+                        <div className="pt-2 session-description" dangerouslySetInnerHTML={{__html:innerItem?.description}} />
+
+                        {/* <div className="pt-2 session-description">
                           <p className="description text-dark-alter">
                             Speakers with high levels of responsibility and
                             knowledge within tanker shipping will reflect on
@@ -224,12 +233,13 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                               shipping
                             </li>
                           </ul>
-                        </div>
+                        </div> */}
 
                         {innerItem?.moderator_list && (
                           <div className="mt-4 md:mt-6">
                             <p className="text-dark text-base md:text-lg lg:text-2xl font-semibold leading-5">
-                              Moderator
+                              {/* Moderator */}
+                              Session Chair
                             </p>
 
                             <div className="mt-3 space-y-4">
@@ -257,6 +267,9 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                         </p>
                                         <p className="text-sm sm:text-base md:text-lg text-tms-tanker-blue-2 leading-5 md:mt-1">
                                           {moderatorItem?.post}
+                                        </p>
+                                        <p className="text-sm sm:text-base md:text-lg text-tms-tanker-blue-2 leading-5 md:mt-1">
+                                          {moderatorItem?.company}
                                         </p>
                                       </div>
                                     </div>
@@ -298,6 +311,9 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
                                         </p>
                                         <p className="text-sm sm:text-base md:text-lg text-tms-tanker-blue-2 leading-5 md:mt-1">
                                           {spekersItem?.post}
+                                        </p>
+                                        <p className="text-sm sm:text-base md:text-lg text-tms-tanker-blue-2 leading-5 md:mt-1">
+                                          {spekersItem?.company}
                                         </p>
                                       </div>
                                     </div>

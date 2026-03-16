@@ -9,12 +9,14 @@ export type SponsorsListProps = {
   sponsors: sponsorDataType[];
   isButton?: boolean;
   isAssosiation?: boolean;
+  becomeSponsorLink?:string;
 };
 
 const SponsorsList = ({
   sponsors,
   isButton = true,
   isAssosiation = false,
+  becomeSponsorLink=''
 }: SponsorsListProps) => {
   return (
     <section
@@ -39,7 +41,7 @@ const SponsorsList = ({
       {isButton && (
         <div className="flex justify-center mt-5 md:mt-8  lg:mt-12">
           {/* <BigButton hrefs={"#"}>{"Become a Sponsor"}</BigButton> */}
-          <ButtonOrLink isBigText={false} isGradient={true} hrefs={"#"}>
+          <ButtonOrLink isBigText={false} isGradient={true} hrefs={becomeSponsorLink}>
             Become a Sponsor
           </ButtonOrLink>
         </div>

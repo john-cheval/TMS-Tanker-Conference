@@ -19,6 +19,7 @@ interface TitleSelectProps<TFieldValues extends FieldValues> {
   onBlur: (e: React.FocusEvent) => void;
   value: any;
   isLight?: boolean;
+  countries:any[];
 }
 
 import { GroupBase } from "react-select";
@@ -73,6 +74,7 @@ const CountryOfResidence = <TFieldValues extends FieldValues>({
   value,
   errors,
   isLight = false,
+  countries=[]
 }: TitleSelectProps<TFieldValues>) => {
     console.log("errors",errors)
     console.log("errors name",errors[name]?.message)
@@ -81,29 +83,33 @@ const CountryOfResidence = <TFieldValues extends FieldValues>({
     typeof window !== "undefined" ? window.innerWidth : 0
   );
 
-  const [countryList, setCountryList] = useState([]);
+  const [countryList, setCountryList] = useState(countries);
 
   useEffect(() => {
-    const fetcCountries = async () => {
-      try {
-        const response = await fetch(
-          `${baseUrl}/getmasterdetails?master_name=countries`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        setCountryList(countries)
+    },[countries]);
 
-        const data = await response.json();
+  // useEffect(() => {
+  //   const fetcCountries = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${baseUrl}/getmasterdetails?master_name=countries`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
 
-        if (data && data?.data) {
-          setCountryList(data?.data);
-        }
-      } catch (error) {
-        toast.error("Could not fetch the countries data:");
-      }
-    };
-    fetcCountries();
-  }, []);
+  //       const data = await response.json();
+
+  //       if (data && data?.data) {
+  //         setCountryList(data?.data);
+  //       }
+  //     } catch (error) {
+  //       toast.error("Could not fetch the countries data:");
+  //     }
+  //   };
+  //   fetcCountries();
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => {

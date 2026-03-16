@@ -131,6 +131,7 @@ export type SpeakersType = {
   is_home?: string;
   image_url?: string;
   image_alt_tag?: string;
+  description?:string;
 };
 export type YoutubeTestimonialsTypes = {
   title?: string;

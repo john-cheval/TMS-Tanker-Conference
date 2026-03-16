@@ -28,6 +28,9 @@ const SponsorShipOppSectionOne = ({
   return (
     <>
       <section className="section-wrapper pt-6 md:pt-8 lg:pt-12 xl:pt-14 pb-6 md:pb-8 lg:pb-12 ">
+        {/* <h2 className="w-fit text-center w-full main-heading leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text mb-2 lg:mb-3 mx-auto md:mx-0">
+            {heading}
+          </h2> */}
         <div className="border-b border-b-tms-tanker-blue-2 sm:border-b-light-grey-1 sm:border-dotted pb-8 ">
           <div
             className="description text-center max-w-[70%] mx-auto"

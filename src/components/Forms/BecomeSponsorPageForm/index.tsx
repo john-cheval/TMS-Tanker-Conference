@@ -182,7 +182,7 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="become-speaker-form" onSubmit={handleSubmit(onSubmit, onError)}>
       <div className="  bg-tms-green px-5 md:px-10 lg:px-16  xl:px-[72px]pb-8 md:pb-12 lg:pb-16 xl:pb-20 border border-tms-green border-b-0">
         <h4 className=" form-heading text-white  pt-8 md:pt-10 lg:pt-14 mb-4  md:mb-5">
           About You
@@ -217,6 +217,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               errors={errors}
               rules={{
                 required: "First Name is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "First Name is required."
+                }
               }}
               isLight={true}
             />
@@ -230,6 +234,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               errors={errors}
               rules={{
                 required: "Last Name is required.",
+                pattern: {
+                  value: /\S+/,
+                  message: "Last Name is required."
+                }
               }}
               isLight={true}
             />
@@ -247,7 +255,8 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 rules={{
                   required: "Email is required.",
                   pattern: {
-                    value: /^\S+@\S+$/i,
+                    // value: /^\S+@\S+$/i,
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Please enter a valid email address.",
                   },
                 }}
@@ -271,10 +280,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                     value: 5,
                     message: "The minimum value should be 5.",
                   },
-                  // max: {
-                  //   value: 15,
-                  //   message: "The maximum value should be 15.",
-                  // },
+                  max: {
+                    value: 9,
+                    message: "The maximum value should be 9.",
+                  },
                   pattern: {
                     value: /^\d+$/,
                     message: "Please enter a valid number.",
@@ -404,6 +413,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 errors={errors}
                 rules={{
                   required: "Designation is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Designation is required."
+                  }
                 }}
               />
 
@@ -415,7 +428,11 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                 register={register}
                 errors={errors}
                 rules={{
-                  required: "Company Nameis required.",
+                  required: "Company Name is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Company Name is required."
+                  }
                 }}
               />
             </FormRow>
@@ -468,6 +485,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
                   errors={errors}
                   rules={{
                     required: "Presentation Title is required.",
+                    pattern: {
+                      value: /\S+/,
+                      message: "Presentation Title is required."
+                    }
                   }}
                 />
               </div>
@@ -483,6 +504,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               rows={3}
               rules={{
                 required: "Abstract is required.",
+                pattern: {
+                    value: /\S+/,
+                    message: "Abstract is required."
+                  }
               }}
               wordLimit={500}
             />
@@ -496,6 +521,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               rows={3}
               rules={{
                 required: "Key Takeaways is required.",
+                pattern: {
+                    value: /\S+/,
+                    message: "Key Takeaways is required."
+                  }
               }}
               wordLimit={500}
             />
@@ -509,6 +538,10 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
               rows={isSmallScreen ? 8 : 4}
               rules={{
                 required: "About Presentation is required.",
+                pattern: {
+                    value: /\S+/,
+                    message: "About Presentation is required."
+                  }
               }}
               isBlue={true}
               wordLimit={500}
@@ -563,18 +596,32 @@ const BecomeSponsorPageForm = ({ formDescription, NatureOfCompany }: Props) => {
             siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
             callback={handleToken}
             ref={recaptchaRef}
+            expiredCallback={() => setToken("")}
           />
         </div>
         <div className="mt-4 md:mt-5 flex justify-center">
+          <>
+                  {
+                    isSubmitting ? (
+                    <div className="flex items-center mt-[20px] justify-center">
+                  <p className="text-center ">Please wait form is submitting... </p>
+                  <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#008f57] border-t-transparent"></div>
+                </div>
+                    ) : (
           <button
             type="submit"
-            className={`gradient-master text-white text-sm sm:text-base  font-medium leading-normal  py-3  px-10 md:px-14 ${
+            className={`gradient-master text-white text-sm sm:text-base  font-medium leading-normal  py-3  px-10 md:px-14 
+              ${
               !token ? "opacity-50 cursor-not-allowed" : " hover:text-white"
-            }`}
+            }
+            `}
             disabled={!token}
           >
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>
+            )
+          }
+          </>
         </div>
       </div>
     </form>

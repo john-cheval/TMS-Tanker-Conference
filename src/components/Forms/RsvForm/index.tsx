@@ -34,9 +34,10 @@ interface RecaptchaRefType {
 type Props = {
   description: string;
   rsvpFormData:any;
+  countries:any[];
 };
 
-const RsvForm = ({ description, rsvpFormData }: Props) => {
+const RsvForm = ({ description, rsvpFormData,countries=[] }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -85,10 +86,10 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
         toast.success("Form submitted successfully!");
         reset();
 
-        if (recaptchaRef.current) {
-          recaptchaRef.current.resetCaptcha();
-        }
-        setToken("");
+        // if (recaptchaRef.current) {
+        //   recaptchaRef.current.resetCaptcha();
+        // }
+        // setToken("");
         setFormSubmitted(true);
       }
     } catch (error) {
@@ -162,6 +163,10 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                 errors={errors}
                 rules={{
                   required: "First Name is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "First Name is required."
+                  }
                 }}
               />
 
@@ -188,6 +193,10 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                 errors={errors}
                 rules={{
                   required: "Company Name is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Company Name is required."
+                  }
                 }}
               />
 
@@ -200,6 +209,10 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                 errors={errors}
                 rules={{
                   required: "Designation is required.",
+                  pattern: {
+                    value: /\S+/,
+                    message: "Designation is required."
+                  }
                 }}
               />
             </FormRow>
@@ -216,7 +229,8 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                   rules={{
                     required: "Email is required.",
                     pattern: {
-                      value: /^\S+@\S+$/i,
+                      // value: /^\S+@\S+$/i,
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                       message: "Please enter a valid email address.",
                     },
                   }}
@@ -264,6 +278,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                       name="nationality"
                       errors={errors}
                       isLight={true}
+                      countries={countries}
                     />
                   )}
                 />
@@ -293,6 +308,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                       name={`countryOfResidence`}
                       errors={errors}
                       isLight={true}
+                      countries={countries}
                     />
                   )}
                 />
@@ -314,6 +330,7 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                     siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
                     callback={handleToken}
                     ref={recaptchaRef}
+                    expiredCallback={() => setToken("")}
                   />
                 </div>
                 <div className=" w-full flex justify-center">
@@ -323,6 +340,14 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                     text-sm sm:text-base  font-medium leading-5 text-white w-fit  py-3 px-8 md:px-16 text-center mt-4 
                     transition-all duration-300 
                   `} */}
+
+                  {
+                  isSubmitting ? (
+                    <div className="flex items-center mt-[20px] justify-center">
+                      <p className="text-center ">Please wait form is submitting... </p>
+                      <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#0078ba] border-t-transparent"></div>
+                    </div>
+                  ) : (
                   <button
                     type="submit"
                     className={`
@@ -334,13 +359,15 @@ const RsvForm = ({ description, rsvpFormData }: Props) => {
                         : "hover:bg-tms-purple/90 hover:text-white"
                     }
                   `}
-                    disabled={!token}
+                    // disabled={!token}
                     style={{
                       background: "linear-gradient(93deg, #38C7FF 4.01%, #008F57 82.77%)",
                     }}
                   >
-                    {isSubmitting ? "Submitting..." : "Submit"}
+                    Submit
+                    {/* {isSubmitting ? "Submitting..." : "Submit"} */}
                   </button>
+                  )}
                 </div>
               </>
             )

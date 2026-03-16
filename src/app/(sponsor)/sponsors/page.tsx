@@ -19,13 +19,15 @@ const Sponsors = async () => {
 
     sponsors,
   } = sponsorPageContent?.data?.section_list;
+  
+  const {COMMON_SETTINGS_VALUES_become_a_sponsor} = sponsorPageContent?.gernalsettings?.general_settings;
   return (
     <>
       <SharedTopSection
         {...page_top_banner}
         title={sponsorPageContent?.data?.name}
       />
-      <SponsorsList sponsors={sponsors?.data} />
+      <SponsorsList sponsors={sponsors?.data} becomeSponsorLink={COMMON_SETTINGS_VALUES_become_a_sponsor?.value} />
     </>
   );
 };
