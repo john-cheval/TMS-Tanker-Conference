@@ -76,8 +76,8 @@ const CountryOfResidence = <TFieldValues extends FieldValues>({
   isLight = false,
   countries=[]
 }: TitleSelectProps<TFieldValues>) => {
-    console.log("errors",errors)
-    console.log("errors name",errors[name]?.message)
+    // console.log("errors",errors)
+    // console.log("errors name",errors[name]?.message)
     const errorMessage = getNestedError(errors, name);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0

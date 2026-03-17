@@ -193,7 +193,7 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
     label: country.countryName,
   }));
 
-  console.log("errors name",errors[name],name,errorMessage)
+  // console.log("errors name",errors[name],name,errorMessage)
 
   return (
     <div>

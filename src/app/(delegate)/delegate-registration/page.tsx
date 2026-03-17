@@ -34,7 +34,7 @@ const DelegateRegistration = async () => {
     supporting_associations,
     media_partners,
     pricing_plans,
-  } = pageContent?.data?.section_list;
+  } = pageContent?.data?.section_list || {};
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />

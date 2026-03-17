@@ -103,10 +103,9 @@ const DelegateRegisterForm = ({
 
   const router = useRouter();
 
-  const defaultPlan =
-  priceDetails.find(p => p.title === "Group") ?? priceDetails[0];
+  const defaultPlan = priceDetails?.find(p => p.title === "Group") ?? priceDetails?.[0];
 
-  const minDefaultDelegates = parseInt(defaultPlan.min_delegates);
+  const minDefaultDelegates = parseInt(defaultPlan?.min_delegates);
 
   const {
     register,
@@ -120,7 +119,7 @@ const DelegateRegisterForm = ({
     defaultValues: {
       // planType: priceDetails[0]?.title || "Group",
       // numberOfDelegates: parseInt(priceDetails[0]?.min_delegates) || 1,
-      planType: defaultPlan.title || "Group",
+      planType: defaultPlan?.title || "Group",
       numberOfDelegates: minDefaultDelegates || 1,
       // delegates: [],
       delegates: Array.from(
@@ -159,7 +158,7 @@ const DelegateRegisterForm = ({
   const selectedPlan = watch("planType");
   const numberOfDelegates = watch("numberOfDelegates");
 
-  const findSelectedPlan = priceDetails.find(
+  const findSelectedPlan = priceDetails?.find(
     (item) => item.title === selectedPlan
   );
 
@@ -171,6 +170,7 @@ const DelegateRegisterForm = ({
   // }, [selectedPlan, findSelectedPlan, setValue]);
 
   useEffect(() => {
+    if (!priceDetails) return;
     const plan = priceDetails.find(p => p.title === selectedPlan);
     if (!plan) return;
 
@@ -301,8 +301,8 @@ const DelegateRegisterForm = ({
 
       const result = await response.json();
 
-      console.log("response",response)
-      console.log("response",result)
+      // console.log("response",response)
+      // console.log("response",result)
 
       if (response.ok) {
         setFormSubmitting(false);

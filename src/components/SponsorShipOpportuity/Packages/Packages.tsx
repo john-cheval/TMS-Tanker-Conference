@@ -33,8 +33,8 @@ const Packages = ({
 
   const [selectedPackageCategoryId, setSelectedPackageCategoryId] = useState("");
   const [selectedPackageform, setSelectedPackageForm] = useState<string>("");
-  console.log("selectedPackageCategoryId",selectedPackageCategoryId)
-  console.log("selectedPackageCategoryId",selectedPackageform)
+  // console.log("selectedPackageCategoryId",selectedPackageCategoryId)
+  // console.log("selectedPackageCategoryId",selectedPackageform)
 
   const selectedPackage = packageData?.find(
     (item: any) => item?.title === activeTitle

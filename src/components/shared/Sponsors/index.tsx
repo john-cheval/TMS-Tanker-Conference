@@ -28,7 +28,7 @@ const Sponsors = ({
   isAssosiation = false,
 }: // isPartners = false,
 SponsorsPropsType) => {
-  console.log("data",data)
+  // console.log("data",data)
   const containerRef1 = useRef(null);
   const containerRef2 = useRef(null);
   const BASE_ITEM_DURATION = 3;
@@ -78,7 +78,7 @@ SponsorsPropsType) => {
   
         return { firstList: clonedFirstList, secondList: clonedSecondList,original:items };
       } else {
-        console.log("items",items)
+        // console.log("items",items)
         return { firstList: items, secondList: [],original:items };
       }
     } else {
@@ -247,7 +247,7 @@ SponsorsPropsType) => {
       </div>
   )
 
-  console.log("listsData",listsData,isSponsor,listsData.secondList.length)
+  // console.log("listsData",listsData,isSponsor,listsData.secondList.length)
 
   return (
     <div>
