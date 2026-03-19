@@ -26,7 +26,7 @@ const Blogs = async () => {
     media_partners,
     blog_list,
   } = pageContent?.data?.section_list;
-  const clonedBlogList = Array.from({ length: 6 }, () => blog_list.data).flat();
+  // const clonedBlogList = Array.from({ length: 6 }, () => blog_list.data).flat();
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
@@ -38,14 +38,16 @@ const Blogs = async () => {
               return (
                 <div key={index + 1}>
                   <div className="relative">
-                    <Image
-                      src={item?.image_url}
-                      // alt={item?.title}
-                      alt={item?.image_alt_tag ?? ""}
-                      width={600}
-                      height={300}
-                      className=" overflow-hidden w-full h-auto object-cover"
-                    />
+                    <Link href={`/blogs/${item?.slug}`}>
+                      <Image
+                        src={item?.image_url}
+                        // alt={item?.title}
+                        alt={item?.image_alt_tag ?? ""}
+                        width={600}
+                        height={300}
+                        className=" overflow-hidden w-full h-auto object-cover"
+                      />
+                      </Link>
                     <p
                       className="py-1 md:py-2 text-white text-sm sm:text-base font-medium leading-3 pl-3 pr-5 md:pr-7 w-fit absolute bottom-0 md:bottom-auto md:top-0
                        left-0 md:rounded-tr-none md:rounded-br-[40px]  rounded-tr-[40px]"
@@ -59,9 +61,11 @@ const Blogs = async () => {
                   </div>
 
                   <div className="md:-mt-5  space-y-2 md:space-y-3 bg-[#f5f5f5] pt-5 px-5 pb-5 md:p-8">
-                    <h3 className="text-dark-alter text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center md:text-left leading-3 lg:leading-2">
-                      {item?.title}
-                    </h3>
+                    <Link href={`/blogs/${item?.slug}`}>
+                      <h3 className="text-dark-alter text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center md:text-left leading-3 lg:leading-2">
+                        {item?.title}
+                      </h3>
+                    </Link>
 
                     <div
                       className="description text-dark-alter leading-5 text-center md:text-left"
@@ -81,18 +85,20 @@ const Blogs = async () => {
             })}
           </div>
           <div className="col-span-12 md:col-span-5 lg:col-span-4 ">
-            {blog_list?.data?.slice(0, 1)?.map((item: any, index: number) => {
+            {blog_list?.data?.slice(1, 2)?.map((item: any, index: number) => {
               return (
                 <div key={index + 1}>
                   <div className="relative">
-                    <Image
-                      src={item?.image_url}
-                      // alt={item?.title}
-                      alt={item?.image_alt_tag ?? ""}
-                      width={600}
-                      height={300}
-                      className=" overflow-hidden w-full h-auto object-cover"
-                    />
+                    <Link href={`/blogs/${item?.slug}`}>
+                      <Image
+                        src={item?.image_url}
+                        // alt={item?.title}
+                        alt={item?.image_alt_tag ?? ""}
+                        width={600}
+                        height={300}
+                        className=" overflow-hidden w-full h-auto object-cover"
+                      />
+                    </Link>
                     <p
                       className="py-1 md:py-2 text-white text-sm sm:text-base font-medium leading-3 pl-3 pr-5 md:pr-7 w-fit absolute bottom-0 md:bottom-auto md:top-0
                        left-0 md:rounded-tr-none md:rounded-br-[40px]  rounded-tr-[40px]"
@@ -106,9 +112,11 @@ const Blogs = async () => {
                   </div>
 
                   <div className="md:-mt-5  space-y-2 md:space-y-3 bg-[#f5f5f5] pt-5 px-5 pb-5 md:p-8">
-                    <h3 className="text-dark-alter text-center md:text-left text-xl sm:text-2xl  leading-3">
-                      {item?.title}
-                    </h3>
+                    <Link href={`/blogs/${item?.slug}`}>
+                      <h3 className="text-dark-alter text-center md:text-left text-xl sm:text-2xl  leading-3">
+                        {item?.title}
+                      </h3>
+                    </Link>
 
                     <div
                       className="description text-dark-alter text-center md:text-left leading-5"
@@ -131,18 +139,20 @@ const Blogs = async () => {
       </section>
 
       <section className="section-wrapper grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-5">
-        {clonedBlogList?.map((item: any, index: number) => {
+        {blog_list?.data?.slice(2).map((item: any, index: number) => {
           return (
             <div key={index + 1}>
               <div className="relative">
-                <Image
-                  src={item?.image_url}
-                  // alt={item?.title}
-                  alt={item?.image_alt_tag ?? ""}
-                  width={600}
-                  height={300}
-                  className=" overflow-hidden w-full h-auto object-cover"
-                />
+                <Link href={`/blogs/${item?.slug}`}>
+                  <Image
+                    src={item?.image_url}
+                    // alt={item?.title}
+                    alt={item?.image_alt_tag ?? ""}
+                    width={600}
+                    height={300}
+                    className=" overflow-hidden w-full h-auto object-cover"
+                  />
+                </Link>
                 <p
                   className="py-1 md:py-2 text-white text-sm sm:text-base font-medium leading-3 pl-3 pr-5 md:pr-7 w-fit absolute bottom-0 md:bottom-auto md:top-0
                        left-0 md:rounded-tr-none md:rounded-br-[40px]  rounded-tr-[40px]"
@@ -156,9 +166,11 @@ const Blogs = async () => {
               </div>
 
               <div className="md:-mt-5  space-y-2 md:space-y-3 bg-[#f5f5f5] pt-5 px-5 pb-5 md:p-8">
-                <h3 className="text-dark-alter text-center md:text-left text-xl sm:text-2xl  leading-3">
-                  {item?.title}
-                </h3>
+                <Link href={`/blogs/${item?.slug}`}>
+                  <h3 className="text-dark-alter text-center md:text-left text-xl sm:text-2xl  leading-3">
+                    {item?.title}
+                  </h3>
+                </Link>
 
                 <div
                   className="description text-dark-alter text-center md:text-left leading-5"

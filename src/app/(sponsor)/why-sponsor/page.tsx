@@ -20,6 +20,7 @@ const WhySponsor = async () => {
   const {
     page_top_banner,
     key_sponsorship_benefits,
+    about_the_conference,
     become_a_sponsor_form,
     sponsors,
     supporting_associations,
@@ -28,8 +29,8 @@ const WhySponsor = async () => {
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
-      <WhySponsorOne />
-      <SponsorBenifits {...key_sponsorship_benefits} />
+      <WhySponsorOne {...about_the_conference} />
+      {/* <SponsorBenifits {...key_sponsorship_benefits} /> */}
       <WhySponsorSectionThree {...key_sponsorship_benefits} />
       <BecomeSponsorForm {...become_a_sponsor_form} />
       <div className="section-wrapper section-wrapper">

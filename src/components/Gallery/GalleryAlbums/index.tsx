@@ -36,7 +36,7 @@ const GalleryAlbums = ({ data }: Props) => {
   return (
     <section className="section-wrapper pt-6 md:pt-8 lg:pt-10 xl:pt-14 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
       <div className="  grid-cols-12 gap-x-10 md:gap-x-12 xl:gap-x-20 hidden md:grid">
-        <div className="col-span-4">
+        <div className="col-span-3">
           {data &&
             data?.map((item, index) => {
               return (
@@ -56,7 +56,7 @@ const GalleryAlbums = ({ data }: Props) => {
               );
             })}
         </div>
-        <div className="col-span-8 grid grid-cols-2 gap-5">
+        <div className="col-span-9 grid grid-cols-2 gap-5">
           {Array.isArray(filteredAlbum?.photo_gallery) &&
           filteredAlbum.photo_gallery.length > 0 ? (
             filteredAlbum?.photo_gallery?.map((item, index) => {

@@ -162,7 +162,7 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
       ...styles,
       marginTop: "10px",
       borderRadius: "8px",
-      backgroundColor: "#0078bb",
+      backgroundColor: "#008f57",
       zIndex: 9999999,
     }),
     option: (
@@ -170,7 +170,7 @@ const NationalitySelectElement = <TFieldValues extends FieldValues>({
       { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean }
     ) => ({
       ...styles,
-      backgroundColor: isFocused ? "transparent" : isSelected ? "#4d1592" : "",
+      backgroundColor: isFocused ? "transparent" : isSelected ? "#38c7ff" : "",
       color: "#fff",
       borderRadius: "4px",
       zIndex: 9999999,

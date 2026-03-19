@@ -34,22 +34,29 @@ const DelegateRegistration = async () => {
     supporting_associations,
     media_partners,
     pricing_plans,
+    delegate_registration,
   } = pageContent?.data?.section_list || {};
+
+  const parsedData = JSON.parse(delegate_registration?.delegate_detail_list);
+  console.log("parsedData",delegate_registration?.delegate_detail_list)
+  console.log("parsedData",parsedData)
+  const list = Object.values(parsedData);
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
 
       <div className="section-wrapper pt-8 md:pt-10 lg:pt-12  xl:pt-14 ">
-        <p className="text-center description text-black mx-0 md:mx-5 lg:mx-14">
+        {/* <p className="text-center description text-black mx-0 md:mx-5 lg:mx-14">
           The Maritime Standard Tanker Conference will take place on October
           30th 2025 at The Atlantis, The Palm, Dubai, UAE. The Maritime Standard
           Tanker Conference has been designed specifically for top executives
           involved in the tanker shipping market, and those companies which
           provide products and services to tanker shipping specialists.
-        </p>
+        </p> */}
+        <div className="content text-center description text-black mx-0 md:mx-5 lg:mx-14" dangerouslySetInnerHTML={{__html:delegate_registration?.description}} />
 
         <div className="pt-6 md:pt-8 lg:pt-12 xl:pt-14 grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-y-0 md:gap-x-4 xl:gap-x-5 overflow-hidden">
-          {delegateDataList?.map((item, index) => {
+          {list && list?.map((item:any, index) => {
             return (
               <div
                 key={index + 1}
@@ -59,14 +66,15 @@ const DelegateRegistration = async () => {
                   {item?.title}
                 </h6>
 
-                <div className="delegateDescription description text-black">
-                  <p>discount</p>
-                  <ul>
+                <div className="delegateDescription description text-black" dangerouslySetInnerHTML={{__html:item?.description}} />
+                  
+                  {/* <p>discount</p> */}
+                  {/* <ul>
                     {item?.lists?.map((list, idx) => {
                       return <li key={idx + 1}>{list}</li>;
                     })}
-                  </ul>
-                </div>
+                  </ul> */}
+                {/* </div> */}
 
                 <div className="absolute top-5 md:top-2 xl:top-5 right-5 xl:right-10">
                   <Image

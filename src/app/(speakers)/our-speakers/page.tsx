@@ -23,10 +23,12 @@ const OurSpeakers = async () => {
     media_partners,
   } = pageContent?.data?.section_list;
 
+  const { COMMON_SETTINGS_VALUES_become_a_speaker } = pageContent?.gernalsettings?.general_settings;
+
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
-      <OurSpeakersSectionOne {...our_speakers} />
+      <OurSpeakersSectionOne {...our_speakers} becomeSpeakerLink={COMMON_SETTINGS_VALUES_become_a_speaker?.value} />
 
       <div className="section-wrapper sponsor-wrapper ">
         <Sponsors data={sponsors} isSponsor={true} />

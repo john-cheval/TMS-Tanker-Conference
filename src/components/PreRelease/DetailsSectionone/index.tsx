@@ -17,7 +17,7 @@ const DetailsSectionone = ({ isBlog = false, content }: Props) => {
             alt={content?.image_alt_tag ?? ""}
             width={700}
             height={350}
-            className={`overflow-hidden w-full h-auto object-cover`}
+            className={`overflow-hidden w-full h-auto lg:h-[600px] object-cover`}
           />
           {isBlog && (
             <p

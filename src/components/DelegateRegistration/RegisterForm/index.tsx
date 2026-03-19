@@ -95,6 +95,7 @@ const DelegateRegisterForm = ({
   const isEarlyBirdExpired = currentDate > earlyBirdCutoffDate;
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -115,6 +116,7 @@ const DelegateRegisterForm = ({
     control,
     reset,
     formState: { errors },
+    trigger
   } = useForm<FormData & { termsAccepted: boolean }>({
     defaultValues: {
       // planType: priceDetails[0]?.title || "Group",
@@ -135,8 +137,8 @@ const DelegateRegisterForm = ({
   });
 
   const termsAccepted = watch("termsAccepted");
-  // const isFormValid = termsAccepted && token;
-  const isFormValid = termsAccepted;
+  const isFormValid = termsAccepted && token;
+  // const isFormValid = termsAccepted;
 
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [formSubmitting,setFormSubmitting] = useState<boolean>(false);
@@ -634,7 +636,7 @@ const DelegateRegisterForm = ({
               <input
                 type="number"
                 min={parseInt(findSelectedPlan?.min_delegates ?? "1")}
-                max={5}
+                // max={5}
                 {...register("numberOfDelegates", {
                   valueAsNumber: true,
                   // onChange: (e) => {
@@ -653,13 +655,25 @@ const DelegateRegisterForm = ({
                   //     }
                   //   }
                   // },
-                  onChange:(e) => {
-                    const value = Number(e.target.value);
+                  // onChange:(e) => {
+                  //   const value = Number(e.target.value);
 
-                    setValue("numberOfDelegates", value, {
-                      shouldValidate: true, // 👈 triggers error instantly
-                      shouldDirty: true,
-                    });
+                  //   setValue("numberOfDelegates", value, {
+                  //     shouldValidate: true, // 👈 triggers error instantly
+                  //     shouldDirty: true,
+                  //   });
+                  // },
+                  onChange: async (e) => {
+                    const value = Number(e.target.value);
+                    // console.log("value",value)
+                    if(value > 5) {
+                      setValue("numberOfDelegates", 5);
+                      setErrorMessage(true)
+                    } else {
+                      setErrorMessage(false)
+                      setValue("numberOfDelegates", value);
+                    }
+                    await trigger("numberOfDelegates"); // 👈 forces validation
                   },
                   required: "Number of delegates is required",
                   min: {
@@ -680,6 +694,13 @@ const DelegateRegisterForm = ({
                   {errors.numberOfDelegates.message}
                 </p>
               )}
+              {
+                errorMessage && (
+                <p style={{color:"#ff0000"}} className="text-[#ff0000] text-center">
+                  You can register a  maximum of 5 delegates at a time.
+                </p>
+                )
+              }
             </div>
 
             <div className="mt-5 md:mt-8 lg:mt-10 md:max-w-[450px] border-t border-t-black md:mx-auto">
@@ -1136,7 +1157,7 @@ const DelegateRegisterForm = ({
             {
                     formSubmitting ? (
                     <div className="flex items-center mt-[20px] justify-center">
-                  <p className="text-center ">Please wait form is submitting... </p>
+                  <p className="text-center text-white">Please wait form is submitting... </p>
                   <div className="ml-[10px] h-5 w-5 animate-spin rounded-full border-2 border-[#fff] border-t-transparent"></div>
                 </div>
                     ) : (

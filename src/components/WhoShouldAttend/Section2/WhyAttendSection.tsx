@@ -7,10 +7,12 @@ import React from "react";
 type Props = {
   heading: string;
   why_attend_list: WhyAttendListType[];
+  register_button_text:string;
+  register_button_link:string;
 };
 
 const WhyAttendSection = (props: Props) => {
-  const { heading, why_attend_list } = props;
+  const { heading, why_attend_list,register_button_link, register_button_text } = props;
 
   return (
     <section className="section-wrapper pt-6 sm:pt-8 md:pt-12 lg:pt-14 pb-8 md:pb-12 lg:pb-14 xl:pb-20">
@@ -31,14 +33,14 @@ const WhyAttendSection = (props: Props) => {
 
           <div className="absolute z-50 bottom-8 left-0 flex flex-col  gap-y-2 items-center w-full">
             <Link
-              href={"#"}
+              href={register_button_link}
               className="buttonGradient-3 px-6 py-3 text-white text-center font-medium block  hover:scale-[1.02] transition-all duration-300 text-sm md:text-base w-fit"
             >
-              Register
+              {register_button_text}
             </Link>
 
             <p className="description text-white text-center">
-              To attend the conference
+              {why_attend_list[0]?.title}
             </p>
           </div>
           <div className="absolute z-40 bottom-0 left-0 CardGraient3 w-full h-full max-h-[400px]" />

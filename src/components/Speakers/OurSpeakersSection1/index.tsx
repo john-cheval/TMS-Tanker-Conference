@@ -13,9 +13,10 @@ type SpeakersCardData = {
 type Props = {
   heading: string;
   data: SpeakersCardData[];
+  becomeSpeakerLink:string;
 };
 
-const OurSpeakersSectionOne = ({ heading, data }: Props) => {
+const OurSpeakersSectionOne = ({ heading, data,becomeSpeakerLink }: Props) => {
   return (
     <section className="section-wrapper pt-3 md:pt-6 lg:pt-11 mb-7 md:mb-8 lg:mb-12 xl:mb-14 ">
       <div className="border-b border-dashed border-b-[#8E8E8E] pb-7 md:pb-8 lg:pb-10 ">
@@ -31,7 +32,7 @@ const OurSpeakersSectionOne = ({ heading, data }: Props) => {
         </div>
 
         <Link
-          href="#"
+          href={becomeSpeakerLink}
           className="text-white text-sm sm:text-base font-medium text-center w-fit py-3 px-7 gradient-master block mx-auto mt-12"
         >
           Become a speaker

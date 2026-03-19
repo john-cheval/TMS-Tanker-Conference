@@ -26,20 +26,20 @@ const VideoGallery = ({ data }: Props) => {
   return (
     <section className="section-wrapper pt-6 md:pt-8 lg:pt-10 xl:pt-14 pb-8 md:pb-12 lg:pb-16 xl:pb-20">
       <div className="hidden md:block">
-        <div className="flex gap-x-2.5 md:gap-x-5 lg::gap-x-8 lg:justify-center  overflow-x-auto whitespace-nowrap no-scrollbar w-full flex-nowrap border-b pb-5 gradient-border-2 ">
+        <div className="flex gap-x-2.5 md:gap-x-5 lg::gap-x-8 lg:justify-center  overflow-x-auto whitespace-nowrap no-scrollbar w-full flex-nowrap  ">
           {data &&
             data?.map((item, index) => {
               return (
                 <button
-                  key={index}
+                  key={item?.id}
                   onClick={() => setSelectedConference(item?.name)}
                   className={`
                    leading-5 text-center
-                  font-medium 
+                  font-medium border-b pb-5 
                   overflow-hidden transition-all duration-500 flex-shrink-0 ${
                     selectedConferece === item?.name
-                      ? "font-semibold text-xl gradient-text-3"
-                      : "text-[#6f6e6e] text-xl font-medium"
+                      ? "font-semibold text-xl gradient-text-3 gradient-border-2"
+                      : "text-[#6f6e6e] text-xl font-medium border-[#fff]"
                   }
                 `}
                 >
@@ -55,7 +55,7 @@ const VideoGallery = ({ data }: Props) => {
               const youtubeId = getYoutubeId(item.link);
               return (
                 <VideoCard
-                  key={index + 1}
+                  key={item?.id}
                   title={item.title}
                   link={item.link}
                   youtube_id={youtubeId ?? ""}

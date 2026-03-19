@@ -35,7 +35,7 @@ const BogsInnerPage = async ({ params }: Props) => {
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
       <DetailsSectionone isBlog={true} content={blogContent?.data} />
-      {blog_list?.data?.length > 0 && <RecentlyViewed data={clonedBlogList} />}
+      {/* {blog_list?.data?.length > 0 && <RecentlyViewed data={clonedBlogList} />} */}
       <div className="section-wrapper section-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />

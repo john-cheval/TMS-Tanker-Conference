@@ -5,9 +5,10 @@ import { MdAccessAlarms } from "react-icons/md";
 
 type Props = {
   content: any;
+  heading:string;
 };
 
-const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
+const ConferenceProgrammeSectionTwo = ({ content,heading }: Props) => {
   if (!content)
     return (
       <p className="text-lg font-medium my-5 text-center md:text-xl">
@@ -21,7 +22,7 @@ const ConferenceProgrammeSectionTwo = ({ content }: Props) => {
   return (
     <section className="section-wrapper mt-8 pb-8 md:pb-12 lg:pb-16 ">
       <h4 className="text-center main-heading-2 md:text-left gradient-text w-fit leading-3 font-bold md:leading-[40px]  lg:leading-main mb-6 ">
-        Conference Programme outline
+        {heading}
       </h4>
 
       <div className="">

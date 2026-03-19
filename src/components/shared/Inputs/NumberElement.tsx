@@ -293,7 +293,7 @@ const NumberElement = <TFieldValues extends FieldValues>({
             className={`z-10 inline-flex items-center h-full py-2.5 px-4 font-normal text-center bg-transparent text-sm md:text-base gap-x-1.5 ${
               isLight ? "text-white" : "text-black"
             } outline-none absolute left-0 ${
-              errorMessage ? "-top-3s" : "top-0"
+              errorMessage ? "-top-3" : "top-0"
             }`}
             type="button"
             onClick={handleButtonClick}

@@ -10,7 +10,7 @@ import truncate from "html-truncate";
  */
 export const truncateHtmlByWords = (
   htmlContent: string,
-  limit: number
+  limit: number,
 ): string => {
   // Use a regular expression to remove all HTML tags from the string.
   const plainText = htmlContent.replace(/<[^>]*>/g, "");

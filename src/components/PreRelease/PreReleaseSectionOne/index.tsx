@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import PreReleaseCardResponsive from "../PreReleseCardResponsive";
+import { truncateHtmlByWords } from "@/utils/trumcate";
 
 type Props = {
   data: any;
@@ -13,26 +14,30 @@ const PreReleaseSectionOne = ({ data }: Props) => {
     <section className="section-wrapper pt-5 md:pt-8 lg:pt-14  xl:pt-20 pb-6 md:pb-8 lg:pb-12   xl:pb-16">
       <div className=" grid grid-cols-12 md:gap-x-5 lg:gap-x-8 ">
         <div className="col-span-12 md:col-span-7 border-b border-b-[#8e8e8e] pb-4 md:pb-6 lg:pb-8 border-dashed">
-          <Image
-            src={data[0]?.image_url}
-            // alt={data[0]?.title}
-            alt={data[0]?.image_alt_tag ?? ""}
-            width={700}
-            height={350}
-            className=" overflow-hidden w-full h-auto object-cover"
-          />
+          <Link href={`/press-release/${data[0]?.slug}`}>
+            <Image
+              src={data[0]?.image_url}
+              // alt={data[0]?.title}
+              alt={data[0]?.image_alt_tag ?? ""}
+              width={700}
+              height={350}
+              className=" overflow-hidden w-full h-auto lg:h-[500px] object-cover"
+            />
+          </Link>
 
           <div className="mt-4 md:mt-7  space-y-2 md:space-y-3 ">
             <p className="description text-[#919191] font-normal  leading-5 text-center md:text-left">
               {dayjs(data[0]?.date).format("DD MMMM YYYY")}
             </p>
-            <h3 className="text-tms-tanker-blue-2 text-xl md:text-3xl font-bold leading-3 text-center md:text-left">
-              {data[0]?.title}
-            </h3>
+            <Link href={`/press-release/${data[0]?.slug}`}>
+              <h3 className="text-tms-tanker-blue-2 text-xl md:text-3xl font-bold leading-3 text-center md:text-left">
+                {data[0]?.title}
+              </h3>
+            </Link>
 
             <div
               className="description text-[#2a2a2a] space-y-2 md:space-y-3 text-center md:text-left md:pt-2"
-              dangerouslySetInnerHTML={{ __html: data[0]?.description }}
+              dangerouslySetInnerHTML={{ __html: truncateHtmlByWords(data[0]?.description,50)  }}
             />
             <Link
               href={`/press-release/${data[0]?.slug}`}
@@ -46,22 +51,27 @@ const PreReleaseSectionOne = ({ data }: Props) => {
           {data?.slice(1, 3)?.map((item: any, index: number) => {
             return (
               <div
-                key={index + 1}
+                key={item?.id}
                 className="flex border-b-[3px]  gradient-border-3 pb-8 "
               >
                 <div className="space-y-1">
                   <p className="description text-[#919191] font-normal  leading-5">
                     {dayjs(item?.date).format("DD MMMM YYYY")}
                   </p>
-                  <h6 className="text-tms-tanker-blue-2 text-xl md:text-2xl font-semibold leading-3">
-                    {" "}
-                    {item.title}
-                  </h6>
-
-                  <div
-                    className="description text-[#2a2a2a] space-y-3 pt-2"
-                    dangerouslySetInnerHTML={{ __html: data[0]?.description }}
-                  />
+                  <Link href={`/press-release/${item?.slug}`}>
+                    <h6 className="text-tms-tanker-blue-2 text-xl md:text-2xl font-semibold leading-3">
+                      {" "}
+                      {item.title}
+                    </h6>
+                  </Link>
+                  {
+                    item?.description && (
+                      <div
+                        className="description text-[#2a2a2a] space-y-3 pt-2"
+                        dangerouslySetInnerHTML={{ __html: truncateHtmlByWords(item?.description,50) }}
+                      />
+                    )
+                  }
 
                   <Link
                     href={`/press-release/${item?.slug}`}
@@ -77,34 +87,41 @@ const PreReleaseSectionOne = ({ data }: Props) => {
       </div>
 
       <div className="grid-cols-1 lg:grid-cols-2 gap-5 xl:gap-7 mt-6 lg:mt-8 xl:mt-10  hidden sm:grid">
-        {data?.slice(2)?.map((item: any, index: number) => {
+        {data?.slice(3)?.map((item: any, index: number) => {
           return (
             <div
-              key={index + 1}
+              key={item?.id}
               className="space-y-4 lg:space-y-6 border-b-[3px]  gradient-border-3 pb-4 md:pb-6 lg:pb-8"
             >
-              <Image
-                src={item?.image_url}
-                // alt={item?.title}
-                alt={item?.image_alt_tag ?? ""}
-                width={700}
-                height={350}
-                className=" overflow-hidden w-full h-auto object-cover  "
-              />
+              <Link href={`/press-release/${item?.slug}`}>
+                <Image
+                  src={item?.image_url}
+                  // alt={item?.title}
+                  alt={item?.image_alt_tag ?? ""}
+                  width={700}
+                  height={350}
+                  className=" overflow-hidden w-full h-auto lg:h-[350px] object-cover  "
+                />
+              </Link>
 
               <div className="space-y-1 lg:space-y-2">
-                <p className="description text-[#919191] font-normal  leading-5 text-center md:text-left">
+                <p className="description text-[#919191] font-normal mt-2 leading-5 text-center md:text-left">
                   {dayjs(item?.date).format("DD MMMM YYYY")}
                 </p>
-                <h6 className="text-tms-tanker-blue-2 text-xl md:text-2xl font-semibold leading-3 text-center md:text-left">
-                  {" "}
-                  {item.title}
-                </h6>
-
-                <div
-                  className="description text-[#2a2a2a] space-y-3 text-center md:text-left md:pt-2"
-                  dangerouslySetInnerHTML={{ __html: data[0]?.description }}
-                />
+                <Link href={`/press-release/${item?.slug}`}>
+                  <h6 className="text-tms-tanker-blue-2 text-xl md:text-2xl font-semibold leading-3 text-center md:text-left">
+                    {" "}
+                    {item.title}
+                  </h6>
+                </Link>
+                {
+                  item?.description && (
+                    <div
+                      className="description text-[#2a2a2a] space-y-3 text-center md:text-left md:pt-2"
+                      dangerouslySetInnerHTML={{ __html: truncateHtmlByWords(item?.description,50) }}
+                    />
+                  )
+                }
 
                 <Link
                   href={`/press-release/${item?.slug}`}

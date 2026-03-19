@@ -1,5 +1,5 @@
 import SharedTopSection from "@/components/shared/Sections/TopSection";
-// import Sponsors from "@/components/shared/Sponsors";
+import Sponsors from "@/components/shared/Sponsors";
 import SponsorShipOppSectionOne from "@/components/SponsorShipOpportuity/Section1";
 import { baseUrl } from "@/lib/api";
 import { fetchData } from "@/lib/fetchData";
@@ -19,9 +19,9 @@ const SponsorshipOppurtunities = async () => {
     page_top_banner,
     why_sponsor_tms_ai_tech_sponsorship_opportunities,
     become_a_sponsor_form,
-    // sponsors,
-    // supporting_associations,
-    // media_partners,
+    sponsors,
+    supporting_associations,
+    media_partners,
   } = pageContent?.data?.section_list;
   return (
     <>
@@ -31,11 +31,11 @@ const SponsorshipOppurtunities = async () => {
         formData={become_a_sponsor_form}
       />
 
-      {/*   <div className="section-wrapper section-wrapper">
+        <div className="section-wrapper section-wrapper sponsor-wrapper">
         <Sponsors data={sponsors} isSponsor={true} />
         <Sponsors data={supporting_associations} />
         <Sponsors data={media_partners} />
-      </div> */}
+      </div>
     </>
   );
 };

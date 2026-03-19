@@ -15,7 +15,7 @@ type Props = {
   all_benefits: benifitsType[];
 };
 
-const WhySponsorSectionThree = ({ all_benefits }: Props) => {
+const WhySponsorSectionThree = ({ heading,all_benefits }: Props) => {
   const swiperRef = useRef<SwiperCore | null>(null);
   const handlePrev = () => {
     if (swiperRef.current) {
@@ -34,7 +34,7 @@ const WhySponsorSectionThree = ({ all_benefits }: Props) => {
       <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
         <div className="flex md:justify-between items-center">
           <h4 className="w-fit main-heading leading-3 font-bold md:leading-[40px]  lg:leading-main gradient-text mb-2 lg:mb-3 mx-auto md:mx-0 text-center">
-            Sponsorship offers numerous benefits
+            {heading}
           </h4>
 
           <div className=" items-center justify-center space-x-4 hidden   md:flex">
