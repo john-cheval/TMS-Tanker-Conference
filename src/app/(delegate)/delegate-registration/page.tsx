@@ -64,7 +64,7 @@ const list = Object.values(parsedData || {});
           involved in the tanker shipping market, and those companies which
           provide products and services to tanker shipping specialists.
         </p> */}
-        <div className="content text-center description text-black mx-0 md:mx-5 lg:mx-14" dangerouslySetInnerHTML={{__html:delegate_registration?.description}} />
+        <div className="content text-center description text-black mx-0 md:mx-5 lg:mx-14" dangerouslySetInnerHTML={{__html:delegate_registration?.description || ""}} />
 
         <div className="pt-6 md:pt-8 lg:pt-12 xl:pt-14 grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-y-0 md:gap-x-4 xl:gap-x-5 overflow-hidden">
           {list && list?.map((item:any, index) => {
@@ -77,7 +77,7 @@ const list = Object.values(parsedData || {});
                   {item?.title}
                 </h6>
 
-                <div className="delegateDescription description text-black" dangerouslySetInnerHTML={{__html:item?.description}} />
+                <div className="delegateDescription description text-black" dangerouslySetInnerHTML={{__html:item?.description || ""}} />
                   
                   {/* <p>discount</p> */}
                   {/* <ul>
