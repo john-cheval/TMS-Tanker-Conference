@@ -37,8 +37,21 @@ const DelegateRegistration = async () => {
     delegate_registration,
   } = pageContent?.data?.section_list || {};
 
-  const parsedData = JSON.parse(delegate_registration?.delegate_detail_list);
-  const list = Object.values(parsedData);
+  // const parsedData =  JSON.parse(delegate_registration?.delegate_detail_list);
+  // const list = Object.values(parsedData);
+
+  let parsedData = {};
+
+try {
+  parsedData = delegate_registration?.delegate_detail_list
+    ? JSON.parse(delegate_registration.delegate_detail_list)
+    : {};
+} catch (e) {
+  console.error("Invalid JSON:", e);
+  parsedData = {};
+}
+
+const list = Object.values(parsedData || {});
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
