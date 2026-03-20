@@ -564,6 +564,10 @@ ul {
   .clip-path-slant-banners {
     clip-path: none;
   }
+  .conference-item:before {
+    right: unset;
+    left: -12px;
+  }
 }
 
 @media (min-width: 2000px) {

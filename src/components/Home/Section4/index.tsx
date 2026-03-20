@@ -16,12 +16,16 @@ type Props = {
   heading: string;
   description: string;
   image_gallery: SpeakerDescriptionList[];
+  button_text:string;
+  button_link:string;
 };
 
 const HomeSectionFour = ({
   heading,
   description,
   image_gallery,
+  button_text,
+  button_link
 }: Props) => {
   const colorSchema = [
     {
@@ -55,8 +59,8 @@ const HomeSectionFour = ({
         <h3 className="main-heading gradient-text-3 leading-3 font-bold md:leading-[40px]  lg:leading-main text-center md:text-left w-fit mx-auto md:mx-0 mb-4 md:mb-0">
           {heading}
         </h3>
-        <ButtonOrLink isBigText={false} isGradient={true} hrefs={"#"}>
-          Become a speaker
+        <ButtonOrLink isBigText={false} isGradient={true} hrefs={button_link}>
+          {button_text}
         </ButtonOrLink>
       </div>
 
@@ -97,10 +101,10 @@ const HomeSectionFour = ({
                       <>
                         <div className="CardGraient w-full h-full absolute top-0 left-0 max-w-[350px]" />
                         <Link
-                          href="#"
+                          href="/become-a-speaker"
                           className="text-white text-base lg:text-xl absolute underline bottom-5 lg:bottom-10 left-5 lg:left-10 z-50 font-normal hover:no-underline"
                         >
-                          Become a Speaker
+                          {item?.title}
                         </Link>
                       </>
                     )}

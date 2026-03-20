@@ -20,7 +20,7 @@ const HomeSectionSeven = ({ heading, youtube_testimonials }: Props) => {
               <YoutubePlayer {...item} />
               <div className="mt-2 sm:mt-4 lg:mt-6">
                 <p className="text-lg mg:text-xl lg:text-2xl font-medium  leading-3 ">
-                  Capt. Franck J Kayser{" "}
+                  {item?.title}
                 </p>
                 <p className="text-base font-normal leading-5 mt-0.5 md:mt-1">
                   COO, Asyad Shipping Company

@@ -33,7 +33,7 @@ const SponsorShipOppSectionOne = ({
           </h2> */}
         <div className="border-b border-b-tms-tanker-blue-2 sm:border-b-light-grey-1 sm:border-dotted pb-8 ">
           <div
-            className="description text-center max-w-[70%] mx-auto"
+            className="description text-center max-w-full lg:max-w-[70%] mx-auto"
             dangerouslySetInnerHTML={{ __html: description ?? "" }}
           />
         </div>

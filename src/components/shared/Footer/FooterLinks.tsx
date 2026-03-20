@@ -9,6 +9,7 @@ export type FooterLinksPropsType = {
 };
 
 const FooterLinks = ({ links, splits, name }: FooterLinksPropsType) => {
+  console.log("links",links)
   return (
     <motion.div
       initial={{ y: 50, opacity: 0 }}
@@ -18,11 +19,11 @@ const FooterLinks = ({ links, splits, name }: FooterLinksPropsType) => {
       className="space-y-3"
     >
       <motion.h6 className="text-[#38C7FF] text-lg md:text-2xl font-medium leading-3">
-        {links?.name || name}
+        {links?.name}
       </motion.h6>
       <div className="space-y-2  flex flex-col">
         {
-          /* Object.values(links?.submenu) */ links?.map(
+          Object.values(links?.submenu).map(
             (link: any, index: number) => (
               <motion.div
                 key={index + 1}

@@ -13,9 +13,11 @@ import Link from "next/link";
 type Props = {
   heading: string;
   all_benefits: benifitsType[];
+  button_text:string;
+  button_link:string;
 };
 
-const WhySponsorSectionThree = ({ heading,all_benefits }: Props) => {
+const WhySponsorSectionThree = ({ heading,all_benefits,button_text,button_link }: Props) => {
   const swiperRef = useRef<SwiperCore | null>(null);
   const handlePrev = () => {
     if (swiperRef.current) {
@@ -28,7 +30,8 @@ const WhySponsorSectionThree = ({ heading,all_benefits }: Props) => {
       swiperRef.current.slideNext();
     }
   };
-  const clonedData = [...all_benefits, ...all_benefits];
+  // const clonedData = [...all_benefits, ...all_benefits];
+  const clonedData = [...all_benefits];
   return (
     <>
       <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
@@ -117,13 +120,13 @@ const WhySponsorSectionThree = ({ heading,all_benefits }: Props) => {
       {/* button */}
 
       <Link
-        href="#"
+        href={button_link}
         className="font-medium text-sm md:text-base text-white py-4  px-6 md:px-8 block sm:w-fit mx-5 sm:mx-auto mt-5 md:mt-10"
         style={{
           background: "linear-gradient(90deg, #008AC0 0%, #00A25D 100%)",
         }}
       >
-        Click here to view the sponsorship option
+        {button_text}
       </Link>
     </>
   );

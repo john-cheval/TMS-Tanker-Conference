@@ -5,7 +5,7 @@ import React from "react";
 const SponsorBenifitCard = (props: benifitsType) => {
   const { title, description, image_url, image_alt_tag } = props;
   return (
-    <div className="relative">
+    <div className="relative h-[425px]">
       <Image
         src={image_url ?? ""}
         // alt={title}

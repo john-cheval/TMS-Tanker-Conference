@@ -22,13 +22,13 @@ const ContactSectionOne = ({ content }: Props) => {
                 return (
                   <div
                     key={index}
-                    className={` flex flex-col  items-centers w-full md:items-start${
+                    className={` flex flex-col  items-center w-full md:items-start ${
                       index === 0
-                        ? "border-b lg:border-r lg:border-b-0 pb-3 m:pb-5 lg:pb-0 border-b-light-grey-1 lg:border-r-light-grey-1"
-                        : "lg:place-content-end lg:ml-auto pl-10"
+                        ? "border-b lg:border-r lg:border-b-0 pb-3 m:pb-5 lg:pb-0 border-b-0 mb-5 md:border-b-light-grey-1 lg:border-r-light-grey-1"
+                        : "lg:place-content-end lg:ml-auto pl-0 md:pl-10"
                     }`}
                   >
-                    <h5 className=" w-fit text-black text-base sm:text-lg md:text-xl lg:text-2xl font-semibold leading-3">
+                    <h5 className=" w-fit text-black text-base  sm:text-lg md:text-xl lg:text-2xl font-semibold leading-3">
                       {item?.title}
                     </h5>
                     <p className="description text-tms-tanker-blue-2 font-semibold mt-1">
@@ -40,20 +40,20 @@ const ContactSectionOne = ({ content }: Props) => {
                         <div className="flex flex-col">
                           <Link
                             href={`tel: ${item?.mobile_no}`}
-                            className="description text-[#2a2a2a] leading-3"
+                            className="description text-[#2a2a2a] text-center md:text-left leading-3"
                           >
                             M: {item?.mobile_no}
                           </Link>
                           <Link
                             href={`tel:${item?.phone_no}`}
-                            className="description text-[#2a2a2a] leading-3"
+                            className="description text-[#2a2a2a] text-center md:text-left leading-3"
                           >
                             T: {item?.phone_no}
                           </Link>
                         </div>
                         <Link
                           href={`mailto: ${item?.email_address}`}
-                          className="description text-[#2a2a2a] leading-3 "
+                          className="description text-[#2a2a2a] text-center md:text-left leading-3 "
                         >
                           E: {item?.email_address}
                         </Link>
@@ -62,13 +62,13 @@ const ContactSectionOne = ({ content }: Props) => {
                       <div className="flex flex-col mt-2">
                         <Link
                           href={`tel: ${item?.mobile_no}`}
-                          className="description text-[#2a2a2a] leading-3"
+                          className="description text-[#2a2a2a] text-center md:text-left leading-3"
                         >
                           M: {item?.mobile_no}
                         </Link>
                         <Link
                           href={`mailto: ${item?.email_address}`}
-                          className="description text-[#2a2a2a] leading-3"
+                          className="description text-[#2a2a2a] text-center md:text-left leading-3"
                         >
                           E: {item?.email_address}
                         </Link>

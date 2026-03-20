@@ -38,8 +38,6 @@ const DelegateRegistration = async () => {
   } = pageContent?.data?.section_list || {};
 
   const parsedData = JSON.parse(delegate_registration?.delegate_detail_list);
-  console.log("parsedData",delegate_registration?.delegate_detail_list)
-  console.log("parsedData",parsedData)
   const list = Object.values(parsedData);
   return (
     <>

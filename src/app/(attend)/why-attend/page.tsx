@@ -36,17 +36,16 @@ const WhyAttend = async () => {
       <section className="section-wrapper mt-4 sm:mt-5 md:mt-6 lg:mt-8 mb-5 md:mb-8 xl:mb-12">
         <div className="  bg-[#f0f0f0] px-5 pt-5 md:pt-7 lg:pt-9 xl:pt-12 pb-8 w-full flex flex-col items-center justify-center">
           <h4 className="gradient-text-3 main-heading leading-3  md:leading-[40px]  lg:leading-main font-bold">
-            Next Steps
+            {why_attend_page?.next_title}
           </h4>
           <p className="text-black description text-center mt-1">
-            Sign up now and attend this year’s high profile and
-            thought-provoking The Maritime Standard Tanker Conference!
+            {why_attend_page?.next_description}
           </p>
           <Link
-            href={"#"}
+            href={why_attend_page?.next_button_url}
             className="buttonGradient-3 px-6 md:px-8 py-3 md:py-4 text-white text-center font-medium block mt-3 md:mt-5 hover:scale-[1.02] transition-all duration-300 text-sm md:text-base w-fit"
           >
-            Sign Up Now.
+            {why_attend_page?.next_button_text}
           </Link>
         </div>
       </section>

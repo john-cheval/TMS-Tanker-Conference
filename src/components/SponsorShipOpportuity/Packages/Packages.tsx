@@ -22,6 +22,10 @@ const Packages = ({
 }: Props) => {
   const filterRef = useRef<HTMLDivElement | null>(null);
 
+  const [expandedStates, setExpandedStates] = useState<{
+          [key: number]: boolean;
+      }>({});
+
   const [activeTitle, setActiveTitle] = useState(packageData[0]?.title);
   const handleTitleClick = (item: string) => {
     setActiveTitle(item);
@@ -39,6 +43,13 @@ const Packages = ({
   const selectedPackage = packageData?.find(
     (item: any) => item?.title === activeTitle
   );
+
+  const handleReadMoreClick = (index: number) => {
+        setExpandedStates((prev) => ({
+        ...prev,
+        [index]: !prev[index],  
+        }));
+    };
 
   return (
     <div id="packageList" ref={filterRef}>
@@ -76,7 +87,8 @@ const Packages = ({
           {selectedPackage?.sponsors &&
           selectedPackage?.sponsors?.length > 0 ? (
             selectedPackage?.sponsors?.map((sponsor: any, index: number) => {
-              return <SponsoredOppCard key={index + 1} activeTitle={activeTitle} {...sponsor} getSelectedPackage={setSelectedPackageForm} getSelectedPackageCategoryId={setSelectedPackageCategoryId} />;
+              const isExpanded = expandedStates[index] || false;
+              return <SponsoredOppCard key={index + 1} activeTitle={activeTitle} index={index} handleReadMoreClick={handleReadMoreClick} isExpanded={isExpanded} {...sponsor} getSelectedPackage={setSelectedPackageForm} getSelectedPackageCategoryId={setSelectedPackageCategoryId} />;
             })
           ) : (
             <p className="text-center font-medium">There is No Package</p>

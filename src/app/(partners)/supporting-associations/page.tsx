@@ -23,6 +23,8 @@ const SupportingAssosiations = async () => {
     supporting_associations,
     media_partners,
   } = pageContent?.data?.section_list;
+
+  const {COMMON_SETTINGS_VALUES_become_a_sponsor} = pageContent?.gernalsettings?.general_settings;
   return (
     <>
       <SharedTopSection {...page_top_banner} title={pageContent?.data?.name} />
@@ -30,6 +32,7 @@ const SupportingAssosiations = async () => {
         sponsors={supporting_associations?.data}
         isButton={true}
         isAssosiation={true}
+        becomeSponsorLink={COMMON_SETTINGS_VALUES_become_a_sponsor?.value}
       />
       <BecomeSponsorForm {...become_a_sponsor_form} isPaddingTop={false} />
 

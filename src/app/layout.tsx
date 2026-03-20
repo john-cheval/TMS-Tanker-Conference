@@ -36,6 +36,7 @@ export default async function RootLayout({
     LINKEDIN,
     YOUTUBE,
     COMMON_SETTINGS_VALUES_join_newsletter,
+    COMMON_SETTINGS_VALUES_footer_newsletter_text,
     COMMON_SETTINGS_VALUES_register_now,
     COMMON_SETTINGS_VALUES_become_a_sponsor,
   } = menuLinks?.general_settings;
@@ -51,6 +52,7 @@ export default async function RootLayout({
 
   const mainMenuLinks = menuLinks?.[1];
   const sideBarlinks = menuLinks?.[4];
+  const footerMenuLinks = menuLinks?.[2];
   return (
     <html lang="en" className="h-full " suppressHydrationWarning>
       <body
@@ -70,7 +72,7 @@ export default async function RootLayout({
             sponsorBtn={COMMON_SETTINGS_VALUES_become_a_sponsor}
           />
         </main>
-        <Footer socialLinks={socialMediaLinks} footerMainLinks={menuLinks[2]} />
+        <Footer socialLinks={socialMediaLinks} newsletterText={COMMON_SETTINGS_VALUES_footer_newsletter_text} footerMainLinks={menuLinks[2]} />
 
         {/* <Footer
           footerMainLinks={menuLinks[2]}

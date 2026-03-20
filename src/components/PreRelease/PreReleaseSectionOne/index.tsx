@@ -41,7 +41,7 @@ const PreReleaseSectionOne = ({ data }: Props) => {
             />
             <Link
               href={`/press-release/${data[0]?.slug}`}
-              className="description text-dark-alter !leading-3 underline hover:no-underline hover:text-tms-green transition-all duration-300  flex justify-center md:justify-start w-fit"
+              className="description text-dark-alter !leading-3 underline hover:no-underline hover:text-tms-green transition-all duration-300  w-full flex justify-center md:justify-start w-fit"
             >
               Read More
             </Link>

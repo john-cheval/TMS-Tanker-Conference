@@ -46,10 +46,10 @@ const ConferenceProgrammeSectionTwo = ({ content,heading }: Props) => {
                   key={innerIndex + 1}
                 >
                   <div
-                    className={`col-span-3 p-8 conference-item relative  ${
+                    className={`col-span-12 md:col-span-3 p-8 conference-item relative   ${
                       isSession
-                        ? ""
-                        : "border-r-4 gradient-border-image"
+                        ? "border-l-4 md:border-l-0 gradient-border-image "
+                        : "border-l-4 md:border-l-0 md:border-r-4 gradient-border-image"
                     }`}
                   >
                     <p className="  flex items-center gap-x-1.5 md:gap-x-2.5 text-lg md:text-xl lg:text-3xl font-semibold text-tms-tanker-blue-2 leading-3 relative">
@@ -90,7 +90,7 @@ const ConferenceProgrammeSectionTwo = ({ content,heading }: Props) => {
                     )}
                   </div>
 
-                  <div className="col-span-8 p-8">
+                  <div className="border-l-4 md:border-l-0 col-span-12 md:col-span-8 p-8 gradient-border-image">
                     {!isSession && (
                       <>
                         <p className="text-base sm:text-xl md:text-2xl font-medium leading-4 text-[#2a2a2a]">
@@ -334,7 +334,7 @@ const ConferenceProgrammeSectionTwo = ({ content,heading }: Props) => {
                     className=" bg-white
                  gradient-border-image grid grid-cols-12 gap-x-8"
                   >
-                    <div className="col-span-3 py-5 border-r-4 gradient-border-image"></div>
+                    <div className="col-span-3 py-5 border-l-4 md:border-l-0 md:border-r-4 gradient-border-image"></div>
                     <div className="col-span-8 py-5"></div>
                   </div>
                 )}

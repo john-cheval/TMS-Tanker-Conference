@@ -145,7 +145,7 @@ const HomeSectionOne = ({
             {/* Date 3 */}
             <div className="text-center lg:text-left">
               <p className="text-lg md:text-xl lg:text-2xl font-bold">
-                {formatDate(eventDate)}
+                {formatDate(data?.award_date)}
               </p>
               <p className="text-sm md:text-lg opacity-80">
                 {event_date_heading}

@@ -11,21 +11,22 @@ import FooterAccordion from "./FooterAccordion";
 type Props = {
   socialLinks?: any;
   footerMainLinks?: any;
+  newsletterText:any;
 };
 
-const Footer = ({ socialLinks, footerMainLinks }: Props) => {
+const Footer = ({ socialLinks, footerMainLinks,newsletterText }: Props) => {
   const footerMainLinksData = Object.values(footerMainLinks);
-  // console.log("footerMainLinksData",footerMainLinksData)
+  console.log("footerMainLinksData",footerMainLinksData)
   return (
     <div className="bg-black relative pt-8 md:pt-10 lg:pt-14 xl:pt-20 pb-6 md:pb-8 lg:pb-14">
       <div className="section-wrapper">
         <div className=" grid grid-cols-12 gap-x-5 lg:gap-x-8 2xl:gap-x-12">
-          <div className=" hiddens md:col-span-4">
-            <FooterLinks links={footerLinksLeft} name="Our Products" />
+          <div className=" hidden md:block md:col-span-4">
+            <FooterLinks links={footerMainLinksData[1]} name="Our Products" />
           </div>
 
-          <div className="hiddens md:col-span-3">
-            <FooterLinks links={quickLinks} name="Quick Links" />
+          <div className="hidden md:block md:col-span-3">
+            <FooterLinks links={footerMainLinksData[0]} name="Quick Links" />
           </div>
 
           <div className="col-span-12 block md:hidden">
@@ -37,16 +38,13 @@ const Footer = ({ socialLinks, footerMainLinks }: Props) => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="hiddens md:col-span-5"
+            className="hidden md:block md:col-span-5"
           >
             {" "}
             <motion.h6 className="text-[#38C7FF] text-lg md:text-2xl font-medium leading-3">
-              Newsletter
+              {newsletterText?.value}
             </motion.h6>
-            <motion.p className="text-[#BBBBBB] description">
-              Sign up for our newsletter to get the latest waves of updates,
-              insights, and exclusive conference content.
-            </motion.p>
+            <motion.div className="text-[#BBBBBB] description" dangerouslySetInnerHTML={{__html:newsletterText?.description}} />
             <FooterNewsLetterForm />
           </motion.div>
         </div>
@@ -66,12 +64,9 @@ const Footer = ({ socialLinks, footerMainLinks }: Props) => {
         >
           {" "}
           <motion.h6 className="text-[#38C7FF] text-lg md:text-2xl font-medium leading-3 text-center">
-            Newsletter
+            {newsletterText?.value}
           </motion.h6>
-          <motion.p className="text-[#BBBBBB] description text-center">
-            Sign up for our newsletter to get the latest waves of updates,
-            insights, and exclusive conference content.
-          </motion.p>
+          <motion.div className="text-[#BBBBBB] description text-center" dangerouslySetInnerHTML={{__html:newsletterText?.description}} />
           <FooterNewsLetterForm />
         </motion.div>
 

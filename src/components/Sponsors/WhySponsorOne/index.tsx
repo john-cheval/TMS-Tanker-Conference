@@ -8,15 +8,16 @@ type Props = {
   button_heading: string;
   button_link: string;
   description: string;
+  image_gallery:any[];
 };
 
-const WhySponsorOne = ({heading,button_heading,button_link,description}:Props) => {
+const WhySponsorOne = ({heading,button_heading,button_link,description,image_gallery}:Props) => {
   return (
     <section className="section-wrapper pt-8 md:pt-10 lg:pt-12 xl:pt-16">
       <div className="grid grid-cols-12 md:gap-x-5 lg:gap-x-8 xl:gap-x-12 2xl:gap-x-14">
         <Image
-          src={whySponsorImage}
-          alt="whySponsor"
+          src={image_gallery[0].image_url}
+          alt={image_gallery[0].alt ?? ""}
           width={500}
           height={350}
           className="col-span-12 md:col-span-5 lg:col-span-4 h-full w-full"

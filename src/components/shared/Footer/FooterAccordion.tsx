@@ -16,7 +16,7 @@ const FooterAccordion = ({ links }: FooterAccordionPropsType) => {
     setOpenIndex(openIndex === index ? null : index);
   };
   return (
-    <ul className="w-full">
+    <ul className="w-full flex flex-col-reverse">
       {links &&
         links?.length > 0 &&
         links?.map((link: any, index: number) => {

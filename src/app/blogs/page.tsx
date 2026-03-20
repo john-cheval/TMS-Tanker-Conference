@@ -75,7 +75,7 @@ const Blogs = async () => {
                     />
                     <Link
                       href={`/blogs/${item?.slug}`}
-                      className="text-[#008ac0] text-sm md:text-base leading-3 underline hover:no-underline flex justify-center md:justify-start"
+                      className="text-[#008ac0] text-sm md:text-base leading-3 underline w-full hover:no-underline flex justify-center md:justify-start"
                     >
                       Read More
                     </Link>
@@ -126,7 +126,7 @@ const Blogs = async () => {
                     />
                     <Link
                       href={`/blogs/${item?.slug}`}
-                      className="text-[#008ac0] text-sm md:text-base leading-3 underline hover:no-underline flex justify-center md:justify-start"
+                      className="text-[#008ac0] text-sm md:text-base leading-3 underline hover:no-underline w-full flex justify-center md:justify-start"
                     >
                       Read More
                     </Link>
@@ -180,7 +180,7 @@ const Blogs = async () => {
                 />
                 <Link
                   href={`/blogs/${item?.slug}`}
-                  className="text-[#008ac0] text-sm md:text-base leading-3 underline hover:no-underline flex justify-center md:justify-start"
+                  className="text-[#008ac0] text-sm md:text-base leading-3 underline hover:no-underline w-full flex justify-center md:justify-start"
                 >
                   Read More
                 </Link>

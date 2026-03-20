@@ -16,7 +16,7 @@ type Props = {
 };
 
 const HomeSwiperTwo = ({ sessionData }: Props) => {
-  const clonedData = [...sessionData, ...sessionData, ...sessionData];
+  const clonedData = [...sessionData];
   const swiperRef = useRef<SwiperCore | null>(null);
 
   const handlePrev = () => {
@@ -84,7 +84,7 @@ const HomeSwiperTwo = ({ sessionData }: Props) => {
                       {item?.name}
                     </h5>
                     <Link
-                      href={"/"}
+                      href={"/conference-programme"}
                       className="text-base underline leading-normal hover:no-underline flex items-center justify-center md:justify-start gap-x-1 group mt-5 md:mt-8 lg:mt-10 xl:mt-16"
                     >
                       View Full Program{" "}

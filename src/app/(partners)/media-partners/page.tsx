@@ -21,6 +21,7 @@ const MediaPartners = async () => {
     supporting_associations,
     media_partners,
   } = pageContent?.data?.section_list;
+  const {COMMON_SETTINGS_VALUES_become_a_sponsor} = pageContent?.gernalsettings?.general_settings;
   return (
     <>
       {" "}
@@ -29,6 +30,7 @@ const MediaPartners = async () => {
         sponsors={media_partners?.data}
         isButton={true}
         isAssosiation={true}
+        becomeSponsorLink={COMMON_SETTINGS_VALUES_become_a_sponsor?.value}
       />
       <BecomeSponsorForm {...become_a_sponsor_form} isPaddingTop={false} />
       {/* {sponsors && (

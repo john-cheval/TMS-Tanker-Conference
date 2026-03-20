@@ -1,9 +1,11 @@
+"use client";
 import { listOppData } from "@/constants/sponsorOppData";
 import Link from "next/link";
-import React from "react";
+import React,{useState} from "react";
 import topSvg from "@/assets/icons/topDown.png";
 import bottomSvg from "@/assets/icons/bottomUp.png";
 import Image from "next/image";
+import { truncateHtmlByWords } from "@/utils/trumcate";
 
 type Props = {
   id:string | number;
@@ -12,6 +14,10 @@ type Props = {
   small_title: string;
   getSelectedPackage?: any;
   getSelectedPackageCategoryId?: any;
+  description:string;
+  isExpanded:boolean;
+  handleReadMoreClick: (index: number) => void;
+  index:number;
 };
 
 const SponsoredOppCard = ({ 
@@ -21,7 +27,15 @@ const SponsoredOppCard = ({
   small_title,
   getSelectedPackage,
   getSelectedPackageCategoryId, 
+  description,
+  isExpanded,
+  handleReadMoreClick,
+  index
 }: Props) => {
+
+  console.log("isExpanded",isExpanded)
+  console.log("isExpanded",index)
+
   return (
     <div className="grid grid-cols-12 border gradient-border-image">
       <div className="col-span-12 sm:col-span-6 lg:col-span-5 px-7 lg:px-10 xl:px-14 py-6 sm:py-8 md:py-11 border-b border-b-tms-tanker-blue sm:border-b-0 sm:border-r border-r-tms-tanker-blue flex  flex-col items-center sm:items-start justify-center relative overflow-hidden">
@@ -31,7 +45,7 @@ const SponsoredOppCard = ({
             {title}
           </h5>
           <p className="text-tms-tanker-blue-2 text-base md:text-lg lg:text-xl font-semibold leading-5 mt-2 lg:mt-3 text-center sm:text-left">
-            Exclusive to One Company
+            {small_title}
           </p>
           <Link
             href="#"
@@ -56,7 +70,18 @@ const SponsoredOppCard = ({
         />
       </div>
       <div className="col-span-12 sm:col-span-6 lg:col-span-7 px-5 py-7 sm:p-6 md:p-8 lg:p-10 relative">
-        <div className="oppDescription relative z-50">
+        <div
+          className="oppDescription ssponsor-description"
+          // dangerouslySetInnerHTML={{ __html: sponsor?.description }}
+          dangerouslySetInnerHTML={{
+              __html: isExpanded
+              ? description+description
+              : truncateHtmlByWords(description+description, 40),
+              
+          }}
+      />
+      <button onClick={() => handleReadMoreClick(index)} type='button' className='mt-[15px]'>{isExpanded ? "Read Less" : "Read More"}{" "} </button>
+        {/* <div className="oppDescription relative z-50">
           <ul>
             {listOppData?.map((item: string, index: number) => {
               return <li key={index + 1}>{item}</li>;
@@ -65,7 +90,7 @@ const SponsoredOppCard = ({
           <button className="mt-3 md:mt-5 text-base text-[#2a2a2a] leading-5 underline hover:no-underline hover:text-tms-green transition-colors duration-300 pl-[30px]">
             Read More
           </button>
-        </div>
+        </div> */}
 
         <Image
           src={topSvg}
