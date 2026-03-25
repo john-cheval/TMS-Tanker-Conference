@@ -11,6 +11,7 @@ type Props = {
   id:string | number;
   title: string;
   activeTitle: string;
+  activeSmallTitle: string;
   small_title: string;
   getSelectedPackage?: any;
   getSelectedPackageCategoryId?: any;
@@ -24,6 +25,7 @@ const SponsoredOppCard = ({
   id,
   title,
   activeTitle,
+  activeSmallTitle,
   small_title,
   getSelectedPackage,
   getSelectedPackageCategoryId, 
@@ -33,8 +35,8 @@ const SponsoredOppCard = ({
   index
 }: Props) => {
 
-  console.log("isExpanded",isExpanded)
-  console.log("isExpanded",index)
+  console.log("isExpanded",activeTitle)
+  console.log("isExpanded",activeSmallTitle)
 
   return (
     <div className="grid grid-cols-12 border gradient-border-image">
@@ -47,18 +49,19 @@ const SponsoredOppCard = ({
           <p className="text-tms-tanker-blue-2 text-base md:text-lg lg:text-xl font-semibold leading-5 mt-2 lg:mt-3 text-center sm:text-left">
             {small_title}
           </p>
-          <Link
-            href="#"
+          <button
+            // href="#"
             onClick={() => {
                 getSelectedPackage(
-                  `${title} - ${activeTitle} ${small_title}`
+                  `${title} - ${activeTitle} ${activeSmallTitle}`
                 );
                 getSelectedPackageCategoryId(id);
+                document.getElementById("sponsor-form")?.scrollIntoView({behavior: "smooth",});
               }}
             className="text-white gradient-master text-sm md:text-base font-medium leading-normal py-3 px-7 xl:px-10 block w-fit mt-4 mx-auto sm:mx-0"
           >
             Send Enquiry
-          </Link>
+          </button>
         </div>
 
         <Image

@@ -1,7 +1,7 @@
 "use client";
 // import Image from "next/image";
 import Link from "next/link";
-import React, { useState,useRef } from "react";
+import React, { useState,useRef,useEffect } from "react";
 // import arrowDown from "@/assets/shared/chevron-right.png";
 // import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { listOppData } from "@/constants/sponsorOppData";
@@ -37,8 +37,7 @@ const Packages = ({
 
   const [selectedPackageCategoryId, setSelectedPackageCategoryId] = useState("");
   const [selectedPackageform, setSelectedPackageForm] = useState<string>("");
-  // console.log("selectedPackageCategoryId",selectedPackageCategoryId)
-  // console.log("selectedPackageCategoryId",selectedPackageform)
+  const [packageOption, setPackageOption] = useState([]);
 
   const selectedPackage = packageData?.find(
     (item: any) => item?.title === activeTitle
@@ -49,6 +48,27 @@ const Packages = ({
         ...prev,
         [index]: !prev[index],  
         }));
+    };
+
+    useEffect(() => {
+        packageOptions();
+    },[]);
+
+    const packageOptions = () => {
+        const result:any = [];
+
+        packageData.forEach((category:any) => {
+            const categoryTitle = `${category.title} ${category.small_title}`;
+
+            category.sponsors.forEach((sponsor:any) => {
+            result.push({
+                label: `${sponsor.title} - ${categoryTitle}`,
+                value: `${sponsor.id} - (${sponsor.title} - ${categoryTitle})`
+            });
+            });
+        });
+
+        setPackageOption(result)
     };
 
   return (
@@ -88,7 +108,7 @@ const Packages = ({
           selectedPackage?.sponsors?.length > 0 ? (
             selectedPackage?.sponsors?.map((sponsor: any, index: number) => {
               const isExpanded = expandedStates[index] || false;
-              return <SponsoredOppCard key={index + 1} activeTitle={activeTitle} index={index} handleReadMoreClick={handleReadMoreClick} isExpanded={isExpanded} {...sponsor} getSelectedPackage={setSelectedPackageForm} getSelectedPackageCategoryId={setSelectedPackageCategoryId} />;
+              return <SponsoredOppCard key={index + 1} activeSmallTitle={selectedPackage?.small_title} activeTitle={activeTitle} index={index} handleReadMoreClick={handleReadMoreClick} isExpanded={isExpanded} {...sponsor} getSelectedPackage={setSelectedPackageForm} getSelectedPackageCategoryId={setSelectedPackageCategoryId} />;
             })
           ) : (
             <p className="text-center font-medium">There is No Package</p>
@@ -100,6 +120,7 @@ const Packages = ({
             title={formTitle}
             packageName={selectedPackageform}
             packageId={selectedPackageCategoryId} 
+            packageOption={packageOption}
           />
         </div>
       </div>

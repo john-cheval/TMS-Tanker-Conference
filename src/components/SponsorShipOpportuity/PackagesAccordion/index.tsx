@@ -7,10 +7,13 @@ import SponsoredOppCard from "@/components/shared/ui/Cards/SponsoredOppCard";
 
 type Props = {
   packageData?: any;
+  getSelectedPackage?: any;
+  getSelectedPackageCategoryId?: any;
 };
 
-const PackagesAccordion = ({ packageData }: Props) => {
+const PackagesAccordion = ({ packageData,getSelectedPackage,getSelectedPackageCategoryId }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(packageData?.id);
+  
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -71,6 +74,10 @@ const PackagesAccordion = ({ packageData }: Props) => {
                                 <SponsoredOppCard
                                   key={index + 1}
                                   {...sponsor}
+                                  activeTitle={item?.title}
+                                  activeSmallTitle={item?.small_title}
+                                  getSelectedPackage={getSelectedPackage} 
+                                  getSelectedPackageCategoryId={getSelectedPackageCategoryId}
                                 />
                               );
                             }

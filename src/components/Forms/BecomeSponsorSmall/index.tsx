@@ -1,12 +1,14 @@
 "use client";
 import NumberElement from "@/components/shared/Inputs/NumberElement";
+import PackageSelect from "@/components/shared/Inputs/PackageSelect";
 import TextAreaElement from "@/components/shared/Inputs/TextAreaElement";
 import TextElement from "@/components/shared/Inputs/TextElement";
 import { baseUrl } from "@/lib/api";
 import ReCaptcha from "@/utils/ReCaptcha";
 import React, { useCallback, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm,Controller } from "react-hook-form";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   fullName: string;
@@ -15,6 +17,7 @@ type FormData = {
   contact: number;
   comments: string;
   contactCountryCode: string;
+  package: string;
 };
 
 interface RecaptchaRefType {
@@ -23,11 +26,13 @@ interface RecaptchaRefType {
 
 type Props = {
   title?: string | undefined;
+  mobileId?: string | undefined;
   packageName?: string;
   packageId?: number | string;
+  packageOption?:any[];
 };
 
-const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) => {
+const BecomeSponsorSmall = ({ mobileId,title,  packageName = "",packageId = 0,packageOption=[] }: Props) => {
   const recaptchaRef = useRef<RecaptchaRefType>(null);
   const [token, setToken] = useState("");
   const {
@@ -35,6 +40,7 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
     handleSubmit,
     formState: { errors },
     reset,
+    control,
     setValue,
   } = useForm<FormData>();
 
@@ -46,7 +52,17 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
     }
   }, []);
 
+  const router = useRouter();
+
   const onSubmit = async (data: FormData) => {
+
+    let sponsor_cate = null;
+    let sponsor_cate_name = null;
+    const [id, title,subtitle] =  data?.package.split(" - ");
+    const cleanTitle = title.replace(/[()]/g, "");
+    const cleansubtitle = subtitle.replace(/[()]/g, "");
+    sponsor_cate = id;
+    sponsor_cate_name = cleanTitle + " - " + cleansubtitle;
 
     if (!packageName ) {
       toast.error("Please Select a package first");
@@ -71,12 +87,15 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
           contactno: data?.contact,
           comments: data?.comments,
           country_code: data?.contactCountryCode,
-          sponsor_cate: packageId ? packageId : 0,
-          sponsor_cate_name: packageName ? packageName : "",
+          // sponsor_cate: packageId ? packageId : 0,
+          // sponsor_cate_name: packageName ? packageName : "",
+          sponsor_cate: sponsor_cate ? sponsor_cate : 0,
+          sponsor_cate_name: sponsor_cate_name ? sponsor_cate_name : "",
         }),
       });
       if (response.ok) {
         toast.success("Form submitted successfully!");
+        router.push('/thank-you-enquiry');
         reset();
 
         if (recaptchaRef.current) {
@@ -89,15 +108,29 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
     }
   };
   return (
-    <div className=" py-5 px-5 bg-tms-tanker-blue-2 border-tms-tanker-blue ">
+    <div id={mobileId} className=" py-5 px-5 bg-tms-tanker-blue-2 border-tms-tanker-blue ">
       <h4 className="text-white text-2xl font-semibold leading-3 text-center md:text-left mb-2">
         {title}
       </h4>
-      <p className="mb-3 text-white text-sm"><span>Note:</span> Please click the "Send Enquiry" button on the package you wish to enquire about.</p>
+      {/* <p className="mb-3 text-white text-sm"><span>Note:</span> Please click the "Send Enquiry" button on the package you wish to enquire about.</p> */}
       <form
         className="space-y-2.5 md:space-y-3 lg:space-y-5"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <Controller
+            name={`package`}
+            control={control}
+            rules={{ required: "Please Select Package" }}
+            render={({ field }) => (
+              <PackageSelect
+                {...field}
+                packageOption={packageOption} 
+                selectedvalue={`${packageId} - (${packageName})`}
+                name={`package`}
+                errors={errors}
+              />
+            )}
+          />
         <TextElement
           label="Full Name"
           name="fullName"
@@ -210,9 +243,9 @@ const BecomeSponsorSmall = ({ title,  packageName = "",packageId = 0, }: Props) 
 
         <button
           className={`text-black py-3 bg-white w-full text-center text-sm md:text-base font-medium 
-            ${
-            !token ? "cursor-not-allowed" : "cursor-pointer"
-          } 
+          ${
+            !token ? "cursor-not-allowed opacity/50" : "cursor-pointer"
+          }   
           `}
           disabled={!token}
         >

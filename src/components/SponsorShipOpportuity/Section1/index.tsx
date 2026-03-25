@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef,useState,useEffect } from "react";
 import Packages from "../Packages/Packages";
 import PackagesAccordion from "../PackagesAccordion";
 import BecomeSponsorSmall from "@/components/Forms/BecomeSponsorSmall";
@@ -19,11 +19,39 @@ const SponsorShipOppSectionOne = ({
 }: Props) => {
   const packageListRef = useRef<HTMLDivElement>(null);
 
+  const [packageOption, setPackageOption] = useState([]);
+  const [selectedPackageCategoryId, setSelectedPackageCategoryId] = useState("");
+  const [selectedPackageform, setSelectedPackageForm] = useState<string>("");
+  console.log("selectedPackageCategoryId",selectedPackageCategoryId,selectedPackageform)
+
   const scrollToPackages = () => {
     if (packageListRef.current) {
       packageListRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+          packageOptions();
+      },[]);
+  
+      const packageOptions = () => {
+          const result:any = [];
+  
+          data.forEach((category:any) => {
+              const categoryTitle = `${category.title} ${category.small_title}`;
+  
+              category.sponsors.forEach((sponsor:any) => {
+              result.push({
+                  label: `${sponsor.title} - ${categoryTitle}`,
+                  value: `${sponsor.id} - (${sponsor.title} - ${categoryTitle})`
+              });
+              });
+          });
+  
+          setPackageOption(result)
+      };
+
+      console.log("packageOption",packageOption)
 
   return (
     <>
@@ -47,7 +75,7 @@ const SponsorShipOppSectionOne = ({
             <Packages packageData={data} formTitle={formData?.heading} />
           </div>
           <div className="md:hidden">
-            <PackagesAccordion packageData={data} />
+            <PackagesAccordion packageData={data} getSelectedPackage={setSelectedPackageForm} getSelectedPackageCategoryId={setSelectedPackageCategoryId} />
           </div>
         </div>
 
@@ -59,7 +87,13 @@ const SponsorShipOppSectionOne = ({
         </button>
 
         <div className="md:hidden mt-7">
-          <BecomeSponsorSmall title={formData?.heading} />
+          <BecomeSponsorSmall 
+            mobileId="sponsor-form"
+            title={formData?.heading} 
+            packageOption={packageOption} 
+            packageName={selectedPackageform}
+            packageId={selectedPackageCategoryId}
+          />
         </div>
       </section>
     </>
